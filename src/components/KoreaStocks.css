@@ -1,0 +1,70 @@
+.korea-stocks {
+  margin-top: 20px;
+}
+
+.korea-stocks-header {
+  display: flex;
+  align-items: center;
+  padding: 15px 10px;
+  border-bottom: 2px solid #f0f0f0;
+  font-weight: bold;
+  font-size: 14px;
+  color: #666;
+}
+
+.korea-stock-item {
+  display: flex;
+  align-items: center;
+  padding: 15px 10px;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 14px;
+}
+
+.korea-stock-info {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.korea-stock-icon {
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+}
+
+.korea-stock-name {
+  font-weight: bold;
+  color: #333;
+  margin-right: 10px;
+}
+
+.korea-stock-price {
+  width: 100px;
+  text-align: right;
+  font-weight: bold;
+  color: #333;
+}
+
+.korea-stock-change {
+  width: 80px;
+  text-align: right;
+}
+
+.korea-stock-volume {
+  width: 100px;
+  text-align: right;
+}
+
+.korea-stock-date {
+  width: 100px;
+  text-align: right;
+  color: #666;
+}
+
+.korea-stock-up {
+  color: #dc3545; /* 상승은 빨간색 */
+}
+
+.korea-stock-down {
+  color: #007bff; /* 하락은 파란색 */
+}

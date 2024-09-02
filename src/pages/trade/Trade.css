@@ -1,0 +1,64 @@
+.trade-page-container {
+  max-width: 1560px;
+  height: 1760px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 50px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.trade-main-container {
+  width: 1100px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.trade-stock-info-wrapper {
+  height: 150px;
+}
+
+.trade-chart-wrapper {
+  width: 1100px;
+  height: 480px;
+}
+
+.trade-interface-container {
+  height: 550px;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.trade-order-book-wrapper,
+.trade-panel-wrapper {
+  width: 50%;
+  height: 550px;
+}
+
+.trade-market-data-wrapper {
+  height: 550px;
+}
+
+.trade-stock-list-wrapper {
+  width: 450px;
+  height: 100%;
+  /* overflow-y: auto; */
+  border-left: 2px solid #e0e0e0;
+}
+
+/* 스크롤바 스타일
+.trade-stock-list-wrapper::-webkit-scrollbar {
+  width: 8px;
+}
+
+.trade-stock-list-wrapper::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 10px;
+}
+
+.trade-stock-list-wrapper::-webkit-scrollbar-track {
+  background-color: #f1f1f1;
+} */

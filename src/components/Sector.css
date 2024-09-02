@@ -1,0 +1,109 @@
+.sector-container {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+}
+
+.sector-tabs {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.sector-tabs button {
+  padding: 10px 20px;
+  border: none;
+  background-color: #f5f5f5;
+  cursor: pointer;
+  margin-right: 5px;
+  font-size: 16px;
+}
+
+.sector-tabs button.sector-active {
+  background-color: #007bff;
+  color: #fff;
+  font-weight: bold;
+}
+
+.sector-item {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  margin-bottom: 20px;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.sector-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.sector-title {
+  display: flex;
+  align-items: center;
+}
+
+.sector-title h3 {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.sector-title p {
+  font-size: 14px;
+  color: #888;
+}
+
+.sector-icon {
+  width: 40px;
+  height: 40px;
+  background-color: #007bff;
+  border-radius: 50%;
+  margin-right: 15px;
+}
+
+.sector-performance {
+  font-size: 18px;
+  font-weight: bold;
+  color: #007bff;
+}
+
+.sector-coins {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.sector-coin-item {
+  background-color: #f5f5f5;
+  border-radius: 15px;
+  padding: 5px 10px;
+  font-size: 14px;
+  color: #555;
+}
+
+.sector-coin-item:hover {
+  background-color: #e0e0e0;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .sector-container {
+    padding: 10px;
+  }
+
+  .sector-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .sector-performance {
+    margin-top: 10px;
+    text-align: left;
+  }
+}

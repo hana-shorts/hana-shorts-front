@@ -1,0 +1,51 @@
+.articlelist-section {
+  border-radius: 10px;
+  border: 1px solid #ddd; /* 테두리 추가 */
+  background-color: #fff; /* 배경색 추가 */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* 약간의 그림자 추가 */
+}
+
+.articlelist-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.articlelist-item {
+  padding: 15px 20px; /* 아이템 내부의 패딩을 조정 */
+  transition: background-color 0.3s ease;
+  border-bottom: 1px solid #ddd; /* 각 뉴스 아이템 사이의 경계선 */
+}
+
+.articlelist-item:last-child {
+  border-bottom: none; /* 마지막 뉴스 아이템에는 경계선 제거 */
+}
+
+.articlelist-item:hover {
+  background-color: #f0f0f0; /* Hover 시 배경색 변경 */
+}
+
+.articlelist-item h2 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.articlelist-item p {
+  font-size: 14px;
+  color: #666;
+  margin: 0; /* 마진 제거 */
+}
+
+.articlelist-item span {
+  color: #999;
+  font-size: 12px;
+  margin: 0; /* 마진 제거 */
+}
+
+.articlelist-item img {
+  width: 100px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 5px;
+  margin-top: 10px;
+}

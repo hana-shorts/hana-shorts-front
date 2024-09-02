@@ -1,0 +1,73 @@
+.orderbook-container {
+  width: 100%;
+  height: 550px; /* Ensure this is exactly 550px */
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  box-sizing: border-box; /* Ensure padding and borders are included in the height */
+}
+
+.orderbook-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: #f1f1f1;
+  border-bottom: 1px solid #e1e1e1;
+  font-weight: bold;
+  color: #333;
+  box-sizing: border-box; /* Include padding in height calculations */
+}
+
+.orderbook-body {
+  overflow-y: auto;
+  height: calc(100% - 90px); /* Dynamically adjust height */
+  /* The 90px comes from the combined height of the header and footer */
+}
+
+.orderbook-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px;
+  border-bottom: 1px solid #e1e1e1;
+  font-size: 14px;
+  color: #333;
+}
+
+.orderbook-price {
+  width: 33%;
+  text-align: center;
+  color: #dc3545;
+}
+
+.orderbook-change {
+  width: 33%;
+  text-align: center;
+}
+
+.orderbook-quantity {
+  width: 33%;
+  text-align: center;
+}
+
+.orderbook-up {
+  color: #dc3545; /* 상승 */
+}
+
+.orderbook-down {
+  color: #007bff; /* 하락 */
+}
+
+.orderbook-footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: #f1f1f1;
+  border-top: 1px solid #e1e1e1;
+  font-weight: bold;
+  color: #333;
+  box-sizing: border-box; /* Include padding in height calculations */
+}
+
+.orderbook-footer-item {
+  width: 50%;
+  text-align: center;
+}

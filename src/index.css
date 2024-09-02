@@ -1,13 +1,34 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@font-face {
+  font-family: "GmarketSansMedium";
+  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+body,
+input,
+button,
+textarea {
+  font-family: "GmarketSansMedium";
+}
+
+/* 전체에 Regular 폰트 적용 */
+body {
+  margin-left: auto;
+  margin-right: auto;
+  min-width: 1560px;
+  overflow-x: auto;
+}
+
+/* 클릭 시, 포커스 시, 방문 후에도 스타일 유지 */
+a:link,
+a:visited,
+a:focus,
+a:hover,
+a:active,
+div:link {
+  color: inherit; /* 클릭 후에도 원래 색상 유지 */
+  text-decoration: none; /* 밑줄이나 기타 스타일 제거 */
+  outline: none; /* 포커스 시 생기는 외곽선 제거 */
 }

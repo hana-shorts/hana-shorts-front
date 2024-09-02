@@ -1,0 +1,74 @@
+.stock-container {
+  height: 100%;
+  background-color: #fff;
+  border: 1px solid #ddd;
+
+  overflow-y: auto;
+}
+
+.stock-header {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  padding: 10px 0px;
+  border-bottom: 1px solid #ddd;
+}
+
+.stock-header-item {
+  width: 23%;
+  text-align: right;
+  padding-right: 5px;
+}
+
+.stock-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.stock-name {
+  width: 34%;
+  font-weight: bold;
+  text-align: center;
+}
+
+.stock-price {
+  width: 22%;
+  text-align: right;
+  font-weight: bold;
+  color: #333;
+}
+
+.stock-change {
+  width: 22%;
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.stock-change-percent {
+  color: #007bff; /* Positive change color */
+}
+
+.stock-change-amount {
+  color: #dc3545; /* Negative change color */
+}
+
+.stock-volume {
+  width: 25%;
+  text-align: right;
+  color: #666;
+}
+
+/* Style for positive changes */
+.stock-item .stock-change-percent,
+.stock-item .stock-change-amount {
+  color: #007bff; /* Blue color for positive change */
+}
+
+.stock-item.positive .stock-change-percent,
+.stock-item.positive .stock-change-amount {
+  color: #dc3545; /* Red color for positive change */
+}

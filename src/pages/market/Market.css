@@ -1,0 +1,79 @@
+.market-page {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 10px 350px;
+}
+
+.market-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* 타이틀과 탭을 같은 선상에 배치 */
+  border-bottom: 1px solid #ddd; /* 아래쪽 테두리 추가 */
+}
+
+.market-title {
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.market-tabs {
+  display: flex;
+  border-bottom: 1px solid #ddd; /* 아래쪽 테두리 추가 */
+}
+
+.market-tabs button {
+  padding: 10px 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  color: #666;
+}
+
+.market-tabs .market-active {
+  border-bottom: 2px solid black;
+  font-weight: bold;
+  color: black;
+}
+
+.market-separator-line {
+  border-top: 1px solid #ddd;
+  margin: 5px 0 20px 0;
+}
+
+.market-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.market-th,
+.market-td {
+  padding: 12px;
+  text-align: right;
+  border: 1px solid #ddd;
+}
+
+.market-th {
+  background-color: #f9f9f9;
+  text-align: center;
+}
+
+.market-tr:nth-child(even) {
+  background-color: #f4f4f4;
+}
+
+.market-negative {
+  color: red;
+}
+
+.market-positive {
+  color: green;
+}
+
+.market-td:first-child {
+  text-align: left;
+}
+
+.market-flag-icon {
+  margin-right: 10px;
+}

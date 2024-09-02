@@ -1,0 +1,107 @@
+.commodity-container {
+  margin-top: 20px;
+}
+
+.commodity-tabs {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.commodity-tab {
+  padding: 10px 20px;
+  margin: 0 10px;
+  cursor: pointer;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.commodity-tab.active {
+  background-color: #007bff;
+  color: white;
+  border-color: #007bff;
+}
+
+.commodity-header {
+  display: flex;
+  align-items: center;
+  padding: 15px 10px;
+  border-bottom: 2px solid #ddd;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.commodity-item {
+  display: flex;
+  align-items: center;
+  padding: 15px 10px;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 14px;
+}
+
+.commodity-info {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.commodity-icon {
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+}
+
+.commodity-name {
+  font-weight: bold;
+}
+
+.commodity-expiry {
+  color: #999;
+  font-size: 12px;
+}
+
+.commodity-price {
+  width: 100px;
+  text-align: right;
+}
+
+.commodity-change {
+  width: 80px;
+  text-align: right;
+  font-weight: bold;
+}
+
+.commodity-time {
+  width: 100px;
+  text-align: right;
+  color: #666;
+}
+
+.commodity-up {
+  color: #dc3545; /* 상승은 빨간색 */
+}
+
+.commodity-down {
+  color: #007bff; /* 하락은 파란색 */
+}
+
+.commodity-changed {
+  background-color: #a2a2a2; /* 변화 시 강조 */
+  animation: fadeOut 5s forwards;
+}
+
+.arrow-icon {
+  width: 17px;
+  height: 17px;
+  margin-right: 15px;
+}
+
+@keyframes fadeOut {
+  from {
+    background-color: #a2a2a2;
+  }
+  to {
+    background-color: white;
+  }
+}

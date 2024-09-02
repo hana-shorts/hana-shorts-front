@@ -1,0 +1,168 @@
+.main-page {
+  max-width: 1560px;
+  height: 850px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.main-content {
+  display: flex; /* Flexbox 레이아웃 설정 */
+  justify-content: space-between; /* 요소들 사이에 여백 배분 */
+  align-items: flex-start; /* 아이템들을 위쪽 정렬 */
+}
+
+.main-banner {
+  position: relative; /* 배너 내부에 절대 위치 요소를 두기 위해 상대 위치 지정 */
+  max-width: 1060px; /* 최대 너비를 1280px로 설정 */
+}
+
+.main-banner-swiper {
+  width: 100%; /* Swiper의 너비를 전체의 60%로 설정 */
+  height: 100%;
+}
+
+.main-banner-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.main-banner-title {
+  position: absolute;
+  top: 100px;
+  left: 130px;
+  color: #000;
+  font-size: 60px;
+  font-weight: bold;
+  line-height: 1.5; /* 적절한 line-height 설정 */
+}
+
+.main-banner-text {
+  position: absolute;
+  top: 370px;
+  left: 130px;
+  align-items: center;
+  color: #808080;
+  line-height: 1.5; /* 적절한 line-height 설정 */
+}
+
+.main-banner-button {
+  position: absolute;
+  width: 250px;
+  height: 75px;
+  bottom: 7px;
+  right: 0px;
+  padding: 15px 30px;
+  background-color: #009178;
+  color: #ffffff !important;
+  text-decoration: none;
+  border-radius: 0 0 25px 0;
+  font-size: 25px;
+  display: flex;
+  flex-direction: column; /* 글자를 세로로 나열 */
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+}
+
+.main-banner-button-line1 {
+  position: absolute;
+  top: 22px; /* 상단 여백 */
+  left: 45px; /* 왼쪽 여백 */
+  font-size: 12px; /* 첫 번째 줄 글자 크기 */
+  transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+.main-banner-button-line2 {
+  position: absolute;
+  top: 47px; /* 상단 여백 */
+  left: 45px; /* 왼쪽 여백 */
+  font-size: 25px; /* 두 번째 줄 글자 크기 */
+  transition: transform 0.7s ease, opacity 0.7s ease;
+}
+
+.main-banner-button-line3 {
+  position: absolute;
+  width: 70px;
+  top: 37px; /* 상단 여백 */
+  right: 0px; /* 왼쪽 여백 */
+  font-size: 35px; /* 두 번째 줄 글자 크기 */
+  transition: transform 1.2s ease, opacity 1.2s ease;
+}
+
+/* 애니메이션 효과 */
+.main-banner-button.animating .main-banner-button-line1,
+.main-banner-button.animating .main-banner-button-line2,
+.main-banner-button.animating .main-banner-button-line3 {
+  opacity: 0;
+  transform: translateX(100%);
+}
+
+/* 애니메이션 종료 후 복귀 */
+.main-banner-button .main-banner-button-line1,
+.main-banner-button .main-banner-button-line2,
+.main-banner-button .main-banner-button-line3 {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.main-breaking-news-container {
+  width: 460px;
+  max-height: 745.31px;
+  overflow-y: auto;
+  border-left: 1px solid #ddd;
+  padding-left: 10px;
+}
+
+.main-event-wrapper {
+  margin-top: 20px;
+  margin-bottom: 5px;
+}
+
+.main-breaking-news-title {
+  margin-left: 30px;
+  background: transparent;
+  border: none;
+  color: #000;
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/* 스크롤바 전체 */
+.main-breaking-news-container::-webkit-scrollbar {
+  width: 5px; /* 스크롤바의 너비 */
+  background-color: #f1f1f1; /* 스크롤바의 배경색 */
+}
+
+/* 스크롤바 막대(thumb) */
+.main-breaking-news-container::-webkit-scrollbar-thumb {
+  background-color: #888; /* 스크롤바의 막대 색상 */
+  border-radius: 10px; /* 막대의 둥근 정도 */
+}
+
+/* 스크롤바 막대의 활성화 상태(hover) */
+.main-breaking-news-container::-webkit-scrollbar-thumb:hover {
+  background-color: #555; /* 활성화 상태에서의 막대 색상 */
+}
+
+/* 스크롤바의 상하 버튼 */
+.main-breaking-news-container::-webkit-scrollbar-button {
+  display: none; /* 상하 버튼을 숨김 */
+}
+
+/* 스크롤바 트랙(막대의 경로) */
+.main-breaking-news-container::-webkit-scrollbar-track {
+  background-color: #f1f1f1; /* 트랙의 배경색 */
+  border-radius: 10px; /* 트랙의 둥근 정도 */
+}
+
+.main-news-list-container {
+  padding: 10px 20px 20px;
+}
+
+.main-news-list .news-list-item h2 {
+  font-size: 15px; /* Main.jsx에서만 적용되는 큰 글자 크기 */
+  margin-bottom: 0px;
+  font-weight: normal;
+}

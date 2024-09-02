@@ -1,0 +1,46 @@
+.article-page {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 10px 350px;
+}
+
+.article-title {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.article-tabs {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.article-tabs button {
+  margin: 0 10px;
+  padding: 10px 20px;
+  border: none;
+  background-color: #f0f0f0;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 20px;
+  color: #333;
+}
+
+.article-tabs .article-active {
+  background-color: #333;
+  color: white;
+}
+
+.article-load-more-button {
+  display: block;
+  width: 100%;
+  padding: 10px 0;
+  margin-top: 20px;
+  background-color: #f0f0f0;
+  border: none;
+  border-radius: 20px;
+  text-align: center;
+  font-size: 14px;
+  cursor: pointer;
+}

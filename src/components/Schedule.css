@@ -1,0 +1,54 @@
+.schedule-rates {
+  margin-top: 20px;
+}
+
+.schedule-header {
+  display: flex;
+  align-items: center;
+  padding: 15px 10px;
+  border-bottom: 2px solid #f0f0f0;
+  font-weight: bold;
+  font-size: 14px;
+  color: #666;
+}
+
+.schedule-item {
+  display: flex;
+  align-items: center;
+  padding: 15px 10px;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 14px;
+}
+
+.schedule-info {
+  flex: 1;
+}
+
+.schedule-currency {
+  width: 100px;
+  text-align: center;
+}
+
+.schedule-importance {
+  width: 100px;
+  text-align: center;
+}
+
+.schedule-event {
+  flex: 3;
+}
+
+.schedule-result,
+.schedule-forecast,
+.schedule-previous {
+  width: 100px;
+  text-align: right;
+}
+
+.schedule-up {
+  color: #dc3545; /* 상승은 빨간색 */
+}
+
+.schedule-down {
+  color: #007bff; /* 하락은 파란색 */
+}

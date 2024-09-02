@@ -1,0 +1,70 @@
+@keyframes tickerMove {
+  from {
+    transform: translateX(0%);
+  }
+  to {
+    transform: translateX(-50%); /* 확장된 배열 길이에 맞게 조정 */
+  }
+}
+
+.ticker-main-wrapper {
+  display: flex;
+  align-items: center;
+  width: auto;
+  height: 32px;
+  padding: 10px 0px;
+  background: transparent;
+  justify-content: space-between;
+  margin-top: 5px;
+}
+
+.ticker-container {
+  overflow: hidden;
+  white-space: nowrap;
+  flex-grow: 1;
+  margin-left: 15px; /* 버튼과 티커 사이의 간격 조정 */
+}
+
+.ticker-content {
+  display: inline-block;
+  animation: tickerMove 60s linear infinite; /* 애니메이션 시간 조정 및 무한 반복 */
+}
+
+.ticker-paused {
+  animation-play-state: paused; /* 일시 정지 상태 설정 */
+}
+
+.ticker-item {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 30px; /* 각 항목의 패딩 조정 */
+  font-size: 13px;
+  font-weight: bold; /* 폰트 두께 변경 */
+}
+
+.ticker-name,
+.ticker-value,
+.ticker-change {
+  margin-right: 10px;
+}
+
+.ticker-change {
+  font-weight: bold;
+}
+
+.ticker-up {
+  color: #dc3545; /* 상승은 빨간색 */
+}
+
+.ticker-down {
+  color: #007bff; /* 하락은 파란색 */
+}
+
+.ticker-control-btn {
+  padding: 6px 12px;
+  color: black;
+  border-radius: 4px; /* 버튼 모서리 둥글게 */
+  border: none;
+  cursor: pointer;
+  background: transparent;
+}
