@@ -2,8 +2,8 @@ import React, { useEffect, useState, useRef } from "react";
 import "./Commodity.css";
 
 // 이미지 경로 가져오기
-import upArrow from "../assets/images/up_arrow.png";
-import downArrow from "../assets/images/down_arrow.png";
+import upArrow from "../../assets/images/up_arrow.png";
+import downArrow from "../../assets/images/down_arrow.png";
 
 const CommodityPerformance = () => {
   const [periodCommodities, setPeriodCommodities] = useState([]);
@@ -59,7 +59,7 @@ const CommodityPerformance = () => {
   }, []);
 
   return (
-    <div className="commodity-container">
+    <>
       <div className="commodity-header">
         <div className="commodity-info">종목</div>
         <div className="commodity-change">일간</div>
@@ -173,7 +173,7 @@ const CommodityPerformance = () => {
           </div>
         </div>
       ))}
-    </div>
+    </>
   );
 };
 

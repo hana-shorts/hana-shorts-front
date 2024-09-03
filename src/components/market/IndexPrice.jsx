@@ -2,8 +2,9 @@ import React, { useEffect, useState, useRef } from "react";
 import "./Index.css";
 
 // 이미지 미리 가져오기
-import upArrow from "../assets/images/up_arrow.png";
-import downArrow from "../assets/images/down_arrow.png";
+import upArrow from "../../assets/images/up_arrow.png";
+import downArrow from "../../assets/images/down_arrow.png";
+import hyphen from "../../assets/images/hyphen.png"; // Hyphen 이미지 추가
 
 const IndexPrice = () => {
   const [indices, setIndices] = useState([]);
@@ -50,7 +51,7 @@ const IndexPrice = () => {
   }, []);
 
   return (
-    <div className="index-container">
+    <>
       <div className="index-header">
         <div className="index-info">종목</div>
         <div className="index-price">종가</div>
@@ -64,8 +65,20 @@ const IndexPrice = () => {
         <div className="index-item" key={i}>
           <div className="index-info">
             <img
-              src={parseFloat(index.changeValue) >= 0 ? upArrow : downArrow}
-              alt={parseFloat(index.changeValue) >= 0 ? "Up" : "Down"}
+              src={
+                parseFloat(index.changeValue) === 0
+                  ? hyphen
+                  : parseFloat(index.changeValue) > 0
+                  ? upArrow
+                  : downArrow
+              }
+              alt={
+                parseFloat(index.changeValue) === 0
+                  ? "Hyphen"
+                  : parseFloat(index.changeValue) > 0
+                  ? "Up"
+                  : "Down"
+              }
               className="arrow-icon"
             />
             <span className="index-name">{index.indexName}</span>
@@ -91,7 +104,11 @@ const IndexPrice = () => {
           </div>
           <div
             className={`index-change ${
-              parseFloat(index.changeValue) >= 0 ? "index-up" : "index-down"
+              parseFloat(index.changeValue) === 0
+                ? "index-neutral"
+                : parseFloat(index.changeValue) > 0
+                ? "index-up"
+                : "index-down"
             }`}
           >
             <span
@@ -102,7 +119,11 @@ const IndexPrice = () => {
           </div>
           <div
             className={`index-change ${
-              parseFloat(index.changePercent) >= 0 ? "index-up" : "index-down"
+              parseFloat(index.changePercent) === 0
+                ? "index-neutral"
+                : parseFloat(index.changePercent) > 0
+                ? "index-up"
+                : "index-down"
             }`}
           >
             <span
@@ -114,7 +135,7 @@ const IndexPrice = () => {
           <div className="index-time">{index.rateTime}</div>
         </div>
       ))}
-    </div>
+    </>
   );
 };
 

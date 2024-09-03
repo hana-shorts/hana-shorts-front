@@ -2,8 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import "swiper/swiper-bundle.css"; // Swiper CSS 가져오기
-import ArticleList from "../../components/ArticleList";
-import Ticker from "../../components/Ticker"; // 방금 만든 Ticker 컴포넌트를 임포트
+import ArticleList from "../../components/article/ArticleList";
+import Ticker from "../../components/main/Ticker"; // 방금 만든 Ticker 컴포넌트를 임포트
 import { Link } from "react-router-dom";
 import "./Main.css";
 

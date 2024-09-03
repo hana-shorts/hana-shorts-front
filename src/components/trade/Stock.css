@@ -1,0 +1,118 @@
+.stock-container {
+  height: 100%;
+  background-color: #fff;
+  border: 2px solid #ddd;
+  border-radius: 5px;
+  /* border: 1px solid #ddd; */
+  font-size: 14px;
+}
+
+.stock-header {
+  height: 15px;
+  display: flex;
+  align-items: center;
+  padding: 15px 10px;
+  border-bottom: 2px solid #ddd;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.stock-item-container {
+  height: 1711px;
+  overflow-y: auto;
+}
+
+.stock-item-container::-webkit-scrollbar {
+  width: 5px; /* 스크롤바의 너비 */
+  background-color: #f1f1f1; /* 스크롤바의 배경색 */
+}
+
+.stock-item-container::-webkit-scrollbar-thumb {
+  background-color: #888; /* 스크롤바의 막대 색상 */
+  border-radius: 10px; /* 막대의 둥근 정도 */
+}
+
+.stock-item-container::-webkit-scrollbar-thumb:hover {
+  background-color: #555; /* 활성화 상태에서의 막대 색상 */
+}
+
+/* 스크롤바의 상하 버튼 */
+.stock-item-container::-webkit-scrollbar-button {
+  display: none; /* 상하 버튼을 숨김 */
+}
+
+.stock-item-container::-webkit-scrollbar-track {
+  background-color: #f1f1f1; /* 트랙의 배경색 */
+  border-radius: 10px; /* 트랙의 둥근 정도 */
+}
+
+.stock-item {
+  display: flex;
+  align-items: center;
+  padding: 15px 10px;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 14px;
+}
+
+.stock-info {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.stock-name {
+  font-weight: bold;
+}
+
+.stock-price {
+  width: 100px;
+  text-align: right;
+}
+
+.stock-change {
+  width: 80px;
+  text-align: right;
+  font-weight: bold;
+  display: flex;
+  flex-direction: column; /* 위아래로 배치 */
+  align-items: flex-end;
+}
+
+.stock-volume {
+  width: 100px;
+  text-align: right;
+  color: #666;
+  line-height: 1.286; /* 줄 간격을 조정하여 높이 문제 해결 */
+}
+
+.stock-up {
+  color: #dc3545;
+}
+
+.stock-down {
+  color: #007bff;
+}
+
+.stock-neutral {
+  color: #666666;
+}
+
+.stock-changed {
+  background-color: #a2a2a2;
+  animation: fadeOut 5s forwards;
+}
+
+.arrow-icon {
+  width: 17px;
+  height: 17px;
+  margin-right: 15px;
+}
+
+@keyframes fadeOut {
+  from {
+    background-color: #a2a2a2;
+  }
+  to {
+    background-color: white;
+  }
+}

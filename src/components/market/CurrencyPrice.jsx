@@ -2,8 +2,9 @@ import React, { useEffect, useState, useRef } from "react";
 import "./Currency.css";
 
 // 이미지 경로 가져오기
-import upArrow from "../assets/images/up_arrow.png";
-import downArrow from "../assets/images/down_arrow.png";
+import upArrow from "../../assets/images/up_arrow.png";
+import downArrow from "../../assets/images/down_arrow.png";
+import hyphen from "../../assets/images/hyphen.png"; // Hyphen 이미지 추가
 
 const CurrencyPrice = () => {
   const [currencies, setCurrencies] = useState([]);
@@ -63,8 +64,20 @@ const CurrencyPrice = () => {
         <div className="currency-item" key={index}>
           <div className="currency-info">
             <img
-              src={parseFloat(rate.changeValue) >= 0 ? upArrow : downArrow}
-              alt={parseFloat(rate.changeValue) >= 0 ? "Up" : "Down"}
+              src={
+                parseFloat(rate.changeValue) === 0
+                  ? hyphen
+                  : parseFloat(rate.changeValue) > 0
+                  ? upArrow
+                  : downArrow
+              }
+              alt={
+                parseFloat(rate.changeValue) === 0
+                  ? "Hyphen"
+                  : parseFloat(rate.changeValue) > 0
+                  ? "Up"
+                  : "Down"
+              }
               className="arrow-icon"
             />
             <span className="currency-name">{rate.currencyName}</span>
@@ -99,7 +112,9 @@ const CurrencyPrice = () => {
           </div>
           <div
             className={`currency-change ${
-              parseFloat(rate.changeValue) >= 0
+              parseFloat(rate.changeValue) === 0
+                ? "currency-neutral"
+                : parseFloat(rate.changeValue) > 0
                 ? "currency-up"
                 : "currency-down"
             }`}
@@ -112,7 +127,9 @@ const CurrencyPrice = () => {
           </div>
           <div
             className={`currency-change ${
-              parseFloat(rate.changePercent) >= 0
+              parseFloat(rate.changePercent) === 0
+                ? "currency-neutral"
+                : parseFloat(rate.changePercent) > 0
                 ? "currency-up"
                 : "currency-down"
             }`}

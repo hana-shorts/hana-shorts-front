@@ -1,14 +1,14 @@
-.currency-container {
+.commodity-container {
   margin-top: 20px;
 }
 
-.currency-tabs {
+.commodity-tabs {
   display: flex;
   justify-content: center;
   margin-bottom: 20px;
 }
 
-.currency-tab {
+.commodity-tab {
   padding: 10px 20px;
   margin: 0 10px;
   cursor: pointer;
@@ -17,13 +17,13 @@
   background-color: #f9f9f9;
 }
 
-.currency-tab.active {
+.commodity-tab.active {
   background-color: #007bff;
   color: white;
   border-color: #007bff;
 }
 
-.currency-header {
+.commodity-header {
   display: flex;
   align-items: center;
   padding: 15px 10px;
@@ -32,7 +32,7 @@
   font-size: 14px;
 }
 
-.currency-item {
+.commodity-item {
   display: flex;
   align-items: center;
   padding: 15px 10px;
@@ -40,49 +40,58 @@
   font-size: 14px;
 }
 
-.currency-info {
+.commodity-info {
   display: flex;
   align-items: center;
   flex: 1;
 }
 
-.currency-icon {
+.commodity-icon {
   width: 24px;
   height: 24px;
   margin-right: 10px;
 }
 
-.currency-name {
+.commodity-name {
   font-weight: bold;
 }
 
-.currency-price {
+.commodity-expiry {
+  color: #999;
+  font-size: 12px;
+}
+
+.commodity-price {
   width: 100px;
   text-align: right;
 }
 
-.currency-change {
+.commodity-change {
   width: 80px;
   text-align: right;
   font-weight: bold;
 }
 
-.currency-time {
+.commodity-time {
   width: 100px;
   text-align: right;
   color: #666;
 }
 
-.currency-up {
+.commodity-up {
   color: #dc3545; /* 상승은 빨간색 */
 }
 
-.currency-down {
+.commodity-down {
   color: #007bff; /* 하락은 파란색 */
 }
 
-.currency-changed {
-  background-color: #a2a2a2;
+.commodity-neutral {
+  color: #666666; /* Neutral color for no change */
+}
+
+.commodity-changed {
+  background-color: #a2a2a2; /* 변화 시 강조 */
   animation: fadeOut 5s forwards;
 }
 

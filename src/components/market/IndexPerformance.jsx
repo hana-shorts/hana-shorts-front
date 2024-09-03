@@ -2,8 +2,8 @@ import React, { useEffect, useState, useRef } from "react";
 import "./Index.css";
 
 // 이미지 경로 가져오기
-import upArrow from "../assets/images/up_arrow.png";
-import downArrow from "../assets/images/down_arrow.png";
+import upArrow from "../../assets/images/up_arrow.png";
+import downArrow from "../../assets/images/down_arrow.png";
 
 const IndexPerformance = () => {
   const [periodIndices, setPeriodIndices] = useState([]);

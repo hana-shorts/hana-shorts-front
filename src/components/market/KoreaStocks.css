@@ -1,14 +1,14 @@
-.index-container {
+.korea-stocks-container {
   margin-top: 20px;
 }
 
-.index-tabs {
+.korea-stocks-tabs {
   display: flex;
   justify-content: center;
   margin-bottom: 20px;
 }
 
-.index-tab {
+.korea-stocks-tab {
   padding: 10px 20px;
   margin: 0 10px;
   cursor: pointer;
@@ -17,13 +17,13 @@
   background-color: #f9f9f9;
 }
 
-.index-tab.active {
+.korea-stocks-tab.active {
   background-color: #007bff;
   color: white;
   border-color: #007bff;
 }
 
-.index-header {
+.korea-stocks-header {
   display: flex;
   align-items: center;
   padding: 15px 10px;
@@ -32,7 +32,7 @@
   font-size: 14px;
 }
 
-.index-item {
+.korea-stock-item {
   display: flex;
   align-items: center;
   padding: 15px 10px;
@@ -40,50 +40,48 @@
   font-size: 14px;
 }
 
-.index-info {
+.korea-stock-info {
   display: flex;
   align-items: center;
   flex: 1;
 }
 
-.index-icon {
-  width: 24px;
-  height: 24px;
-  margin-right: 10px;
-}
-
-.index-name {
+.korea-stock-name {
   font-weight: bold;
 }
 
-.index-price {
+.korea-stock-price {
   width: 100px;
   text-align: right;
 }
 
-.index-change {
+.korea-stock-change {
   width: 80px;
   text-align: right;
   font-weight: bold;
 }
 
-.index-time {
+.korea-stock-time {
   width: 100px;
   text-align: right;
   color: #666;
 }
 
-.index-up {
-  color: #dc3545; /* 상승은 빨간색 */
+.korea-stock-up {
+  color: #dc3545;
 }
 
-.index-down {
-  color: #007bff; /* 하락은 파란색 */
+.korea-stock-down {
+  color: #007bff;
 }
 
-.index-changed {
+.korea-stock-neutral {
+  color: #666666;
+}
+
+.korea-stock-changed {
   background-color: #a2a2a2;
-  animation: fadeOut 5s forwards;
+  animation: fadeOut 30s forwards;
 }
 
 .arrow-icon {

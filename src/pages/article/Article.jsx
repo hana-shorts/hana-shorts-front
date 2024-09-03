@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import ArticleList from "../../components/ArticleList";
+import ArticleList from "../../components/article/ArticleList";
 import "./Article.css";
 
 const Article = () => {

@@ -1,10 +1,10 @@
 import React from "react";
-import TradingViewWidget from "../../components/TradingViewWidget";
-import Stock from "../../components/Stock";
-import StockInfo from "../../components/StockInfo";
-import TradePanel from "../../components/TradePanel";
-import OrderBook from "../../components/OrderBook";
-import MarketData from "../../components/MarketData";
+import TradingViewWidget from "../../components/trade/TradingViewWidget";
+import Stock from "../../components/trade/Stock";
+import StockInfo from "../../components/trade/StockInfo";
+import TradePanel from "../../components/trade/TradePanel";
+import OrderBook from "../../components/trade/OrderBook";
+import MarketData from "../../components/trade/MarketData";
 import "./Trade.css";
 
 function Trade() {

@@ -1,0 +1,106 @@
+.index-container {
+  margin-top: 20px;
+}
+
+.index-tabs {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.index-tab {
+  padding: 10px 20px;
+  margin: 0 10px;
+  cursor: pointer;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.index-tab.active {
+  background-color: #007bff;
+  color: white;
+  border-color: #007bff;
+}
+
+.index-header {
+  display: flex;
+  align-items: center;
+  padding: 15px 10px;
+  border-bottom: 2px solid #ddd;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.index-item {
+  display: flex;
+  align-items: center;
+  padding: 15px 10px;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 14px;
+}
+
+.index-info {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.index-icon {
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+}
+
+.index-name {
+  font-weight: bold;
+}
+
+.index-price {
+  width: 100px;
+  text-align: right;
+}
+
+.index-change {
+  width: 80px;
+  text-align: right;
+  font-weight: bold;
+}
+
+.index-time {
+  width: 100px;
+  text-align: right;
+  color: #666;
+}
+
+.index-up {
+  color: #dc3545; /* 상승은 빨간색 */
+}
+
+.index-down {
+  color: #007bff; /* 하락은 파란색 */
+}
+
+.index-neutral {
+  color: #666666; /* Neutral color for no change */
+}
+
+.index-changed {
+  background-color: #a2a2a2;
+  animation: fadeOut 5s forwards;
+}
+
+.arrow-icon {
+  width: 17px;
+  height: 17px;
+  margin-right: 15px;
+}
+
+@keyframes fadeOut {
+  from {
+    background-color: #a2a2a2;
+  }
+  to {
+    background-color: white;
+  }
+}

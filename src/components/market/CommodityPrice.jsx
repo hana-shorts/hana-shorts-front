@@ -2,8 +2,9 @@ import React, { useEffect, useState, useRef } from "react";
 import "./Commodity.css";
 
 // 이미지 경로 가져오기
-import upArrow from "../assets/images/up_arrow.png";
-import downArrow from "../assets/images/down_arrow.png";
+import upArrow from "../../assets/images/up_arrow.png";
+import downArrow from "../../assets/images/down_arrow.png";
+import hyphen from "../../assets/images/hyphen.png"; // Hyphen 이미지 추가
 
 const CommodityPrice = () => {
   const [commodities, setCommodities] = useState([]);
@@ -53,7 +54,7 @@ const CommodityPrice = () => {
   }, []);
 
   return (
-    <div className="commodity-container">
+    <>
       <div className="commodity-header">
         <div className="commodity-info">종목</div>
         <div className="commodity-price">월물</div>
@@ -68,8 +69,20 @@ const CommodityPrice = () => {
         <div className="commodity-item" key={index}>
           <div className="commodity-info">
             <img
-              src={parseFloat(commodity.changeValue) >= 0 ? upArrow : downArrow}
-              alt={parseFloat(commodity.changeValue) >= 0 ? "Up" : "Down"}
+              src={
+                parseFloat(commodity.changeValue) === 0
+                  ? hyphen
+                  : parseFloat(commodity.changeValue) > 0
+                  ? upArrow
+                  : downArrow
+              }
+              alt={
+                parseFloat(commodity.changeValue) === 0
+                  ? "Hyphen"
+                  : parseFloat(commodity.changeValue) > 0
+                  ? "Up"
+                  : "Down"
+              }
               className="arrow-icon"
             />
             <span className="commodity-name">{commodity.commodityName}</span>
@@ -98,7 +111,9 @@ const CommodityPrice = () => {
           </div>
           <div
             className={`commodity-change ${
-              parseFloat(commodity.changeValue) >= 0
+              parseFloat(commodity.changeValue) === 0
+                ? "commodity-neutral"
+                : parseFloat(commodity.changeValue) > 0
                 ? "commodity-up"
                 : "commodity-down"
             }`}
@@ -113,7 +128,9 @@ const CommodityPrice = () => {
           </div>
           <div
             className={`commodity-change ${
-              parseFloat(commodity.changePercent) >= 0
+              parseFloat(commodity.changePercent) === 0
+                ? "commodity-neutral"
+                : parseFloat(commodity.changePercent) > 0
                 ? "commodity-up"
                 : "commodity-down"
             }`}
@@ -129,7 +146,7 @@ const CommodityPrice = () => {
           <div className="commodity-time">{commodity.rateTime}</div>
         </div>
       ))}
-    </div>
+    </>
   );
 };
 

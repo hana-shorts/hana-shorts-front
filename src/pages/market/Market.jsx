@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import Currency from "../../components/Currency"; // 작성한 컴포넌트 불러오기
-import Commodity from "../../components/Commodity"; // 새로 만든 컴포넌트 임포트
-import Index from "../../components/Index";
-import KoreaStocks from "../../components/KoreaStocks";
-import Sector from "../../components/Sector";
-import Schedule from "../../components/Schedule"; // 새로 만든 컴포넌트 임포트
+import Currency from "../../components/market/Currency"; // 작성한 컴포넌트 불러오기
+import Commodity from "../../components/market/Commodity"; // 새로 만든 컴포넌트 임포트
+import Index from "../../components/market/Index";
+import KoreaStocks from "../../components/market/KoreaStocks";
+import Sector from "../../components/market/Sector";
+import Schedule from "../../components/market/Schedule"; // 새로 만든 컴포넌트 임포트
 import "./Market.css";
 
 const Market = () => {
