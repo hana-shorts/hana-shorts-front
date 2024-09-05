@@ -1,50 +1,86 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import socket from "../../socket"; // 전역 소켓 인스턴스를 가져옴
 import "./OrderBook.css";
 
-const OrderBook = () => {
-  const orderData = [
-    { price: "81,323,000", changePercent: "+0.71%", quantity: "0.000" },
-    { price: "81,270,000", changePercent: "+0.64%", quantity: "0.026" },
-    { price: "81,267,000", changePercent: "+0.64%", quantity: "0.233" },
-    { price: "81,266,000", changePercent: "+0.64%", quantity: "0.634" },
-    { price: "81,263,000", changePercent: "+0.63%", quantity: "0.084" },
-    { price: "81,262,000", changePercent: "+0.63%", quantity: "0.035" },
-    { price: "81,236,000", changePercent: "+0.60%", quantity: "0.067" },
-    { price: "81,235,000", changePercent: "+0.60%", quantity: "1.200" },
-    { price: "81,217,000", changePercent: "+0.58%", quantity: "0.011" },
-    { price: "81,215,000", changePercent: "+0.57%", quantity: "0.012" },
-    { price: "81,188,000", changePercent: "+0.54%", quantity: "0.010" },
-    { price: "81,174,000", changePercent: "+0.52%", quantity: "0.012" },
-    { price: "81,168,000", changePercent: "+0.52%", quantity: "0.022" },
-  ];
+const OrderBook = ({ stockCode }) => {
+  const [orderData, setOrderData] = useState(null);
+
+  useEffect(() => {
+    if (stockCode) {
+      setTimeout(() => {
+        socket.emit("request_orderbook", { code: stockCode });
+      }, 100); // 100ms 지연 추가
+
+      // 서버로부터 데이터를 수신
+      const handleOrderbookUpdate = (data) => {
+        if (data && data.length > 0) {
+          setOrderData(data[0]); // 데이터 배열의 첫 번째 요소를 저장
+        }
+      };
+
+      socket.on("orderbook_update", handleOrderbookUpdate);
+
+      // 컴포넌트 언마운트 시 이벤트 핸들러만 제거
+      return () => {
+        socket.emit("stop_orderbook_data");
+        socket.off("orderbook_update", handleOrderbookUpdate);
+      };
+    }
+  }, [stockCode]);
+
+  if (!orderData) {
+    return <div>Loading...</div>;
+  }
+
+  const renderOrderRows = () => {
+    const rows = [];
+
+    // 매도 호가를 위에, 매수 호가를 아래에 위치시킴
+    for (let i = 10; i >= 1; i--) {
+      rows.push(
+        <div key={`ask${i}`} className="orderbook-row ask">
+          <div className="orderbook-quantity" style={{ textAlign: "right" }}>
+            {orderData[`askp_rsqn${i}`]}
+          </div>
+          <div className="orderbook-price">
+            {orderData[`askp${i}`]} {orderData[`antc_cntg_prdy_ctrt${i}`]}
+          </div>
+          <div className="orderbook-quantity"></div>
+        </div>
+      );
+    }
+
+    for (let i = 1; i <= 10; i++) {
+      rows.push(
+        <div key={`bid${i}`} className="orderbook-row bid">
+          <div className="orderbook-quantity"></div>
+          <div className="orderbook-price">
+            {orderData[`bidp${i}`]} <br />
+            <span className="antc-cntg">
+              {orderData[`antc_cntg_prdy_ctrt${i}`]}
+            </span>
+          </div>
+          <div className="orderbook-quantity" style={{ textAlign: "left" }}>
+            {orderData[`bidp_rsqn${i}`]}
+          </div>
+        </div>
+      );
+    }
+
+    return rows;
+  };
 
   return (
     <div className="orderbook-container">
+      <div className="orderbook-body">{renderOrderRows()}</div>
       <div className="orderbook-header">
-        <div className="orderbook-header-item">체결가</div>
-        <div className="orderbook-header-item">체결량</div>
-        <div className="orderbook-header-item">수량(BTC)</div>
-      </div>
-      <div className="orderbook-body">
-        {orderData.map((order, index) => (
-          <div key={index} className="orderbook-row">
-            <div className="orderbook-price">{order.price}</div>
-            <div
-              className={`orderbook-change ${
-                order.changePercent.startsWith("+")
-                  ? "orderbook-up"
-                  : "orderbook-down"
-              }`}
-            >
-              {order.changePercent}
-            </div>
-            <div className="orderbook-quantity">{order.quantity}</div>
-          </div>
-        ))}
-      </div>
-      <div className="orderbook-footer">
-        <div className="orderbook-footer-item">1.368</div>
-        <div className="orderbook-footer-item">수량(BTC) &zwnj; 2.462</div>
+        <div className="orderbook-header-item" style={{ textAlign: "right" }}>
+          {parseInt(orderData.total_askp_rsqn, 10).toLocaleString()}
+        </div>
+        <div className="orderbook-header-item">호가</div>
+        <div className="orderbook-header-item" style={{ textAlign: "left" }}>
+          {parseInt(orderData.total_bidp_rsqn, 10).toLocaleString()}
+        </div>
       </div>
     </div>
   );

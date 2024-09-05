@@ -15,7 +15,8 @@
 .trade-panel-tab-button {
   flex: 1;
   background-color: #f1f3f5;
-  border: 1px solid #dee2e6;
+  border: 1px #ddd;
+  border-bottom: 1px solid #ddd;
   padding: 10px;
   text-align: center;
   cursor: pointer;
@@ -23,12 +24,11 @@
 
 .trade-panel-tab-button.active {
   background-color: #fff;
-  border-bottom: 0;
+  border-bottom: 1px solid #fff;
 }
 
 .trade-panel-body {
   background-color: #fff;
-  border: 1px solid #dee2e6;
   flex: 1; /* 남은 공간을 차지하게 함 */
   padding: 10px;
   display: flex;

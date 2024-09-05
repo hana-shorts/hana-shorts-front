@@ -30,13 +30,13 @@
   height: 550px;
   display: flex;
   justify-content: space-between;
-  margin-top: 10px;
 }
 
 .trade-order-book-wrapper,
 .trade-panel-wrapper {
-  width: 50%;
+  width: 49.5%;
   height: 550px;
+  border: 1px solid #ddd;
 }
 
 .trade-market-data-wrapper {

@@ -1,11 +1,10 @@
 import React, { useEffect, useState, useRef } from "react";
-import { Link } from "react-router-dom";
 import "./Stock.css";
 import upArrow from "../../assets/images/up_arrow.png";
 import downArrow from "../../assets/images/down_arrow.png";
-import hyphen from "../../assets/images/hyphen.png"; // Hyphen 이미지 추가
+import hyphen from "../../assets/images/hyphen.png";
 
-const Stock = () => {
+const Stock = ({ onSelectStock }) => {
   const [stocks, setStocks] = useState([]);
   const previousStocks = useRef([]);
 
@@ -43,6 +42,30 @@ const Stock = () => {
     return () => clearInterval(interval);
   }, []);
 
+  const handleStockClick = async (stockName) => {
+    try {
+      // 주식명을 Spring으로 전달하고 티커 코드를 받음
+      const response = await fetch(`http://localhost:8080/api/getTickerCode`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ stockName }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to get ticker code from the server");
+      }
+
+      const { tickerCode } = await response.json();
+
+      // 받은 티커 코드를 상위 컴포넌트로 전달
+      onSelectStock(tickerCode);
+    } catch (error) {
+      console.error("Error fetching ticker code:", error);
+    }
+  };
+
   return (
     <div className="stock-container">
       <div className="stock-header">
@@ -58,10 +81,10 @@ const Stock = () => {
       </div>
       <div className="stock-item-container">
         {stocks.map((stock, index) => (
-          <Link
-            to={`/stocks/${stock.stockName}`}
+          <div
             key={index}
             className="stock-item-link"
+            onClick={() => handleStockClick(stock.stockName)}
           >
             <div className="stock-item">
               <div className="stock-info">
@@ -119,7 +142,7 @@ const Stock = () => {
                 <span>{stock.volume}</span>
               </div>
             </div>
-          </Link>
+          </div>
         ))}
       </div>
     </div>

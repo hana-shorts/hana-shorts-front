@@ -1,73 +1,73 @@
 .orderbook-container {
   width: 100%;
-  height: 550px; /* Ensure this is exactly 550px */
-  background-color: #f9f9f9;
-  border: 1px solid #ddd;
-  box-sizing: border-box; /* Ensure padding and borders are included in the height */
+  height: 100%;
+  font-size: 12px;
+  display: flex;
+  flex-direction: column;
+}
+
+.orderbook-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.orderbook-body::-webkit-scrollbar {
+  width: 5px; /* 스크롤바의 너비 */
+  background-color: #f1f1f1; /* 스크롤바의 배경색 */
+}
+
+.orderbook-body::-webkit-scrollbar-thumb {
+  background-color: #888; /* 스크롤바의 막대 색상 */
+  border-radius: 10px; /* 막대의 둥근 정도 */
+}
+
+/* 스크롤바의 상하 버튼 */
+.orderbook-body::-webkit-scrollbar-button {
+  display: none; /* 상하 버튼을 숨김 */
+}
+
+.orderbook-body::-webkit-scrollbar-track {
+  display: none;
 }
 
 .orderbook-header {
   display: flex;
-  justify-content: space-between;
-  padding: 10px;
-  background-color: #f1f1f1;
-  border-bottom: 1px solid #e1e1e1;
   font-weight: bold;
-  color: #333;
-  box-sizing: border-box; /* Include padding in height calculations */
+  text-align: center;
+  background-color: #f9f9f9;
+  padding: 5px 0;
+  border-top: 1px solid #ddd;
+  align-items: center; /* 각 아이템을 수직으로 가운데 정렬 */
 }
 
-.orderbook-body {
-  overflow-y: auto;
-  height: calc(100% - 90px); /* Dynamically adjust height */
-  /* The 90px comes from the combined height of the header and footer */
+.orderbook-header-item {
+  flex: 1;
 }
 
 .orderbook-row {
   display: flex;
-  justify-content: space-between;
-  padding: 8px;
-  border-bottom: 1px solid #e1e1e1;
-  font-size: 14px;
-  color: #333;
-}
-
-.orderbook-price {
-  width: 33%;
-  text-align: center;
-  color: #dc3545;
-}
-
-.orderbook-change {
-  width: 33%;
-  text-align: center;
+  padding: 5px 0;
+  border-bottom: 1px solid #f0f0f0;
 }
 
 .orderbook-quantity {
-  width: 33%;
+  flex: 1;
+}
+
+.orderbook-price {
+  flex: 1;
+  color: #000;
   text-align: center;
 }
 
-.orderbook-up {
-  color: #dc3545; /* 상승 */
-}
-
-.orderbook-down {
-  color: #007bff; /* 하락 */
-}
-
-.orderbook-footer {
-  display: flex;
-  justify-content: space-between;
+.orderbook-row.ask {
+  background-color: #ecf3fa;
   padding: 10px;
-  background-color: #f1f1f1;
-  border-top: 1px solid #e1e1e1;
-  font-weight: bold;
-  color: #333;
-  box-sizing: border-box; /* Include padding in height calculations */
 }
 
-.orderbook-footer-item {
-  width: 50%;
-  text-align: center;
+.orderbook-row.bid {
+  background-color: #fbf1ef;
+  padding: 10px;
 }
