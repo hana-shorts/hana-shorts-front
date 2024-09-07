@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import TradingViewWidget from "../../components/trade/TradingViewWidget";
 import Stock from "../../components/trade/Stock";
 import StockInfo from "../../components/trade/StockInfo";
 import TradePanel from "../../components/trade/TradePanel";
@@ -8,20 +7,22 @@ import MarketData from "../../components/trade/MarketData";
 import "./Trade.css";
 
 function Trade() {
-  const [selectedStockCode, setSelectedStockCode] = useState("");
+  const [selectedStockCode, setSelectedStockCode] = useState("005930");
+  const [selectedStockName, setSelectedStockName] = useState("삼성전자"); // 추가된 상태
 
-  if (!selectedStockCode) {
-    setSelectedStockCode("005930");
-  }
+  const handleStockSelection = ({ code, name }) => {
+    setSelectedStockCode(code);
+    setSelectedStockName(name); // 주식 이름도 상태에 저장
+  };
 
   return (
     <div className="trade-page-container">
       <div className="trade-main-container">
         <div className="trade-stock-info-wrapper">
-          <StockInfo stockCode={selectedStockCode} />
-        </div>
-        <div className="trade-chart-wrapper">
-          <TradingViewWidget stockCode={selectedStockCode} />
+          <StockInfo
+            stockCode={selectedStockCode}
+            stockName={selectedStockName} // 주식 이름 전달
+          />
         </div>
         <div className="trade-interface-container">
           <div className="trade-order-book-wrapper">
@@ -36,7 +37,7 @@ function Trade() {
         </div>
       </div>
       <div className="trade-stock-list-wrapper">
-        <Stock onSelectStock={setSelectedStockCode} />
+        <Stock onSelectStock={handleStockSelection} />
       </div>
     </div>
   );

@@ -18,18 +18,43 @@
 }
 
 .korea-stocks-tab.active {
-  background-color: #007bff;
+  background-color: #009178;
   color: white;
-  border-color: #007bff;
+  border-color: #009178;
+}
+
+.korea-stocks-table-container {
+  border: 1px solid #ddd;
+  border-radius: 10px;
 }
 
 .korea-stocks-header {
   display: flex;
   align-items: center;
-  padding: 15px 10px;
+  padding: 15px 20px 15px 10px;
   border-bottom: 2px solid #ddd;
   font-weight: bold;
   font-size: 14px;
+}
+
+.korea-stocks-item-container {
+  height: 1000px;
+  overflow-y: auto;
+}
+
+.korea-stocks-item-container::-webkit-scrollbar {
+  width: 5px; /* 스크롤바의 너비 */
+  background-color: #f1f1f1; /* 스크롤바의 배경색 */
+}
+
+.korea-stocks-item-container::-webkit-scrollbar-thumb {
+  background-color: #888; /* 스크롤바의 막대 색상 */
+  border-radius: 10px; /* 막대의 둥근 정도 */
+}
+
+.korea-stocks-item-container::-webkit-scrollbar-button,
+.korea-stocks-item-container::-webkit-scrollbar-track {
+  display: none;
 }
 
 .korea-stock-item {
@@ -63,7 +88,7 @@
 
 .korea-stock-time {
   width: 100px;
-  text-align: right;
+  text-align: center;
   color: #666;
 }
 
@@ -81,7 +106,7 @@
 
 .korea-stock-changed {
   background-color: #a2a2a2;
-  animation: fadeOut 30s forwards;
+  animation: fadeOut 5s forwards;
 }
 
 .arrow-icon {
@@ -96,5 +121,17 @@
   }
   to {
     background-color: white;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    background-color: #f0f0f0;
+  }
+  50% {
+    background-color: #e0e0e0;
+  }
+  100% {
+    background-color: #f0f0f0;
   }
 }

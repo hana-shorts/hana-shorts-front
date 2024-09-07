@@ -59,8 +59,8 @@ const Stock = ({ onSelectStock }) => {
 
       const { tickerCode } = await response.json();
 
-      // 받은 티커 코드를 상위 컴포넌트로 전달
-      onSelectStock(tickerCode);
+      // 받은 티커 코드와 주식명을 객체로 상위 컴포넌트로 전달
+      onSelectStock({ code: tickerCode, name: stockName });
     } catch (error) {
       console.error("Error fetching ticker code:", error);
     }

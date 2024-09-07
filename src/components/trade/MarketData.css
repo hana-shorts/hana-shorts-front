@@ -1,7 +1,7 @@
 .market-data-wrapper {
   width: 100%;
   border: 1px solid #ddd;
-  margin-top: 10px;
+  border-radius: 5px;
 }
 
 .market-data-tabs {
@@ -22,10 +22,42 @@
   font-weight: bold;
 }
 
+.market-data-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  background-color: #f9f9f9;
+  border-bottom: 1px solid #e1e1e1;
+}
+
+.market-data-header-cell {
+  flex: 1;
+  text-align: center;
+  font-weight: bold;
+}
+
 .market-data-tab-content {
-  height: 483px;
-  margin-top: 10px;
+  height: 463px;
   overflow-y: auto;
+}
+
+.market-data-tab-content::-webkit-scrollbar {
+  width: 5px; /* 스크롤바의 너비 */
+  background-color: #f1f1f1; /* 스크롤바의 배경색 */
+}
+
+.market-data-tab-content::-webkit-scrollbar-thumb {
+  background-color: #888; /* 스크롤바의 막대 색상 */
+  border-radius: 10px; /* 막대의 둥근 정도 */
+}
+
+/* 스크롤바의 상하 버튼 */
+.market-data-tab-content::-webkit-scrollbar-button {
+  display: none; /* 상하 버튼을 숨김 */
+}
+
+.market-data-tab-content::-webkit-scrollbar-track {
+  display: none;
 }
 
 .market-data-row {
@@ -42,4 +74,20 @@
 
 .market-data-cell.market-data-red {
   color: #e12d2d;
+}
+
+.market-data-cell.market-data-blue {
+  color: #007bff;
+}
+
+.market-data-cell.market-data-neutral {
+  color: #808080; /* 보합 상태를 위한 회색 */
+}
+
+.arrow-icon {
+  width: 12px;
+  height: 12px;
+  vertical-align: middle;
+  margin-right: 10px;
+  margin-bottom: 2px;
 }

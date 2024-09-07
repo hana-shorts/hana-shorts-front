@@ -18,18 +18,43 @@
 }
 
 .currency-tab.active {
-  background-color: #007bff;
+  background-color: #009178;
   color: white;
-  border-color: #007bff;
+  border-color: #009178;
+}
+
+.currency-table-container {
+  border: 1px solid #ddd;
+  border-radius: 10px;
 }
 
 .currency-header {
   display: flex;
   align-items: center;
-  padding: 15px 10px;
+  padding: 15px 20px 15px 10px;
   border-bottom: 2px solid #ddd;
   font-weight: bold;
   font-size: 14px;
+}
+
+.currency-item-container {
+  height: 1000px;
+  overflow-y: auto;
+}
+
+.currency-item-container::-webkit-scrollbar {
+  width: 5px; /* 스크롤바의 너비 */
+  background-color: #f1f1f1; /* 스크롤바의 배경색 */
+}
+
+.currency-item-container::-webkit-scrollbar-thumb {
+  background-color: #888; /* 스크롤바의 막대 색상 */
+  border-radius: 10px; /* 막대의 둥근 정도 */
+}
+
+.currency-item-container::-webkit-scrollbar-button,
+.currency-item-container::-webkit-scrollbar-track {
+  display: none;
 }
 
 .currency-item {
@@ -69,7 +94,7 @@
 
 .currency-time {
   width: 100px;
-  text-align: right;
+  text-align: center;
   color: #666;
 }
 
@@ -102,5 +127,17 @@
   }
   to {
     background-color: white;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    background-color: #f0f0f0;
+  }
+  50% {
+    background-color: #e0e0e0;
+  }
+  100% {
+    background-color: #f0f0f0;
   }
 }

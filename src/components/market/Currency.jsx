@@ -4,7 +4,7 @@ import CurrencyPerformance from "./CurrencyPerformance";
 import "./Currency.css";
 
 const Currency = () => {
-  const [activeTab, setActiveTab] = useState("price"); // 기본 탭은 'price'
+  const [activeTab, setActiveTab] = useState("price");
 
   return (
     <div className="currency-container">

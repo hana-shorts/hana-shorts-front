@@ -1,0 +1,32 @@
+.youtube-shorts-container {
+  margin-top: 20px;
+  border: 1px solid #ddd;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #fff;
+}
+
+.shorts-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.shorts-card h4 {
+  max-width: 200px; /* 제목의 최대 너비를 비디오 플레이어와 일치시킴 */
+  white-space: nowrap; /* 텍스트를 한 줄로 제한 */
+  overflow: hidden; /* 넘치는 텍스트를 숨김 */
+  text-overflow: ellipsis; /* 숨긴 부분을 ...으로 표시 */
+  margin-top: 10px; /* 플레이어와 제목 사이의 간격 조절 */
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+  color: #000; /* 버튼 색상을 지정 */
+}
+
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  font-size: 20px; /* 버튼 크기 조절 */
+}

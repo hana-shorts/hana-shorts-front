@@ -1,92 +1,164 @@
 .stockinfo-container {
+  width: 1097px;
+  background-color: #fff;
+  border-radius: 5px;
   display: flex;
   flex-direction: column;
-  padding: 10px;
-  border: 1px solid #e5e5e5;
-  border-radius: 5px;
 }
 
 .stockinfo-header {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  margin-bottom: 10px;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
 }
 
 .stockinfo-name {
-  display: flex;
-  align-items: center;
-  font-size: 20px;
+  font-size: 22px;
   font-weight: bold;
+  margin: 10px 0 5px 20px;
 }
 
-.stockinfo-icon {
-  width: 24px;
-  height: 24px;
-  margin-right: 5px;
+.stockinfo-tabs {
+  display: flex;
 }
 
-.stockinfo-price-info {
-  text-align: right;
+.stockinfo-tab {
+  width: 150px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  color: #888;
+  text-align: center;
+}
+
+.stockinfo-tab.active {
+  color: #009178;
+  border-bottom: 3px solid #009178;
+}
+
+.stockinfo-pricing {
+  display: flex;
+  justify-content: space-between;
+}
+
+.stockinfo-price-left {
+  display: flex;
+  flex-direction: column;
+}
+
+.stockinfo-info {
+  font-size: 14px;
+  color: #888;
+  margin: 10px 0px 10px 20px;
 }
 
 .stockinfo-price {
-  font-size: 28px;
+  display: flex;
+  align-items: center;
+  font-size: 30px;
   font-weight: bold;
-  color: #333;
-}
-
-.stockinfo-currency {
-  font-size: 16px;
-  margin-left: 5px;
+  color: #e12d2d;
+  margin: 0 0 10px 20px;
 }
 
 .stockinfo-change {
   display: flex;
-  justify-content: flex-end;
-  font-size: 14px;
-  color: #dc3545; /* 상승은 빨간색 */
+  align-items: center;
+  font-size: 16px;
+  font-weight: bold;
+  color: #e12d2d;
+  margin: 0 0 10px 20px;
 }
 
-.stockinfo-change-percent,
+.stockinfo-arrow {
+  width: 12px;
+  height: 12px;
+  margin-right: 10px;
+  margin-bottom: 3px;
+}
+
 .stockinfo-change-amount {
+  margin-right: 10px;
+}
+
+.stockinfo-volume {
+  font-size: 16px;
+  color: #000;
+  margin: 0 0 10px 20px;
+}
+
+.stockinfo-volume-percent {
+  font-size: 14px;
+  color: #888;
   margin-left: 5px;
 }
 
-.stockinfo-details {
+.stockinfo-price-right {
   display: flex;
-  align-items: center;
-}
-
-.stockinfo-chart-thumbnail {
-  flex: 1;
-}
-
-.stockinfo-chart-image {
-  width: 100px;
-  height: 50px;
-}
-
-.stockinfo-stats {
-  flex: 2;
-  display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   justify-content: space-between;
-  font-size: 14px;
+  margin-right: 30px;
+  margin-left: 10px;
 }
 
 .stockinfo-stat-item {
-  width: 50%;
-  margin-bottom: 5px;
+  height: 50%;
   display: flex;
-  justify-content: space-between;
+  align-items: center;
+  font-size: 16px;
+  padding: 5px;
 }
 
 .stockinfo-label {
-  color: #666;
+  width: 100px;
+  color: #888;
+  margin-right: 5px;
 }
 
 .stockinfo-value {
+  width: 150px;
   font-weight: bold;
   color: #333;
+  margin-right: 50px;
+  text-align: right;
+}
+
+.stockinfo-details {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-top: 1px solid #ddd;
+}
+
+.stockinfo-detail-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #e1e1e1;
+}
+
+.stockinfo-detail-label {
+  font-size: 14px;
+  color: #888;
+}
+
+.stockinfo-detail-value {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+}
+
+.stockinfo-chart-wrapper {
+  background-color: #f9f9f9;
+}
+
+.stockinfo-chart-placeholder {
+  height: 450px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #aaa;
+  font-size: 24px;
 }

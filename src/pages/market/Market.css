@@ -31,9 +31,9 @@
 }
 
 .market-tabs .market-active {
-  border-bottom: 2px solid black;
+  border-bottom: 2px solid #009178;
   font-weight: bold;
-  color: black;
+  color: #009178;
 }
 
 .market-separator-line {
