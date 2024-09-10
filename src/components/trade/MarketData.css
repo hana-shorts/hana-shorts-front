@@ -18,7 +18,7 @@
 }
 
 .market-data-tab.market-data-active {
-  border-bottom: 2px solid #007bff;
+  border-bottom: 2px solid #009178;
   font-weight: bold;
 }
 
@@ -73,15 +73,15 @@
 }
 
 .market-data-cell.market-data-red {
-  color: #e12d2d;
+  color: #c84a31;
 }
 
 .market-data-cell.market-data-blue {
-  color: #007bff;
+  color: #1261c4;
 }
 
 .market-data-cell.market-data-neutral {
-  color: #808080; /* 보합 상태를 위한 회색 */
+  color: #333333; /* 보합 상태를 위한 회색 */
 }
 
 .arrow-icon {

@@ -65,18 +65,18 @@
 }
 
 .orderbook-quantity-change-high {
-  color: red;
+  color: #c84a31;
 }
 
 .orderbook-quantity-change-low {
-  color: blue;
+  color: #1261c4;
 }
 
 .orderbook-price {
   flex: 0.55; /* 호가 칸의 너비를 넓게 설정 */
   justify-content: center;
   background-color: white; /* 호가 열의 배경색을 흰색으로 설정 */
-  font-size: 16px;
+  font-size: 14px;
   font-weight: bold;
   border-bottom: 1px solid #ddd;
   border-left: 1px solid #ddd;
@@ -84,15 +84,15 @@
 }
 
 .orderbook-price-high {
-  color: red;
+  color: #c84a31;
 }
 
 .orderbook-price-low {
-  color: blue;
+  color: #1261c4;
 }
 
 .orderbook-price-neutral {
-  color: black;
+  color: #333333;
 }
 
 .orderbook-row.ask {
@@ -110,13 +110,13 @@
 }
 
 .orderbook-percentage.orderbook-price-high {
-  color: red;
+  color: #c84a31;
 }
 
 .orderbook-percentage.orderbook-price-low {
-  color: blue;
+  color: #1261c4;
 }
 
 .orderbook-percentage.orderbook-price-neutral {
-  color: black;
+  color: #333333;
 }
