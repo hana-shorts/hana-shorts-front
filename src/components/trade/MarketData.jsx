@@ -12,28 +12,28 @@ const MarketData = ({ stockCode }) => {
   const [dailyData, setDailyData] = useState([]);
 
   useEffect(() => {
-    if (stockCode && activeTab === "체결") {
-      setTimeout(() => {
+    if (stockCode) {
+      if (activeTab === "체결") {
         socket.emit("request_settlement_data", { code: stockCode });
-      }, 100); // 100ms 지연 추가
-      socket.on("settlement_update", (data) => {
-        setSettlementData(data);
-      });
-      return () => {
-        socket.emit("stop_settlement_data");
-        socket.off("settlement_update");
-      };
-    } else if (stockCode && activeTab === "일별") {
-      setTimeout(() => {
+        socket.on("settlement_update", (data) => {
+          setSettlementData(data);
+        });
+
+        return () => {
+          socket.emit("stop_settlement_data");
+          socket.off("settlement_update");
+        };
+      } else if (activeTab === "일별") {
         socket.emit("request_daily_data", { code: stockCode });
-      }, 100); // 100ms 지연 추가
-      socket.on("daily_update", (data) => {
-        setDailyData(data);
-      });
-      return () => {
-        socket.emit("stop_daily_data");
-        socket.off("daily_update");
-      };
+        socket.on("daily_update", (data) => {
+          setDailyData(data);
+        });
+
+        return () => {
+          socket.emit("stop_daily_data");
+          socket.off("daily_update");
+        };
+      }
     }
   }, [stockCode, activeTab]);
 

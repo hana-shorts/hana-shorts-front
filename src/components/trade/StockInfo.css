@@ -1,5 +1,6 @@
 .stockinfo-container {
   width: 1097px;
+  height: 645px;
   background-color: #fff;
   border-radius: 5px;
   display: flex;
@@ -8,6 +9,7 @@
 
 .stockinfo-header {
   display: flex;
+  height: 40px;
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid #ddd;
@@ -41,6 +43,7 @@
 
 .stockinfo-pricing {
   display: flex;
+  height: 150px;
   justify-content: space-between;
 }
 
@@ -151,14 +154,7 @@
 }
 
 .stockinfo-chart-wrapper {
-  background-color: #f9f9f9;
-}
-
-.stockinfo-chart-placeholder {
-  height: 450px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #aaa;
-  font-size: 24px;
+  height: 454px;
+  background-color: #fff;
+  border-top: 1px solid #ddd;
 }

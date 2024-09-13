@@ -64,7 +64,7 @@ const KoreaStocksPrice = () => {
   const springProps = useSpring({
     opacity: loading ? 0 : 1,
     transform: loading ? "translateY(10px)" : "translateY(0px)",
-    config: { tension: 280, friction: 60 },
+    config: { tension: 280, friction: 30 },
   });
 
   return (

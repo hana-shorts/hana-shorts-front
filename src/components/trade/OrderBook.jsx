@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import socket from "../../socket"; // 전역 소켓 인스턴스를 가져옴
 import "./OrderBook.css";
 
-const OrderBook = ({ stockCode }) => {
+const OrderBook = ({ stockCode, onPriceUpdate }) => {
   const [orderData, setOrderData] = useState([]); // 소켓 데이터용 상태
   const [orderDataHttp, setOrderDataHttp] = useState([]); // HTTP로 가져온 시가 데이터용 상태
   const orderbookBodyRef = useRef(null);
@@ -13,11 +13,12 @@ const OrderBook = ({ stockCode }) => {
       const fetchInitialPrice = async () => {
         try {
           const response = await fetch(
-            `http://localhost:5002/api/ask-order?code=${stockCode}`
+            `http://localhost:5002/api/orderbook?code=${stockCode}`
           );
           const data = await response.json();
           if (data && data.length > 0) {
             setOrderDataHttp(data[0]);
+            onPriceUpdate(data[0].stck_prpr); // 부모 컴포넌트로 가격 데이터를 전달
           }
         } catch (error) {
           console.error("Failed to fetch initial price:", error);
@@ -44,7 +45,7 @@ const OrderBook = ({ stockCode }) => {
         socket.off("orderbook_update", handleOrderbookUpdate);
       };
     }
-  }, [stockCode]);
+  }, [stockCode, onPriceUpdate]);
 
   useEffect(() => {
     if (orderbookBodyRef.current) {

@@ -44,7 +44,7 @@
 
 .orderbook-row {
   display: flex;
-  height: 40px; /* 행의 높이를 고정 설정 */
+  height: 42.8px; /* 행의 높이를 고정 설정 */
 }
 
 .orderbook-quantity,

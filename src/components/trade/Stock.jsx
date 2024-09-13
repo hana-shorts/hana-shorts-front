@@ -1,14 +1,20 @@
 import React, { useEffect, useState, useRef } from "react";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
+import { useSpring, animated } from "@react-spring/web";
 import "./Stock.css";
+
 import upArrow from "../../assets/images/up_arrow.png";
 import downArrow from "../../assets/images/down_arrow.png";
 import hyphen from "../../assets/images/hyphen.png";
 
 const Stock = ({ onSelectStock }) => {
   const [stocks, setStocks] = useState([]);
+  const [loading, setLoading] = useState(true);
   const previousStocks = useRef([]);
 
   const fetchStocks = async () => {
+    const startTime = Date.now(); // 시작 시간 기록
     try {
       const response = await fetch("http://localhost:8080/api/stocks");
       const data = await response.json();
@@ -26,14 +32,24 @@ const Stock = ({ onSelectStock }) => {
         };
       });
 
-      setStocks(updatedData);
       previousStocks.current = data;
+      setStocks(updatedData);
     } catch (error) {
       console.error("Error fetching stock data:", error);
+    } finally {
+      const minLoadingTime = 1500; // 최소 로딩 시간 1.5초
+      const loadTime = Date.now() - startTime;
+
+      if (loadTime < minLoadingTime) {
+        setTimeout(() => setLoading(false), minLoadingTime - loadTime);
+      } else {
+        setLoading(false);
+      }
     }
   };
 
   useEffect(() => {
+    setLoading(true);
     fetchStocks();
     const interval = setInterval(() => {
       fetchStocks();
@@ -42,9 +58,14 @@ const Stock = ({ onSelectStock }) => {
     return () => clearInterval(interval);
   }, []);
 
+  const springProps = useSpring({
+    opacity: loading ? 0 : 1,
+    transform: loading ? "translateY(10px)" : "translateY(0px)",
+    config: { tension: 280, friction: 30 },
+  });
+
   const handleStockClick = async (stockName) => {
     try {
-      // 주식명을 Spring으로 전달하고 티커 코드를 받음
       const response = await fetch(`http://localhost:8080/api/getTickerCode`, {
         method: "POST",
         headers: {
@@ -58,8 +79,6 @@ const Stock = ({ onSelectStock }) => {
       }
 
       const { tickerCode } = await response.json();
-
-      // 받은 티커 코드와 주식명을 객체로 상위 컴포넌트로 전달
       onSelectStock({ code: tickerCode, name: stockName });
     } catch (error) {
       console.error("Error fetching ticker code:", error);
@@ -80,70 +99,84 @@ const Stock = ({ onSelectStock }) => {
         <div className="stock-volume">거래 대금</div>
       </div>
       <div className="stock-item-container">
-        {stocks.map((stock, index) => (
-          <div
-            key={index}
-            className="stock-item-link"
-            onClick={() => handleStockClick(stock.stockName)}
-          >
-            <div className="stock-item">
-              <div className="stock-info">
-                <img
-                  src={
-                    parseFloat(stock.changeValue) === 0
-                      ? hyphen
-                      : parseFloat(stock.changeValue) > 0
-                      ? upArrow
-                      : downArrow
-                  }
-                  alt={
-                    parseFloat(stock.changeValue) === 0
-                      ? "Hyphen"
-                      : parseFloat(stock.changeValue) > 0
-                      ? "Up"
-                      : "Down"
-                  }
-                  className="arrow-icon"
-                />
-                <span className="stock-name">{stock.stockName}</span>
-              </div>
-              <div className="stock-price">
-                <span
-                  className={`${stock.priceChanged ? "stock-changed" : ""}`}
-                >
-                  {stock.closingPrice}
-                </span>
-              </div>
-              <div className="stock-change">
-                <span
-                  className={`${
-                    parseFloat(stock.changePercent) === 0
-                      ? "stock-neutral"
-                      : parseFloat(stock.changePercent) > 0
-                      ? "stock-up"
-                      : "stock-down"
-                  } ${stock.changePercentChanged ? "stock-changed" : ""}`}
-                >
-                  {stock.changePercent}
-                </span>
-                <span
-                  className={`${
-                    parseFloat(stock.changeValue) === 0
-                      ? "stock-neutral"
-                      : parseFloat(stock.changeValue) > 0
-                      ? "stock-up"
-                      : "stock-down"
-                  } ${stock.changeValueChanged ? "stock-changed" : ""}`}
-                >
-                  {stock.changeValue}
-                </span>
-              </div>
-              <div className="stock-volume">
-                <span>{stock.volume}</span>
-              </div>
-            </div>
-          </div>
-        ))}
+        {loading
+          ? Array.from({ length: 400 }).map((_, index) => (
+              <Skeleton
+                key={index}
+                height={100}
+                className="skeleton-ui"
+                style={{
+                  borderRadius: "8px",
+                  backgroundColor: "#f0f0f0",
+                  animation: "pulse 1.5s ease-in-out infinite",
+                }}
+              />
+            ))
+          : stocks.map((stock, index) => (
+              <animated.div
+                key={index}
+                className="stock-item-link"
+                onClick={() => handleStockClick(stock.stockName)}
+                style={springProps} // Apply animation to each stock item
+              >
+                <div className="stock-item">
+                  <div className="stock-info">
+                    <img
+                      src={
+                        parseFloat(stock.changeValue) === 0
+                          ? hyphen
+                          : parseFloat(stock.changeValue) > 0
+                          ? upArrow
+                          : downArrow
+                      }
+                      alt={
+                        parseFloat(stock.changeValue) === 0
+                          ? "Hyphen"
+                          : parseFloat(stock.changeValue) > 0
+                          ? "Up"
+                          : "Down"
+                      }
+                      className="arrow-icon"
+                    />
+                    <span className="stock-name">{stock.stockName}</span>
+                  </div>
+                  <div className="stock-price">
+                    <span
+                      className={`${stock.priceChanged ? "stock-changed" : ""}`}
+                    >
+                      {stock.closingPrice}
+                    </span>
+                  </div>
+                  <div className="stock-change">
+                    <span
+                      className={`${
+                        parseFloat(stock.changePercent) === 0
+                          ? "stock-neutral"
+                          : parseFloat(stock.changePercent) > 0
+                          ? "stock-up"
+                          : "stock-down"
+                      } ${stock.changePercentChanged ? "stock-changed" : ""}`}
+                    >
+                      {stock.changePercent}
+                    </span>
+                    <span
+                      className={`${
+                        parseFloat(stock.changeValue) === 0
+                          ? "stock-neutral"
+                          : parseFloat(stock.changeValue) > 0
+                          ? "stock-up"
+                          : "stock-down"
+                      } ${stock.changeValueChanged ? "stock-changed" : ""}`}
+                    >
+                      {stock.changeValue}
+                    </span>
+                  </div>
+                  <div className="stock-volume">
+                    <span>{stock.volume}</span>
+                  </div>
+                </div>
+              </animated.div>
+            ))}
       </div>
     </div>
   );

@@ -15,7 +15,7 @@ const Market = () => {
   };
 
   return (
-    <div className="market-page">
+    <div className="market-page fade-in-minus-y">
       <div className="market-header">
         <h1 className="market-title">마켓</h1>
         <div className="market-tabs">
@@ -61,37 +61,31 @@ const Market = () => {
       <div className="market-content">
         {activeTab === "외환" && (
           <>
-            <div className="market-separator-line"></div>
             <Currency /> {/* 외환 탭에서만 환율 데이터 표시 */}
           </>
         )}
         {activeTab === "원자재" && (
           <>
-            <div className="market-separator-line"></div>
             <Commodity /> {/* 원자재 탭에서만 원자재 데이터 표시 */}
           </>
         )}
         {activeTab === "지수" && (
           <>
-            <div className="market-separator-line"></div>
             <Index /> {/* 지수 탭에서만 지수 데이터 표시 */}
           </>
         )}
         {activeTab === "주식" && (
           <>
-            <div className="market-separator-line"></div>
             <KoreaStocks /> {/* 주식 탭에서만 주식 데이터 표시 */}
           </>
         )}
         {activeTab === "섹터" && (
           <>
-            <div className="market-separator-line"></div>
             <Sector /> {/* 섹터 탭에서만 섹터 데이터 표시 */}
           </>
         )}
         {activeTab === "일정" && (
           <>
-            <div className="market-separator-line"></div>
             <Schedule /> {/* 일정 탭에서만 일정 데이터 표시 */}
           </>
         )}

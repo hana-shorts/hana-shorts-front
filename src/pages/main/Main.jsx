@@ -181,8 +181,10 @@ const Main = () => {
           </div>
         </div>
       </div>
-      <Ticker /> {/* Ticker 컴포넌트를 배너 아래에 추가 */}
-      <YouTubeShorts /> {/* YouTubeShorts 컴포넌트를 여기에 추가 */}
+      <div className="main-ticker-container">
+        <Ticker /> {/* Ticker 컴포넌트를 배너 아래에 추가 */}
+      </div>
+      {/* <YouTubeShorts /> YouTubeShorts 컴포넌트를 여기에 추가 */}
     </div>
   );
 };

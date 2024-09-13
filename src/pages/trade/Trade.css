@@ -1,3 +1,74 @@
+/* 페이드 인 애니메이션 */
+@keyframes fadeInMinusX {
+  from {
+    opacity: 0;
+    transform: translateX(-20px); /* 왼쪽에서 나타나는 효과 */
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0); /* 원래 위치로 */
+  }
+}
+
+/* 페이드 인 애니메이션 */
+@keyframes fadeInPlusX {
+  from {
+    opacity: 0;
+    transform: translateX(20px); /* 오른쪽에서 나타나는 효과 */
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0); /* 원래 위치로 */
+  }
+}
+
+/* 페이드 인 애니메이션 */
+@keyframes fadeInMinusY {
+  from {
+    opacity: 0;
+    transform: translateY(-20px); /* 위에서 아래로 내려오는 효과 */
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0); /* 원래 위치로 */
+  }
+}
+
+/* 페이드 인 애니메이션 */
+@keyframes fadeInPlusY {
+  from {
+    opacity: 0;
+    transform: translateY(20px); /* 아래에서 위로 올라오는 효과 */
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0); /* 원래 위치로 */
+  }
+}
+
+/* 적용될 애니메이션 클래스 */
+.fade-in-minus-y {
+  animation: fadeInMinusY 1s ease-in-out forwards;
+}
+
+.fade-in-plus-y {
+  animation: fadeInPlusY 1s ease-in-out forwards;
+}
+
+/* 적용될 애니메이션 클래스 */
+.fade-in-minus-x {
+  animation: fadeInMinusX 1s ease-in-out forwards;
+}
+
+.fade-in-plus-x {
+  animation: fadeInPlusX 1s ease-in-out forwards;
+}
+
+/* 애니메이션 지연 */
+.fade-in-delay {
+  animation-delay: 0.5s;
+}
+
 .trade-page-container {
   max-width: 1560px;
   height: 1760px;

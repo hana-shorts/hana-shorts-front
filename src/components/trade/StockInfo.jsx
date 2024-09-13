@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import socket from "../../socket"; // 전역 소켓 인스턴스를 가져옴
+import StockChart from "./StockChart"; // StockChart 컴포넌트 추가
 import "./StockInfo.css";
 
-import upArrow from "../../assets/images/up_arrow.png"; // 상승 화살표 이미지
-import downArrow from "../../assets/images/down_arrow.png"; // 하락 화살표 이미지
+import upArrow from "../../assets/images/up_arrow.png";
+import downArrow from "../../assets/images/down_arrow.png";
 
-const StockInfo = ({ stockCode, stockName }) => {
-  const [stockData, setStockData] = useState(null);
-  const [activeTab, setActiveTab] = useState("시세"); // 상태 추가: 시세 또는 정보
+const StockInfo = ({ stockCode, stockName, onHokaUpdate }) => {
+  const [stockData, setStockData] = useState([]);
+  const [activeTab, setActiveTab] = useState("시세");
 
   useEffect(() => {
     if (stockCode) {
@@ -18,6 +19,7 @@ const StockInfo = ({ stockCode, stockName }) => {
       const handleStockInfoUpdate = (data) => {
         if (data && data.length > 0) {
           setStockData(data[0]); // 데이터 배열의 첫 번째 요소를 저장
+          onHokaUpdate(data[0].aspr_unit); // 부모 컴포넌트로 가격 데이터를 전달
         }
       };
 
@@ -28,11 +30,7 @@ const StockInfo = ({ stockCode, stockName }) => {
         socket.off("stock_info_update", handleStockInfoUpdate);
       };
     }
-  }, [stockCode]);
-
-  if (!stockData) {
-    return <div>Loading...</div>;
-  }
+  }, [stockCode, onHokaUpdate]);
 
   // 상승, 하락 여부에 따른 화살표 결정
   const arrowIcon = stockData.prdy_vrss_sign === "2" ? upArrow : downArrow;
@@ -125,10 +123,6 @@ const StockInfo = ({ stockCode, stockName }) => {
       ) : (
         <div className="stockinfo-details">
           <div className="stockinfo-detail-item">
-            <span className="stockinfo-detail-label">종목 코드:</span>
-            <span className="stockinfo-detail-value">{stockData.ssts_yn}</span>
-          </div>
-          <div className="stockinfo-detail-item">
             <span className="stockinfo-detail-label">시가:</span>
             <span className="stockinfo-detail-value">
               {stockData.stck_oprc}
@@ -166,15 +160,20 @@ const StockInfo = ({ stockCode, stockName }) => {
             <span className="stockinfo-detail-label">PBR:</span>
             <span className="stockinfo-detail-value">{stockData.pbr}</span>
           </div>
+          <div className="stockinfo-detail-item">
+            <span className="stockinfo-detail-label">EPS:</span>
+            <span className="stockinfo-detail-value">{stockData.eps}</span>
+          </div>
+          <div className="stockinfo-detail-item">
+            <span className="stockinfo-detail-label">bps:</span>
+            <span className="stockinfo-detail-value">{stockData.bps}</span>
+          </div>
         </div>
       )}
-
-      {/* 차트 섹션 */}
       <div className="stockinfo-chart-wrapper">
-        <div className="stockinfo-chart-placeholder">
-          {/* 차트 자리를 위한 플레이스홀더 */}
-          차트가 여기에 표시됩니다.
-        </div>
+        {activeTab === "시세" && (
+          <StockChart stockCode={stockCode} activeTab={activeTab} />
+        )}
       </div>
     </div>
   );
