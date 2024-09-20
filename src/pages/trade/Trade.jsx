@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom"; // useParams 추가
 import Stock from "../../components/trade/Stock";
 import StockInfo from "../../components/trade/StockInfo";
 import TradePanel from "../../components/trade/TradePanel";
@@ -7,7 +8,11 @@ import MarketData from "../../components/trade/MarketData";
 import "./Trade.css";
 
 function Trade() {
-  const [selectedStockCode, setSelectedStockCode] = useState("005930");
+  const { stockCode } = useParams(); // URL에서 stockCode를 가져옴
+  const [selectedStockCode, setSelectedStockCode] = useState(
+    stockCode || "005930"
+  ); // 기본값 설정
+  // const [selectedStockCode, setSelectedStockCode] = useState("005930");
   const [selectedStockName, setSelectedStockName] = useState("삼성전자"); // 추가된 상태
   const [initialPrice, setInitialPrice] = useState(0); // 초기 가격 상태 추가
   const [initialHoka, setInitialHoka] = useState(0);

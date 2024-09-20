@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
+import { useNavigate } from "react-router-dom"; // useNavigate 추가
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { useSpring, animated } from "@react-spring/web";
@@ -12,6 +13,7 @@ const Stock = ({ onSelectStock }) => {
   const [stocks, setStocks] = useState([]);
   const [loading, setLoading] = useState(true);
   const previousStocks = useRef([]);
+  const navigate = useNavigate(); // useNavigate 사용
 
   const fetchStocks = async () => {
     const startTime = Date.now(); // 시작 시간 기록
@@ -80,6 +82,7 @@ const Stock = ({ onSelectStock }) => {
 
       const { tickerCode } = await response.json();
       onSelectStock({ code: tickerCode, name: stockName });
+      navigate(`/trade/${tickerCode}`); // 주식 코드로 경로 변경
     } catch (error) {
       console.error("Error fetching ticker code:", error);
     }

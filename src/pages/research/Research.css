@@ -1,0 +1,11 @@
+.research-page {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 10px 350px;
+}
+
+.research-title {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
