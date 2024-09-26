@@ -7,8 +7,6 @@ import Ticker from "../../components/main/Ticker"; // 방금 만든 Ticker 컴�
 import { Link } from "react-router-dom";
 import "./Main.css";
 
-import YouTubeShorts from "../../components/main/YouTubeShorts"; // YouTubeShorts 컴포넌트 임포트
-
 const Main = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [buttonText, setButtonText] = useState({
@@ -184,7 +182,6 @@ const Main = () => {
       <div className="main-ticker-container">
         <Ticker /> {/* Ticker 컴포넌트를 배너 아래에 추가 */}
       </div>
-      {/* <YouTubeShorts /> YouTubeShorts 컴포넌트를 여기에 추가 */}
     </div>
   );
 };

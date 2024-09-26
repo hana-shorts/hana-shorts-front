@@ -35,6 +35,7 @@
 
 .market-tabs {
   display: flex;
+  position: relative; /* 슬라이딩 인디케이터를 위한 상대 위치 지정 */
   border-bottom: 1px solid #ddd; /* 아래쪽 테두리 추가 */
 }
 
@@ -45,17 +46,30 @@
   cursor: pointer;
   font-size: 16px;
   color: #666;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  position: relative;
+  z-index: 1; /* 인디케이터가 버튼 뒤에 오도록 */
 }
 
+/* 마우스 호버 시 배경색 변경 */
+.market-tabs button:hover {
+  background-color: #f0f0f0; /* 호버 시 배경색 */
+}
+
+/* 선택된 탭에 적용될 스타일 */
 .market-tabs .market-active {
-  border-bottom: 2px solid #009178;
   font-weight: bold;
   color: #009178;
 }
 
-.market-separator-line {
-  border-top: 1px solid #ddd;
-  margin: 5px 0 20px 0;
+/* 슬라이딩 인디케이터 스타일 */
+.market-tab-indicator {
+  position: absolute;
+  bottom: 0;
+  height: 2px;
+  background-color: #009178;
+  transition: left 0.3s ease, width 0.3s ease;
+  z-index: 2; /* 인디케이터가 버튼 뒤에 오도록 */
 }
 
 .market-table {

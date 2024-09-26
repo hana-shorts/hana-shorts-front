@@ -16,7 +16,7 @@ const IndexPrice = () => {
   const fetchIndices = async () => {
     const startTime = Date.now();
     try {
-      const response = await fetch("http://localhost:8080/api/indices");
+      const response = await fetch("http://localhost:8080/api/indexPrice");
       const data = await response.json();
 
       const updatedData = data.map((index, i) => {
@@ -81,10 +81,10 @@ const IndexPrice = () => {
       </div>
       <div className="index-item-container">
         {loading
-          ? Array.from({ length: 21 }).map((_, index) => (
+          ? Array.from({ length: 10 }).map((_, index) => (
               <Skeleton
                 key={index}
-                height={100}
+                height={97.3}
                 className="skeleton-ui"
                 style={{
                   borderRadius: "8px",
@@ -115,7 +115,7 @@ const IndexPrice = () => {
                         ? "Up"
                         : "Down"
                     }
-                    className="arrow-icon"
+                    className="index-arrow-icon"
                   />
                   <span className="index-name">{index.indexName}</span>
                 </div>

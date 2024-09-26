@@ -10,6 +10,7 @@
 .trade-panel-tabs {
   display: flex;
   justify-content: space-between;
+  position: relative; /* 슬라이딩 인디케이터를 위해 필요 */
   border-bottom: 1px solid #e1e1e1;
 }
 
@@ -17,13 +18,28 @@
   width: 25%;
   text-align: center;
   cursor: pointer;
-  color: #333333;
+  color: #888;
   padding: 10px;
+  font-size: 14px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  z-index: 1; /* 슬라이딩 인디케이터가 뒤로 가도록 설정 */
+}
+
+.trade-panel-tab:hover {
+  background-color: #f0f0f0;
 }
 
 .trade-panel-tab.active {
   color: #009178;
-  border-bottom: 1px solid #009178;
+}
+
+.trade-panel-tab-indicator {
+  position: absolute;
+  bottom: 0;
+  height: 2px;
+  background-color: #009178;
+  transition: left 0.3s ease, width 0.3s ease;
+  z-index: 2; /* 슬라이딩 인디케이터가 탭 뒤로 이동 */
 }
 
 .trade-panel-order-section {

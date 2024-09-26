@@ -1,0 +1,61 @@
+/* components/research/YouTubeShorts.css */
+
+/* YouTube Shorts 컨테이너 */
+.youtube-shorts-container {
+  width: 800px;
+  max-width: 90%;
+  padding: 2rem;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+}
+
+/* 숏츠 카드 */
+.shorts-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* 유튜브 플레이어 */
+.youtube-player {
+  width: 100%;
+  height: 200px;
+  margin-bottom: 0.5rem;
+  border-radius: 8px;
+}
+
+/* 숏츠 제목 */
+.shorts-title {
+  font-size: 0.9rem;
+  text-align: center;
+  color: #333;
+}
+
+/* Swiper 네비게이션 버튼 커스터마이징 */
+.swiper-button-next,
+.swiper-button-prev {
+  color: #3f51b5;
+}
+
+@media (max-width: 850px) {
+  .youtube-shorts-container {
+    width: 90%;
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .youtube-shorts-container {
+    width: 100%;
+    padding: 1rem;
+  }
+
+  .youtube-player {
+    height: 150px;
+  }
+
+  .shorts-title {
+    font-size: 0.8rem;
+  }
+}

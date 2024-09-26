@@ -1,232 +1,77 @@
-import React, { useState } from "react";
-import {
-  Button,
-  Checkbox,
-  FormControlLabel,
-  FormGroup,
-  Typography,
-  Grid,
-  CircularProgress,
-  Snackbar,
-  Alert,
-  Paper,
-  List,
-  ListItem,
-  ListItemText,
-} from "@mui/material";
+// pages/research/Research.jsx
+import React, { useState, useRef, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import ResearchBox from "../../components/research/ResearchBox";
+import YouTubeShorts from "../../components/research/YouTubeShorts";
+import "./Research.css"; // 페이지 전용 CSS
 
 const Research = () => {
-  const sectors = [
-    // 업종 리스트
-    "음식료품",
-    "유통업",
-    "운수창고업",
-    "기계",
-    "종이목재",
-    "섬유의복",
-    "철강금속",
-    "화학",
-    "서비스업",
-    "전기전자",
-    "전기가스업",
-    "기타금융",
-    "의약품",
-    "건설업",
-    "증권",
-    "비금속광물",
-    "운수장비",
-    "은행",
-    "의료정밀",
-    "보험",
-    "농업, 임업 및 어업",
-    "기타제조업",
-    "통신업",
-  ];
+  const navigate = useNavigate();
+  const { tabName } = useParams();
+  const [activeTab, setActiveTab] = useState(tabName || "recommend");
+  const [indicatorStyle, setIndicatorStyle] = useState({});
+  const tabsRef = useRef({}); // 각 탭의 ref를 저장
 
-  const indicators = [
-    "Moving Average (MA)",
-    "Relative Strength Index (RSI)",
-    "MACD",
-    "Stochastic Oscillator",
-    "Average Directional Index (ADX)",
-    "Commodity Channel Index (CCI)",
-    "Momentum",
-    "On-Balance Volume (OBV)",
-    "Ichimoku Cloud",
-    "VWAP",
-    "Price Channel",
-  ];
-
-  const [selectedSectors, setSelectedSectors] = useState([]);
-  const [selectedIndicators, setSelectedIndicators] = useState([]);
-  const [recommendations, setRecommendations] = useState({ buy: [], sell: [] });
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-
-  const handleSectorChange = (sector) => {
-    setSelectedSectors((prevSelected) =>
-      prevSelected.includes(sector)
-        ? prevSelected.filter((item) => item !== sector)
-        : [...prevSelected, sector]
-    );
+  const handleTabClick = (tabName) => {
+    setActiveTab(tabName);
+    navigate(`/research/${tabName}`); // 클릭 시 경로 변경
   };
 
-  const handleIndicatorChange = (indicator) => {
-    setSelectedIndicators((prevSelected) =>
-      prevSelected.includes(indicator)
-        ? prevSelected.filter((item) => item !== indicator)
-        : [...prevSelected, indicator]
-    );
-  };
-
-  const handleSubmit = () => {
-    if (selectedIndicators.length === 0 || selectedSectors.length === 0) {
-      setError("업종 및 지표를 선택해주세요.");
-      return;
-    }
-
-    setLoading(true);
-    fetch("http://localhost:5002/api/get_recommendations", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        indicators: selectedIndicators,
-        selected_sectors: selectedSectors, // 선택된 업종 정보 추가
-      }),
-    })
-      .then((response) => {
-        setLoading(false);
-        if (!response.ok) {
-          return response.json().then((data) => {
-            throw new Error(data.error || "서버 에러가 발생했습니다.");
-          });
-        }
-        return response.json();
-      })
-      .then((data) => {
-        setRecommendations(data);
-      })
-      .catch((error) => {
-        setError(error.message);
+  useEffect(() => {
+    // 활성화된 탭의 ref 가져오기
+    const activeTabRef = tabsRef.current[activeTab];
+    if (activeTabRef) {
+      const { offsetLeft, clientWidth } = activeTabRef;
+      setIndicatorStyle({
+        left: offsetLeft,
+        width: clientWidth,
       });
-  };
-
-  const handleCloseError = () => {
-    setError(null);
-  };
+    }
+  }, [activeTab]);
 
   return (
-    <Paper style={{ padding: "2rem", maxWidth: "800px", margin: "2rem auto" }}>
-      <Typography variant="h4" gutterBottom align="center">
-        주식 추천 시스템
-      </Typography>
-      <Typography variant="h6" gutterBottom>
-        업종을 선택하세요:
-      </Typography>
-      <FormGroup>
-        <Grid container spacing={2}>
-          {sectors.map((sector, index) => (
-            <Grid item xs={12} sm={6} md={4} key={index}>
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={selectedSectors.includes(sector)}
-                    onChange={() => handleSectorChange(sector)}
-                  />
-                }
-                label={sector}
-              />
-            </Grid>
-          ))}
-        </Grid>
-      </FormGroup>
-
-      <Typography variant="h6" gutterBottom style={{ marginTop: "1rem" }}>
-        기술 지표를 선택하세요:
-      </Typography>
-      <FormGroup>
-        <Grid container spacing={2}>
-          {indicators.map((indicator, index) => (
-            <Grid item xs={12} sm={6} md={4} key={index}>
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={selectedIndicators.includes(indicator)}
-                    onChange={() => handleIndicatorChange(indicator)}
-                  />
-                }
-                label={indicator}
-              />
-            </Grid>
-          ))}
-        </Grid>
-      </FormGroup>
-
-      <div style={{ textAlign: "center", marginTop: "1rem" }}>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={handleSubmit}
-          disabled={loading}
-        >
-          추천 종목 보기
-        </Button>
+    <div className="research-page fade-in-minus-y">
+      <div className="research-header">
+        <h1 className="research-title">리서치센터</h1>
+        <div className="research-tabs">
+          <button
+            ref={(el) => (tabsRef.current["recommend"] = el)}
+            className={activeTab === "recommend" ? "research-active" : ""}
+            onClick={() => handleTabClick("recommend")}
+          >
+            <div>추천 서비스</div>
+          </button>
+          <button
+            ref={(el) => (tabsRef.current["analysis"] = el)}
+            className={activeTab === "analysis" ? "research-active" : ""}
+            onClick={() => handleTabClick("analysis")}
+          >
+            <div>분석 데스크</div>
+          </button>
+          <button
+            ref={(el) => (tabsRef.current["extras"] = el)}
+            className={activeTab === "extras" ? "research-active" : ""}
+            onClick={() => handleTabClick("extras")}
+          >
+            <div>하나 TV</div>
+          </button>
+          {/* 슬라이딩 인디케이터 */}
+          <span
+            className="research-tab-indicator"
+            style={{
+              left: indicatorStyle.left,
+              width: indicatorStyle.width,
+            }}
+          ></span>
+        </div>
+        <div style={{ width: "160px" }}></div>
       </div>
-
-      {loading && (
-        <div style={{ textAlign: "center", marginTop: "1rem" }}>
-          <CircularProgress />
-        </div>
-      )}
-
-      {recommendations.buy.length > 0 && (
-        <div style={{ marginTop: "2rem" }}>
-          <Typography variant="h6" gutterBottom>
-            매수 추천 종목 상위 5개:
-          </Typography>
-          <List>
-            {recommendations.buy.map((item, index) => (
-              <ListItem key={index}>
-                <ListItemText
-                  primary={item} // 종목명만 표시
-                />
-              </ListItem>
-            ))}
-          </List>
-        </div>
-      )}
-
-      {recommendations.sell.length > 0 && (
-        <div style={{ marginTop: "2rem" }}>
-          <Typography variant="h6" gutterBottom>
-            매도 추천 종목 상위 5개:
-          </Typography>
-          <List>
-            {recommendations.sell.map((item, index) => (
-              <ListItem key={index}>
-                <ListItemText
-                  primary={item} // 종목명만 표시
-                />
-              </ListItem>
-            ))}
-          </List>
-        </div>
-      )}
-
-      <Snackbar
-        open={!!error}
-        autoHideDuration={6000}
-        onClose={handleCloseError}
-      >
-        <Alert
-          onClose={handleCloseError}
-          severity="error"
-          sx={{ width: "100%" }}
-        >
-          {error}
-        </Alert>
-      </Snackbar>
-    </Paper>
+      <div className="researchbox-container">
+        {activeTab === "recommend" && <ResearchBox />}
+        {activeTab === "analysis" && <YouTubeShorts />}
+        {activeTab === "extras" && <div>기타 관련 내용</div>}
+      </div>
+    </div>
   );
 };
 

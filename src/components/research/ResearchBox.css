@@ -1,0 +1,103 @@
+/* components/research/ResearchBox.css */
+
+/* 기존의 단계 관련 스타일 제거 */
+
+/* 콘텐츠 박스 */
+.research-box-content-box {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.5s ease;
+}
+
+/* 버튼 컨테이너 */
+.research-box-button-container {
+  margin-top: 1rem;
+}
+
+/* 로딩 컨테이너 */
+.research-box-loading-container {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+/* 업종 섹션 */
+.research-box-sector-section {
+  margin-bottom: 1rem;
+}
+
+/* 업종 섹션 헤더 */
+.sector-header {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: #3f51b5;
+}
+
+/* 업종 및 지표 선택 콘텐츠 */
+.research-box-step-content {
+  width: 100%;
+  max-height: 300px; /* 스크롤 가능한 높이 조정 */
+  overflow-y: auto;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  transition: all 0.5s ease;
+}
+
+/* 추천 종목 컨테이너 */
+.research-box-recommendations-container {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+/* 추천 종목 카드 */
+.research-box-recommendation-card {
+  width: 150px;
+  text-align: center;
+  transition: transform 0.3s ease;
+  border-radius: 8px;
+}
+
+.research-box-recommendation-card:hover {
+  transform: scale(1.05);
+}
+
+/* 순위 스타일 */
+.research-box-rank {
+  font-size: 1.5rem;
+  color: #3f51b5;
+  font-weight: bold;
+}
+
+/* 종목명 스타일 */
+.research-box-stock-name {
+  margin-top: 0.5rem;
+  font-size: 1rem;
+  color: #333;
+}
+
+/* 애니메이션 효과 */
+@keyframes research-box-fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.research-box-large-box {
+  animation: research-box-fadeIn 0.5s ease;
+}
+
+.research-box-content-box {
+  animation: research-box-fadeIn 0.5s ease;
+}

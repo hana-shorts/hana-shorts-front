@@ -7,6 +7,7 @@
 .market-data-tabs {
   height: 44px;
   display: flex;
+  position: relative; /* 슬라이딩 인디케이터를 위해 상대 위치 */
   border-bottom: 1px solid #e1e1e1;
 }
 
@@ -15,11 +16,27 @@
   text-align: center;
   padding: 10px;
   cursor: pointer;
+  color: #888;
+  font-size: 16px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  z-index: 1; /* 인디케이터가 뒤에 위치하도록 */
+}
+
+.market-data-tab:hover {
+  background-color: #f0f0f0;
 }
 
 .market-data-tab.market-data-active {
-  border-bottom: 2px solid #009178;
-  font-weight: bold;
+  color: #009178;
+}
+
+.market-data-tab-indicator {
+  position: absolute;
+  bottom: 0;
+  height: 2px;
+  background-color: #009178;
+  transition: left 0.3s ease, width 0.3s ease;
+  z-index: 2; /* 인디케이터가 버튼 뒤에 위치하도록 */
 }
 
 .market-data-header {

@@ -115,10 +115,10 @@
   animation: fadeOut 5s forwards;
 }
 
-.arrow-icon {
-  width: 17px;
-  height: 17px;
-  margin-right: 15px;
+.currency-arrow-icon {
+  width: 12px;
+  height: 12px;
+  margin-right: 10px;
 }
 
 @keyframes fadeOut {

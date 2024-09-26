@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import socket from "../../socket"; // 전역 소켓 인스턴스를 가져옴
 import StockChart from "./StockChart"; // StockChart 컴포넌트 추가
 import "./StockInfo.css";
@@ -9,6 +9,8 @@ import downArrow from "../../assets/images/down_arrow.png";
 const StockInfo = ({ stockCode, stockName, onHokaUpdate }) => {
   const [stockData, setStockData] = useState([]);
   const [activeTab, setActiveTab] = useState("시세");
+  const [indicatorStyle, setIndicatorStyle] = useState({});
+  const tabsRef = useRef({});
 
   useEffect(() => {
     if (stockCode) {
@@ -32,6 +34,17 @@ const StockInfo = ({ stockCode, stockName, onHokaUpdate }) => {
     }
   }, [stockCode, onHokaUpdate]);
 
+  useEffect(() => {
+    const activeTabRef = tabsRef.current[activeTab];
+    if (activeTabRef) {
+      const { offsetLeft, clientWidth } = activeTabRef;
+      setIndicatorStyle({
+        left: offsetLeft,
+        width: clientWidth,
+      });
+    }
+  }, [activeTab]);
+
   // 상승, 하락 여부에 따른 화살표 결정
   const arrowIcon = stockData.prdy_vrss_sign === "2" ? upArrow : downArrow;
   const changeColor = stockData.prdy_vrss_sign === "2" ? "#e12d2d" : "#0059b3";
@@ -43,17 +56,27 @@ const StockInfo = ({ stockCode, stockName, onHokaUpdate }) => {
         <div className="stockinfo-name">{stockName}</div>
         <div className="stockinfo-tabs">
           <div
+            ref={(el) => (tabsRef.current["시세"] = el)}
             className={`stockinfo-tab ${activeTab === "시세" ? "active" : ""}`}
             onClick={() => setActiveTab("시세")}
           >
             시세
           </div>
           <div
+            ref={(el) => (tabsRef.current["정보"] = el)}
             className={`stockinfo-tab ${activeTab === "정보" ? "active" : ""}`}
             onClick={() => setActiveTab("정보")}
           >
             정보
           </div>
+          {/* 슬라이딩 인디케이터 */}
+          <span
+            className="stockinfo-tab-indicator"
+            style={{
+              left: indicatorStyle.left,
+              width: indicatorStyle.width,
+            }}
+          ></span>
         </div>
       </div>
 

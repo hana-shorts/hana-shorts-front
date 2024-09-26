@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import socket from "../../socket"; // 전역 소켓 인스턴스를 가져옴
 import "./MarketData.css";
 
@@ -10,6 +10,8 @@ const MarketData = ({ stockCode }) => {
   const [activeTab, setActiveTab] = useState("체결");
   const [settlementData, setSettlementData] = useState([]);
   const [dailyData, setDailyData] = useState([]);
+  const [indicatorStyle, setIndicatorStyle] = useState({});
+  const tabsRef = useRef({});
 
   useEffect(() => {
     if (stockCode) {
@@ -36,6 +38,17 @@ const MarketData = ({ stockCode }) => {
       }
     }
   }, [stockCode, activeTab]);
+
+  useEffect(() => {
+    const activeTabRef = tabsRef.current[activeTab];
+    if (activeTabRef) {
+      const { offsetLeft, clientWidth } = activeTabRef;
+      setIndicatorStyle({
+        left: offsetLeft,
+        width: clientWidth,
+      });
+    }
+  }, [activeTab]);
 
   const toggleTab = (tab) => {
     setActiveTab(tab);
@@ -69,6 +82,7 @@ const MarketData = ({ stockCode }) => {
     <div className="market-data-wrapper">
       <div className="market-data-tabs">
         <div
+          ref={(el) => (tabsRef.current["체결"] = el)}
           className={`market-data-tab ${
             activeTab === "체결" ? "market-data-active" : ""
           }`}
@@ -77,6 +91,7 @@ const MarketData = ({ stockCode }) => {
           체결
         </div>
         <div
+          ref={(el) => (tabsRef.current["일별"] = el)}
           className={`market-data-tab ${
             activeTab === "일별" ? "market-data-active" : ""
           }`}
@@ -84,6 +99,14 @@ const MarketData = ({ stockCode }) => {
         >
           일별
         </div>
+        {/* 슬라이딩 인디케이터 */}
+        <span
+          className="market-data-tab-indicator"
+          style={{
+            left: indicatorStyle.left,
+            width: indicatorStyle.width,
+          }}
+        ></span>
       </div>
 
       {/* 탭에 따른 헤더 표시 */}

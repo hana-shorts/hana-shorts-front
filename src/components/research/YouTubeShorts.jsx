@@ -1,8 +1,10 @@
+// components/research/YouTubeShorts.jsx
 import React, { useEffect, useMemo, useCallback } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import "swiper/swiper-bundle.css";
-import "./YouTubeShorts.css";
+import "./YouTubeShorts.css"; // 별도의 CSS 파일 분리
+import { Typography } from "@mui/material";
 
 const YouTubeShorts = () => {
   // useMemo를 사용하여 videos 배열 캐싱
@@ -67,8 +69,8 @@ const YouTubeShorts = () => {
       );
       if (playerElement) {
         new window.YT.Player(playerElement, {
-          height: "400",
-          width: "200",
+          height: "200",
+          width: "100%",
           videoId: video.id,
           playerVars: {
             autoplay: 0,
@@ -97,13 +99,13 @@ const YouTubeShorts = () => {
     }
 
     return () => {
-      // 여기서 player.destroy() 대신 DOM에서 직접 요소를 삭제할 수 있습니다.
+      // Clean up players
       videos.forEach((_, index) => {
         const playerElement = document.getElementById(
           `youtube-shorts-player-${index}`
         );
         if (playerElement) {
-          playerElement.innerHTML = ""; // DOM에서 IFrame을 제거하여 정리
+          playerElement.innerHTML = ""; // Remove IFrame
         }
       });
     };
@@ -111,18 +113,34 @@ const YouTubeShorts = () => {
 
   return (
     <div className="youtube-shorts-container">
+      <Typography variant="h6" gutterBottom>
+        관련 유튜브 숏츠
+      </Typography>
       <Swiper
         modules={[Navigation]}
-        spaceBetween={5}
-        slidesPerView={5}
+        spaceBetween={10}
+        slidesPerView={3}
         loop={true}
         navigation={true}
+        breakpoints={{
+          600: {
+            slidesPerView: 4,
+          },
+          900: {
+            slidesPerView: 5,
+          },
+        }}
       >
         {videos.map((video, index) => (
           <SwiperSlide key={video.id}>
             <div className="shorts-card">
-              <div id={`youtube-shorts-player-${index}`}></div>
-              <h4>{video.title}</h4>
+              <div
+                id={`youtube-shorts-player-${index}`}
+                className="youtube-player"
+              ></div>
+              <Typography variant="body2" className="shorts-title">
+                {video.title}
+              </Typography>
             </div>
           </SwiperSlide>
         ))}

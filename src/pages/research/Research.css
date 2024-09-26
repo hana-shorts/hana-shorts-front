@@ -1,11 +1,86 @@
+/* 페이드 인 애니메이션 */
+@keyframes fadeInMinusY {
+  from {
+    opacity: 0;
+    transform: translateY(-20px); /* 위에서 아래로 내려오는 효과 */
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0); /* 원래 위치로 */
+  }
+}
+
+/* 적용될 애니메이션 클래스 */
+.fade-in-minus-y {
+  animation: fadeInMinusY 0.9s ease-in-out forwards;
+}
+
 .research-page {
-  max-width: 1080px;
+  max-width: 1780px;
   margin: 0 auto;
-  padding: 10px 350px;
+}
+
+.research-header {
+  max-width: 1080px;
+  height: 80px;
+  margin: 0 auto;
+  padding: 10px 350px 0px 350px;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  justify-content: space-between;
 }
 
 .research-title {
+  width: 160px;
   font-size: 32px;
   font-weight: bold;
-  margin-bottom: 20px;
+}
+
+.research-tabs {
+  display: flex;
+  position: relative; /* 슬라이딩 인디케이터를 위한 상대 위치 지정 */
+}
+
+.research-tabs button {
+  width: 150px;
+  align-items: bottom;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  color: #666;
+}
+
+.research-tabs button div {
+  margin-top: 40px;
+  padding: 7px 0px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  position: relative;
+  z-index: 1; /* 인디케이터가 버튼 뒤에 오도록 */
+}
+
+/* 마우스 호버 시 배경색 변경 */
+.research-tabs button div:hover {
+  background-color: #f0f0f0; /* 호버 시 배경색 */
+}
+
+/* 선택된 탭에 적용될 스타일 */
+.research-tabs .research-active {
+  font-weight: bold;
+  color: #009178;
+}
+
+/* 슬라이딩 인디케이터 스타일 */
+.research-tab-indicator {
+  position: absolute;
+  bottom: 0;
+  height: 2px;
+  background-color: #009178;
+  transition: left 0.3s ease, width 0.3s ease;
+  z-index: 2; /* 인디케이터가 버튼 뒤에 오도록 */
+}
+
+.researchbox-container {
+  max-width: 1700px;
+  margin: 0 auto;
 }

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./TradePanel.css";
 
 const TradePanel = ({ stockCode, initialPrice, initialHoka, resetTab }) => {
@@ -13,6 +13,9 @@ const TradePanel = ({ stockCode, initialPrice, initialHoka, resetTab }) => {
   const [balance, setBalance] = useState(0); // 잔고를 저장할 상태
   const [availableQuantity, setAvailableQuantity] = useState(0); // 주문 가능 수량
   const [totalAmount, setTotalAmount] = useState(0); // 주문 총액 상태
+
+  const [indicatorStyle, setIndicatorStyle] = useState({});
+  const tabsRef = useRef({}); // 각 탭에 대한 참조값을 저장할 객체
 
   useEffect(() => {
     // 컴포넌트가 마운트될 때 잔고 조회 API 호출
@@ -54,6 +57,18 @@ const TradePanel = ({ stockCode, initialPrice, initialHoka, resetTab }) => {
       setActiveTab("매수");
     }
   }, [resetTab]);
+
+  // activeTab이 바뀔 때마다 슬라이딩 인디케이터 위치 및 너비 업데이트
+  useEffect(() => {
+    const activeTabRef = tabsRef.current[activeTab];
+    if (activeTabRef) {
+      const { offsetLeft, clientWidth } = activeTabRef;
+      setIndicatorStyle({
+        left: offsetLeft,
+        width: clientWidth,
+      });
+    }
+  }, [activeTab]);
 
   useEffect(() => {
     if (activeTab === "매수" || activeTab === "매도") {
@@ -697,18 +712,21 @@ const TradePanel = ({ stockCode, initialPrice, initialHoka, resetTab }) => {
     <div className="trade-panel-container">
       <div className="trade-panel-tabs">
         <div
+          ref={(el) => (tabsRef.current["매수"] = el)}
           className={`trade-panel-tab ${activeTab === "매수" ? "active" : ""}`}
           onClick={() => setActiveTab("매수")}
         >
           매수
         </div>
         <div
+          ref={(el) => (tabsRef.current["매도"] = el)}
           className={`trade-panel-tab ${activeTab === "매도" ? "active" : ""}`}
           onClick={() => setActiveTab("매도")}
         >
           매도
         </div>
         <div
+          ref={(el) => (tabsRef.current["정정/취소"] = el)}
           className={`trade-panel-tab ${
             activeTab === "정정/취소" ? "active" : ""
           }`}
@@ -717,6 +735,7 @@ const TradePanel = ({ stockCode, initialPrice, initialHoka, resetTab }) => {
           정정/취소
         </div>
         <div
+          ref={(el) => (tabsRef.current["체결/예약"] = el)}
           className={`trade-panel-tab ${
             activeTab === "체결/예약" ? "active" : ""
           }`}
@@ -724,6 +743,15 @@ const TradePanel = ({ stockCode, initialPrice, initialHoka, resetTab }) => {
         >
           체결/예약
         </div>
+
+        {/* 슬라이딩 인디케이터 */}
+        <span
+          className="trade-panel-tab-indicator"
+          style={{
+            left: indicatorStyle.left,
+            width: indicatorStyle.width,
+          }}
+        ></span>
       </div>
 
       {renderOrderSection()}

@@ -1,21 +1,24 @@
+// src/components/StocksKospiPerformance.js
 import React, { useEffect, useState, useRef } from "react";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-import "./KoreaStocks.css";
+import styles from "./Stocks.module.css";
 import { useSpring, animated } from "@react-spring/web";
 
 import upArrow from "../../assets/images/up_arrow.png";
 import downArrow from "../../assets/images/down_arrow.png";
 
-const KoreaStocksPerformance = () => {
+const StocksKospiPerformance = () => {
   const [periodStocks, setPeriodStocks] = useState([]);
   const [loading, setLoading] = useState(true);
   const previousPeriodStocks = useRef([]);
 
   const fetchPeriodStocks = async () => {
-    const startTime = Date.now(); // 시작 시간 기록
+    const startTime = Date.now();
     try {
-      const response = await fetch("http://localhost:8080/api/stockPeriods");
+      const response = await fetch(
+        "http://localhost:8080/api/stockKospiPerformance"
+      );
       const data = await response.json();
 
       const updatedData = data.map((stock, index) => {
@@ -39,9 +42,9 @@ const KoreaStocksPerformance = () => {
       previousPeriodStocks.current = data;
       setPeriodStocks(updatedData);
     } catch (error) {
-      console.error("Error fetching period stock data:", error);
+      console.error("Error fetching KOSPI period stock data:", error);
     } finally {
-      const minLoadingTime = 1500; // 최소 로딩 시간 1초
+      const minLoadingTime = 1500;
       const loadTime = Date.now() - startTime;
 
       if (loadTime < minLoadingTime) {
@@ -62,7 +65,6 @@ const KoreaStocksPerformance = () => {
     return () => clearInterval(interval);
   }, []);
 
-  // `loading` 상태가 변경될 때마다 애니메이션을 재실행
   const springProps = useSpring({
     opacity: loading ? 0 : 1,
     transform: loading ? "translateY(10px)" : "translateY(0px)",
@@ -70,23 +72,23 @@ const KoreaStocksPerformance = () => {
   });
 
   return (
-    <div className="korea-stocks-table-container">
-      <div className="korea-stocks-header">
-        <div className="korea-stock-info">종목</div>
-        <div className="korea-stock-change">일간</div>
-        <div className="korea-stock-change">주간</div>
-        <div className="korea-stock-change">월간</div>
-        <div className="korea-stock-change">YTD</div>
-        <div className="korea-stock-change">연간</div>
-        <div className="korea-stock-change">3년간</div>
+    <div className={styles.stocksTableContainer}>
+      <div className={styles.stocksHeader}>
+        <div className={styles.stockInfo}>종목</div>
+        <div className={styles.stockChange}>일간</div>
+        <div className={styles.stockChange}>주간</div>
+        <div className={styles.stockChange}>월간</div>
+        <div className={styles.stockChange}>YTD</div>
+        <div className={styles.stockChange}>연간</div>
+        <div className={styles.stockChange}>3년간</div>
       </div>
-      <div className="korea-stocks-item-container">
+      <div className={styles.stocksItemContainer}>
         {loading
-          ? Array.from({ length: 400 }).map((_, index) => (
+          ? Array.from({ length: 10 }).map((_, index) => (
               <Skeleton
                 key={index}
-                height={100}
-                className="skeleton-ui"
+                height={97.3}
+                className={styles.skeletonUi}
                 style={{
                   borderRadius: "8px",
                   backgroundColor: "#f0f0f0",
@@ -96,112 +98,100 @@ const KoreaStocksPerformance = () => {
             ))
           : periodStocks.map((stock, index) => (
               <animated.div
-                className="korea-stock-item"
+                className={styles.stockItem}
                 key={index}
-                style={springProps} // Apply animation to each stock item
+                style={springProps}
               >
-                <div className="korea-stock-info">
+                <div className={styles.stockInfo}>
                   <img
                     src={
                       parseFloat(stock.periodDaily) >= 0 ? upArrow : downArrow
                     }
                     alt={parseFloat(stock.periodDaily) >= 0 ? "Up" : "Down"}
-                    className="arrow-icon"
+                    className={styles.stocksArrowIcon}
                   />
-                  <span className="korea-stock-name">{stock.stockName}</span>
+                  <span className={styles.stockName}>{stock.stockName}</span>
                 </div>
 
                 <div
-                  className={`korea-stock-change ${
+                  className={`${styles.stockChange} ${
                     parseFloat(stock.periodDaily) >= 0
-                      ? "korea-stock-up"
-                      : "korea-stock-down"
+                      ? styles.stockUp
+                      : styles.stockDown
                   }`}
                 >
                   <span
-                    className={`${
-                      stock.dailyChanged ? "korea-stock-changed" : ""
-                    }`}
+                    className={stock.dailyChanged ? styles.stockChanged : ""}
                   >
                     {stock.periodDaily}
                   </span>
                 </div>
 
                 <div
-                  className={`korea-stock-change ${
+                  className={`${styles.stockChange} ${
                     parseFloat(stock.periodWeekly) >= 0
-                      ? "korea-stock-up"
-                      : "korea-stock-down"
+                      ? styles.stockUp
+                      : styles.stockDown
                   }`}
                 >
                   <span
-                    className={`${
-                      stock.weeklyChanged ? "korea-stock-changed" : ""
-                    }`}
+                    className={stock.weeklyChanged ? styles.stockChanged : ""}
                   >
                     {stock.periodWeekly}
                   </span>
                 </div>
 
                 <div
-                  className={`korea-stock-change ${
+                  className={`${styles.stockChange} ${
                     parseFloat(stock.periodMonthly) >= 0
-                      ? "korea-stock-up"
-                      : "korea-stock-down"
+                      ? styles.stockUp
+                      : styles.stockDown
                   }`}
                 >
                   <span
-                    className={`${
-                      stock.monthlyChanged ? "korea-stock-changed" : ""
-                    }`}
+                    className={stock.monthlyChanged ? styles.stockChanged : ""}
                   >
                     {stock.periodMonthly}
                   </span>
                 </div>
 
                 <div
-                  className={`korea-stock-change ${
+                  className={`${styles.stockChange} ${
                     parseFloat(stock.periodYtd) >= 0
-                      ? "korea-stock-up"
-                      : "korea-stock-down"
+                      ? styles.stockUp
+                      : styles.stockDown
                   }`}
                 >
-                  <span
-                    className={`${
-                      stock.ytdChanged ? "korea-stock-changed" : ""
-                    }`}
-                  >
+                  <span className={stock.ytdChanged ? styles.stockChanged : ""}>
                     {stock.periodYtd}
                   </span>
                 </div>
 
                 <div
-                  className={`korea-stock-change ${
+                  className={`${styles.stockChange} ${
                     parseFloat(stock.periodYearly) >= 0
-                      ? "korea-stock-up"
-                      : "korea-stock-down"
+                      ? styles.stockUp
+                      : styles.stockDown
                   }`}
                 >
                   <span
-                    className={`${
-                      stock.yearlyChanged ? "korea-stock-changed" : ""
-                    }`}
+                    className={stock.yearlyChanged ? styles.stockChanged : ""}
                   >
                     {stock.periodYearly}
                   </span>
                 </div>
 
                 <div
-                  className={`korea-stock-change ${
+                  className={`${styles.stockChange} ${
                     parseFloat(stock.period3Years) >= 0
-                      ? "korea-stock-up"
-                      : "korea-stock-down"
+                      ? styles.stockUp
+                      : styles.stockDown
                   }`}
                 >
                   <span
-                    className={`${
-                      stock.threeYearsChanged ? "korea-stock-changed" : ""
-                    }`}
+                    className={
+                      stock.threeYearsChanged ? styles.stockChanged : ""
+                    }
                   >
                     {stock.period3Years}
                   </span>
@@ -213,4 +203,4 @@ const KoreaStocksPerformance = () => {
   );
 };
 
-export default KoreaStocksPerformance;
+export default StocksKospiPerformance;

@@ -16,7 +16,7 @@ const CommodityPerformance = () => {
     const startTime = Date.now(); // 시작 시간 기록
     try {
       const response = await fetch(
-        "http://localhost:8080/api/commodityPeriods"
+        "http://localhost:8080/api/commodityPerformance"
       );
       const data = await response.json();
 
@@ -90,10 +90,10 @@ const CommodityPerformance = () => {
       </div>
       <div className="commodity-item-container">
         {loading
-          ? Array.from({ length: 15 }).map((_, index) => (
+          ? Array.from({ length: 10 }).map((_, index) => (
               <Skeleton
                 key={index}
-                height={100}
+                height={97.3}
                 className="skeleton-ui"
                 style={{
                   borderRadius: "8px",
@@ -116,7 +116,7 @@ const CommodityPerformance = () => {
                         : downArrow
                     }
                     alt={parseFloat(commodity.periodDaily) >= 0 ? "Up" : "Down"}
-                    className="arrow-icon"
+                    className="commodity-arrow-icon"
                   />
                   <span className="commodity-name">
                     {commodity.commodityName}

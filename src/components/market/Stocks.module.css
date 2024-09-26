@@ -1,14 +1,16 @@
-.korea-stocks-container {
+/* src/components/Stocks.module.css */
+
+.stocksContainer {
   margin-top: 20px;
 }
 
-.korea-stocks-tabs {
+.stocksMarketButtons {
   display: flex;
   justify-content: center;
   margin-bottom: 20px;
 }
 
-.korea-stocks-tab {
+.stocksMarketButton {
   padding: 10px 20px;
   margin: 0 10px;
   cursor: pointer;
@@ -17,18 +19,39 @@
   background-color: #f9f9f9;
 }
 
-.korea-stocks-tab.active {
+.active {
   background-color: #009178;
   color: white;
   border-color: #009178;
 }
 
-.korea-stocks-table-container {
+.stocksTabs {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.stocksTab {
+  padding: 10px 20px;
+  margin: 0 10px;
+  cursor: pointer;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.active {
+  background-color: #009178;
+  color: white;
+  border-color: #009178;
+}
+
+.stocksTableContainer {
   border: 1px solid #ddd;
   border-radius: 10px;
 }
 
-.korea-stocks-header {
+.stocksHeader {
   display: flex;
   align-items: center;
   padding: 15px 20px 15px 10px;
@@ -37,27 +60,27 @@
   font-size: 14px;
 }
 
-.korea-stocks-item-container {
-  height: 1000px;
+.stocksItemContainer {
+  max-height: 1000px; /* Adjust as needed */
   overflow-y: auto;
 }
 
-.korea-stocks-item-container::-webkit-scrollbar {
-  width: 5px; /* 스크롤바의 너비 */
-  background-color: #f1f1f1; /* 스크롤바의 배경색 */
+.stocksItemContainer::-webkit-scrollbar {
+  width: 5px; /* Scrollbar width */
+  background-color: #f1f1f1; /* Scrollbar background */
 }
 
-.korea-stocks-item-container::-webkit-scrollbar-thumb {
-  background-color: #888; /* 스크롤바의 막대 색상 */
-  border-radius: 10px; /* 막대의 둥근 정도 */
+.stocksItemContainer::-webkit-scrollbar-thumb {
+  background-color: #888; /* Scrollbar thumb color */
+  border-radius: 10px; /* Thumb border radius */
 }
 
-.korea-stocks-item-container::-webkit-scrollbar-button,
-.korea-stocks-item-container::-webkit-scrollbar-track {
+.stocksItemContainer::-webkit-scrollbar-button,
+.stocksItemContainer::-webkit-scrollbar-track {
   display: none;
 }
 
-.korea-stock-item {
+.stockItem {
   display: flex;
   align-items: center;
   padding: 15px 10px;
@@ -65,54 +88,54 @@
   font-size: 14px;
 }
 
-.korea-stock-info {
+.stockInfo {
   display: flex;
   align-items: center;
   flex: 1;
 }
 
-.korea-stock-name {
+.stockName {
   font-weight: bold;
 }
 
-.korea-stock-price {
+.stockPrice {
   width: 100px;
   text-align: right;
 }
 
-.korea-stock-change {
+.stockChange {
   width: 80px;
   text-align: right;
   font-weight: bold;
 }
 
-.korea-stock-time {
+.stockTime {
   width: 100px;
   text-align: center;
   color: #666;
 }
 
-.korea-stock-up {
+.stockUp {
   color: #dc3545;
 }
 
-.korea-stock-down {
+.stockDown {
   color: #007bff;
 }
 
-.korea-stock-neutral {
+.stockNeutral {
   color: #666666;
 }
 
-.korea-stock-changed {
+.stockChanged {
   background-color: #a2a2a2;
   animation: fadeOut 5s forwards;
 }
 
-.arrow-icon {
-  width: 17px;
-  height: 17px;
-  margin-right: 15px;
+.stocksArrowIcon {
+  width: 12px;
+  height: 12px;
+  margin-right: 10px;
 }
 
 @keyframes fadeOut {
