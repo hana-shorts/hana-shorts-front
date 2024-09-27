@@ -1,54 +1,57 @@
-/* components/research/ResearchBox.css */
-
-/* 기존의 단계 관련 스타일 제거 */
+/* ResearchBox.css */
 
 /* 콘텐츠 박스 */
-.research-box-content-box {
-  flex: 1;
+
+.researchbox-stepper-wrapper {
+  margin-top: 100px;
+  margin-bottom: 100px;
+}
+
+.researchbox-content-box {
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  transition: all 0.5s ease;
 }
 
 /* 버튼 컨테이너 */
-.research-box-button-container {
+.researchbox-button-container {
   margin-top: 1rem;
 }
 
 /* 로딩 컨테이너 */
-.research-box-loading-container {
-  text-align: center;
-  margin-top: 1rem;
+.researchbox-loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 150px;
 }
 
 /* 업종 섹션 */
-.research-box-sector-section {
+.researchbox-sector-section {
   margin-bottom: 1rem;
 }
 
 /* 업종 섹션 헤더 */
-.sector-header {
+.researchbox-sector-header {
   font-weight: bold;
   margin-bottom: 0.5rem;
   color: #3f51b5;
+  font-size: 1.1rem;
 }
 
 /* 업종 및 지표 선택 콘텐츠 */
-.research-box-step-content {
-  width: 100%;
-  max-height: 300px; /* 스크롤 가능한 높이 조정 */
+.researchbox-step-content {
+  width: 90%;
+  max-height: 300px;
   overflow-y: auto;
   margin-top: 1rem;
   margin-bottom: 1rem;
-  transition: all 0.5s ease;
 }
 
 /* 추천 종목 컨테이너 */
-.research-box-recommendations-container {
-  width: 100%;
+.researchbox-recommendations-container {
+  width: 90%;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -57,47 +60,151 @@
 }
 
 /* 추천 종목 카드 */
-.research-box-recommendation-card {
+.researchbox-recommendation-card {
   width: 150px;
   text-align: center;
   transition: transform 0.3s ease;
   border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.research-box-recommendation-card:hover {
+.researchbox-recommendation-card:hover {
   transform: scale(1.05);
 }
 
 /* 순위 스타일 */
-.research-box-rank {
+.researchbox-rank {
   font-size: 1.5rem;
   color: #3f51b5;
   font-weight: bold;
 }
 
 /* 종목명 스타일 */
-.research-box-stock-name {
+.researchbox-stock-name {
   margin-top: 0.5rem;
   font-size: 1rem;
   color: #333;
 }
 
-/* 애니메이션 효과 */
-@keyframes research-box-fadeIn {
+/* MarketCard 스타일 */
+.researchbox-market-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  width: 100%;
+}
+
+.researchbox-market-card {
+  width: 75%;
+  cursor: pointer;
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
+  position: relative;
+  border: 1px solid #eaeaf0;
+  border-radius: 8px;
+}
+
+.researchbox-market-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.researchbox-market-card.selected {
+  border: 2px solid #3f51b5;
+}
+
+/* MarketCard 내용 스타일 */
+.researchbox-market-card-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Market 이름 스타일 */
+.researchbox-market-name {
+  font-weight: bold;
+  color: red;
+  text-align: center;
+  font-size: 25px;
+  margin-bottom: 8px;
+}
+
+/* Market 가격 스타일 */
+.researchbox-market-price {
+  text-align: center;
+  margin-top: 8px;
+  font-size: 40px;
+  margin-bottom: 8px;
+}
+
+/* Market 변화량 스타일 */
+.researchbox-market-change {
+  text-align: center;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  z-index: 3;
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+/* MarketCard 차트 스타일 */
+.researchbox-market-card-chart {
+  position: absolute;
+  width: 100%;
+  height: 80px;
+  z-index: 1; /* 텍스트보다 뒤로 보내기 */
+  opacity: 0.7; /* 투명도 조절로 가시성 향상 */
+}
+
+/* Stepper 스타일 */
+.MuiStepper-root {
+  background-color: transparent;
+}
+
+/* 업종 선택 항목 스타일 */
+.researchbox-sector-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.researchbox-sector-item input {
+  margin-right: 8px;
+}
+
+/* 지표 선택 항목 스타일 */
+.researchbox-indicator-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.researchbox-indicator-item input {
+  margin-right: 8px;
+}
+
+/* 헤더 스타일 */
+.researchbox-header {
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+  color: #3f51b5;
+  margin-bottom: 16px;
+}
+
+/* 그래프 애니메이션 초기 로딩 */
+.researchbox-market-card-chart .recharts-wrapper {
+  animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(-10px);
+    transform: translateY(20px);
   }
   to {
     opacity: 1;
     transform: translateY(0);
   }
-}
-
-.research-box-large-box {
-  animation: research-box-fadeIn 0.5s ease;
-}
-
-.research-box-content-box {
-  animation: research-box-fadeIn 0.5s ease;
 }
