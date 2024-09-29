@@ -1,0 +1,54 @@
+/* components/research/ResearchAnalysis.css */
+
+/* 전체 컨테이너 */
+.research-analysis-container {
+  display: flex;
+  flex-direction: column;
+  gap: 40px; /* 섹션 간격 */
+  padding: 20px;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+/* 각 행 */
+.analysis-row {
+  display: flex;
+  gap: 20px; /* 좌우 섹션 간격 */
+}
+
+/* 각 섹션 */
+.analysis-section {
+  flex: 1; /* 균등 분할 */
+  display: flex;
+  flex-direction: column;
+}
+
+/* 섹션 제목 */
+.section-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #009178;
+  text-align: center;
+}
+
+/* 스크랩 컨테이너 */
+.scrapes-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-height: 400px; /* 스크랩 리스트의 최대 높이 */
+  overflow-y: auto; /* y축 스크롤 활성화 */
+  padding-right: 10px; /* 스크롤바 공간 확보 */
+}
+
+/* 반응형 디자인 */
+@media (max-width: 1200px) {
+  .analysis-row {
+    flex-direction: column;
+  }
+
+  .analysis-section {
+    width: 100%;
+  }
+}

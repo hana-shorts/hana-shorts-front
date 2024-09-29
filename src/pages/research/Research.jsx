@@ -2,6 +2,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import ResearchBox from "../../components/research/ResearchBox";
+import ResearchAnalysis from "../../components/research/ResearchAnalysis";
 import YouTubeShorts from "../../components/research/YouTubeShorts";
 import "./Research.css"; // 페이지 전용 CSS
 
@@ -68,8 +69,8 @@ const Research = () => {
       </div>
       <div className="researchbox-container">
         {activeTab === "recommend" && <ResearchBox />}
-        {activeTab === "analysis" && <YouTubeShorts />}
-        {activeTab === "extras" && <div>기타 관련 내용</div>}
+        {activeTab === "analysis" && <ResearchAnalysis />}
+        {activeTab === "extras" && <YouTubeShorts />}
       </div>
     </div>
   );

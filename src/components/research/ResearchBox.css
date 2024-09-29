@@ -1,25 +1,43 @@
 /* ResearchBox.css */
 
-/* 콘텐츠 박스 */
-
-.researchbox-stepper-wrapper {
-  margin-top: 100px;
-  margin-bottom: 100px;
-}
-
+/* Content Box */
 .researchbox-content-box {
+  height: 650px; /* Changed to minimum height */
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-between; /* Center content vertically */
+  position: relative;
+  overflow: hidden; /* To hide overflow during animations */
 }
 
-/* 버튼 컨테이너 */
-.researchbox-button-container {
-  margin-top: 1rem;
+/* Header Styles */
+.researchbox-header {
+  height: 50px;
+  font-size: 26px;
+  font-weight: bold;
+  text-align: center;
+  color: #666;
 }
 
-/* 로딩 컨테이너 */
+/* MarketCard Styles */
+.researchbox-market-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.researchbox-market-card {
+  width: 500px;
+  cursor: pointer;
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
+  margin: 10px; /* Added spacing */
+  position: relative;
+  border: 2px solid #ddd;
+}
+
+/* Loading Container */
 .researchbox-loading-container {
   display: flex;
   justify-content: center;
@@ -27,177 +45,120 @@
   height: 150px;
 }
 
-/* 업종 섹션 */
-.researchbox-sector-section {
-  margin-bottom: 1rem;
-}
-
-/* 업종 섹션 헤더 */
-.researchbox-sector-header {
-  font-weight: bold;
-  margin-bottom: 0.5rem;
-  color: #3f51b5;
-  font-size: 1.1rem;
-}
-
-/* 업종 및 지표 선택 콘텐츠 */
-.researchbox-step-content {
-  width: 90%;
-  max-height: 300px;
-  overflow-y: auto;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-}
-
-/* 추천 종목 컨테이너 */
-.researchbox-recommendations-container {
-  width: 90%;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 1rem;
-  margin-bottom: 1rem;
-}
-
-/* 추천 종목 카드 */
-.researchbox-recommendation-card {
-  width: 150px;
-  text-align: center;
-  transition: transform 0.3s ease;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.researchbox-recommendation-card:hover {
-  transform: scale(1.05);
-}
-
-/* 순위 스타일 */
-.researchbox-rank {
-  font-size: 1.5rem;
-  color: #3f51b5;
-  font-weight: bold;
-}
-
-/* 종목명 스타일 */
-.researchbox-stock-name {
-  margin-top: 0.5rem;
-  font-size: 1rem;
-  color: #333;
-}
-
-/* MarketCard 스타일 */
-.researchbox-market-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2rem;
-  width: 100%;
-}
-
-.researchbox-market-card {
-  width: 75%;
-  cursor: pointer;
-  transition: transform 0.5s ease, box-shadow 0.5s ease;
-  position: relative;
-  border: 1px solid #eaeaf0;
-  border-radius: 8px;
-}
-
 .researchbox-market-card:hover {
-  transform: scale(1.02);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
 .researchbox-market-card.selected {
-  border: 2px solid #3f51b5;
+  background-color: #e0e0e0;
 }
 
-/* MarketCard 내용 스타일 */
+/* MarketCard Content Styles */
 .researchbox-market-card-content {
   position: relative;
+  height: 300px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-evenly;
 }
 
-/* Market 이름 스타일 */
+/* Market Name Style */
 .researchbox-market-name {
   font-weight: bold;
-  color: red;
   text-align: center;
-  font-size: 25px;
-  margin-bottom: 8px;
+  font-size: 26px;
 }
 
-/* Market 가격 스타일 */
+/* Market Price Style */
 .researchbox-market-price {
   text-align: center;
-  margin-top: 8px;
-  font-size: 40px;
-  margin-bottom: 8px;
+  font-size: 50px;
+  font-weight: bold;
 }
 
-/* Market 변화량 스타일 */
+/* Market Change Style */
 .researchbox-market-change {
   text-align: center;
-  padding: 2px 6px;
-  border-radius: 4px;
-  font-size: 0.9rem;
+  font-size: 24px;
+  font-weight: bold;
   z-index: 3;
-  background-color: rgba(255, 255, 255, 0.8);
 }
 
-/* MarketCard 차트 스타일 */
+/* MarketCard Chart Styles */
 .researchbox-market-card-chart {
   position: absolute;
-  width: 100%;
-  height: 80px;
-  z-index: 1; /* 텍스트보다 뒤로 보내기 */
-  opacity: 0.7; /* 투명도 조절로 가시성 향상 */
+  width: 510px;
+  height: 200px;
+  bottom: -5px;
+  z-index: 1; /* Send behind text */
+  opacity: 0.5; /* Adjust opacity for visibility */
 }
 
-/* Stepper 스타일 */
+/* Graph Animation Initial Load */
+.researchbox-market-card-chart .recharts-wrapper {
+  animation: fadeIn 1.5s ease-in-out;
+}
+
+/* Added Sectors Container for Side-by-Side Display */
+.researchbox-sectors-container {
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+/* Sector Section */
+.researchbox-sector-section {
+  height: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+/* Sector Section Header */
+.researchbox-sector-header {
+  font-weight: bold;
+  color: #009178;
+  font-size: 20px;
+}
+
+.researchbox-sectors {
+  height: 200px;
+  width: 1000px;
+}
+
+/* Sector Button Styles */
+.researchbox-sector-button {
+  height: 50px;
+  max-width: 300px;
+  padding: 15px 25px;
+  margin: 5px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.researchbox-sector-button.selected {
+  background-color: #009178;
+  color: white;
+}
+
+.researchbox-sector-button:hover {
+  background-color: #009178;
+  color: white;
+}
+
+/* Stepper Styles */
 .MuiStepper-root {
   background-color: transparent;
 }
 
-/* 업종 선택 항목 스타일 */
-.researchbox-sector-item {
-  display: flex;
-  align-items: center;
-  margin-bottom: 0.5rem;
-}
-
-.researchbox-sector-item input {
-  margin-right: 8px;
-}
-
-/* 지표 선택 항목 스타일 */
-.researchbox-indicator-item {
-  display: flex;
-  align-items: center;
-  margin-bottom: 0.5rem;
-}
-
-.researchbox-indicator-item input {
-  margin-right: 8px;
-}
-
-/* 헤더 스타일 */
-.researchbox-header {
-  font-size: 1.5rem;
-  font-weight: bold;
-  text-align: center;
-  color: #3f51b5;
-  margin-bottom: 16px;
-}
-
-/* 그래프 애니메이션 초기 로딩 */
-.researchbox-market-card-chart .recharts-wrapper {
-  animation: fadeIn 1s ease-in-out;
-}
-
+/* Fade In Animation */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -207,4 +168,78 @@
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+/* Button Container */
+.researchbox-button-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px; /* Added spacing */
+}
+
+/* Custom Button Styles */
+.researchbox-button {
+  width: 120px;
+  height: 46px;
+  padding: 10px 20px;
+  background-color: #f9f9f9;
+  color: #5b5b5b;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+.researchbox-button:hover {
+  color: white;
+  background-color: #009178;
+}
+
+/* Modal Styles */
+.researchbox-modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  border: 2px solid #000;
+  padding: 16px;
+  box-shadow: 24;
+  text-align: center;
+}
+
+.researchbox-modal-buttons {
+  margin-top: 16px;
+  display: flex;
+  justify-content: space-around;
+}
+
+/* Recommendations Container */
+.researchbox-recommendation-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px; /* Ensure spacing below recommendations */
+}
+
+.researchbox-recommendations {
+  display: flex;
+  gap: 20px;
+}
+
+.researchbox-recommendation-button {
+  padding: 10px 20px;
+  background-color: #e7f3f3;
+  border: 1px solid #009178;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.researchbox-recommendation-button:hover {
+  background-color: #009178;
+  color: white;
 }

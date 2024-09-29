@@ -1,8 +1,6 @@
 // components/research/ResearchBox.jsx
 import React, { useState, useEffect } from "react";
 import {
-  Button,
-  CircularProgress,
   Snackbar,
   Alert,
   Card,
@@ -11,109 +9,228 @@ import {
   Stepper,
   Step,
   StepLabel,
+  CircularProgress,
+  StepConnector,
+  Modal,
+  Button,
+  Tooltip,
 } from "@mui/material";
-import { AreaChart, Area, ResponsiveContainer } from "recharts";
+import { AreaChart, Area, ResponsiveContainer, YAxis } from "recharts";
+import { styled } from "@mui/system"; // Import for styled
+import { useNavigate } from "react-router-dom";
 import "./ResearchBox.css";
 
-// 수정된 KOSDAQ 업종명
-const kosdaqSectors = [
-  "기계·장비",
-  "기타서비스",
-  "일반전기전자",
-  "의료·정밀기기",
-  "출판·매체복제",
-  "제약",
-  "유통",
-  "오락·문화",
-  "섬유·의류",
-  "건설",
-  "비금속",
-  "금속",
-  "화학",
-  "기타제조",
-  "금융",
-  "음식료·담배",
-  "운송장비·부품",
-  "종이·목재",
-  "운송",
-  "숙박·음식",
-  "전기·가스·수도",
+// Custom StepConnector with dynamic coloring
+const CustomStepConnector = styled(StepConnector)(() => ({
+  [`& .MuiStepConnector-line`]: {
+    borderColor: "#bdbdbd", // 기본 회색 색상
+    borderTopWidth: 4, // 선 두께
+    transition: "border-color 1s ease-in-out", // 색상 전환 효과
+  },
+  [`&.Mui-active .MuiStepConnector-line`]: {
+    borderColor: "#009178", // 활성화된 단계의 색상
+  },
+  [`&.Mui-completed .MuiStepConnector-line`]: {
+    borderColor: "#009178", // 완료된 단계의 색상
+  },
+}));
+
+// Custom Tooltip with adjusted size and font
+const CustomTooltip = styled(({ className, ...props }) => (
+  <Tooltip {...props} classes={{ popper: className }} />
+))({
+  [`& .MuiTooltip-tooltip`]: {
+    fontSize: "16px", // 원하는 글자 크기
+    padding: "10px 12px", // 원하는 패딩
+    maxWidth: "500px", // 최대 너비 조정
+  },
+});
+
+const kospiSectors = [
+  "건설업",
+  "기계",
+  "기타금융",
+  "기타제조업",
   "농업, 임업 및 어업",
+  "보험",
+  "비금속광물",
+  "서비스업",
+  "섬유의복",
+  "운수장비",
+  "운수창고업",
+  "유통업",
+  "은행",
+  "음식료품",
+  "의료정밀",
+  "의약품",
+  "전기가스업",
+  "전기전자",
+  "종이목재",
+  "증권",
+  "철강금속",
+  "통신업",
+  "화학",
 ];
 
-// ResearchBox component
+const kosdaqSectors = [
+  "건설",
+  "금속",
+  "금융",
+  "기계·장비",
+  "기타서비스",
+  "기타제조",
+  "농업, 임업 및 어업",
+  "비금속",
+  "섬유·의류",
+  "숙박·음식",
+  "오락·문화",
+  "운송",
+  "운송장비·부품",
+  "유통",
+  "음식료·담배",
+  "의료·정밀기기",
+  "일반전기전자",
+  "전기·가스·수도",
+  "제약",
+  "종이·목재",
+  "출판·매체복제",
+  "화학",
+];
+
+// Updated indicators with Korean display names and descriptions
+const indicators = [
+  {
+    name: "Moving Average (MA)",
+    displayName: "이동 평균선 (MA)",
+    description: "가격의 평균을 계산하여 추세를 파악합니다.",
+  },
+  {
+    name: "Relative Strength Index (RSI)",
+    displayName: "상대 강도 지수 (RSI)",
+    description: "과매수 또는 과매도를 나타냅니다.",
+  },
+  {
+    name: "Bollinger Bands",
+    displayName: "볼린저 밴드",
+    description: "가격의 변동성을 측정합니다.",
+  },
+  {
+    name: "MACD",
+    displayName: "MACD",
+    description: "추세의 방향과 모멘텀을 분석합니다.",
+  },
+  {
+    name: "Stochastic Oscillator",
+    displayName: "스토캐스틱 오실레이터",
+    description: "과매수 또는 과매도 상태를 식별합니다.",
+  },
+  {
+    name: "Average Directional Index (ADX)",
+    displayName: "평균 방향 지수 (ADX)",
+    description: "추세의 강도를 측정합니다.",
+  },
+  {
+    name: "Commodity Channel Index (CCI)",
+    displayName: "상품 채널 지수 (CCI)",
+    description: "가격의 변동성을 평가합니다.",
+  },
+  {
+    name: "Momentum",
+    displayName: "모멘텀",
+    description: "가격 변화의 속도를 측정합니다.",
+  },
+  {
+    name: "On-Balance Volume (OBV)",
+    displayName: "온 밸런스 볼륨 (OBV)",
+    description: "거래량과 가격 움직임을 연결합니다.",
+  },
+  {
+    name: "Ichimoku Cloud",
+    displayName: "일목균형표",
+    description: "지지와 저항 수준을 식별합니다.",
+  },
+  {
+    name: "VWAP",
+    displayName: "VWAP",
+    description: "기간 동안의 평균 거래 가격을 나타냅니다.",
+  },
+  {
+    name: "Price Channel",
+    displayName: "가격 채널",
+    description: "가격의 고점과 저점을 연결하여 범위를 설정합니다.",
+  },
+];
+
+// Sort indicators based on displayName (Korean alphabetical order)
+const sortedIndicators = indicators.sort((a, b) =>
+  a.displayName.localeCompare(b.displayName, "ko")
+);
+
+// Recommended indicator combinations
+const recommendedCombinations = [
+  {
+    id: 1,
+    name: "추세 추종 조합",
+    indicators: [
+      "Moving Average (MA)",
+      "MACD",
+      "Average Directional Index (ADX)",
+    ],
+    reason: "추세의 방향과 강도를 파악하여 안정적인 매매 신호를 제공합니다.",
+  },
+  {
+    id: 2,
+    name: "과매수/과매도 조합",
+    indicators: [
+      "Relative Strength Index (RSI)",
+      "Stochastic Oscillator",
+      "Commodity Channel Index (CCI)",
+    ],
+    reason: "시장 과열 상태를 감지하여 반전 가능성을 예측합니다.",
+  },
+  {
+    id: 3,
+    name: "볼륨 기반 조합",
+    indicators: ["On-Balance Volume (OBV)", "VWAP", "Price Channel"],
+    reason: "거래량과 가격 움직임을 분석하여 매매 타이밍을 포착합니다.",
+  },
+];
+
 const ResearchBox = () => {
-  const steps = ["시장 선택", "업종 선택", "지표 선택", "결과"]; // Stepper 단계
-
-  const kospiSectors = [
-    "음식료품",
-    "유통업",
-    "운수창고업",
-    "기계",
-    "종이목재",
-    "섬유의복",
-    "철강금속",
-    "화학",
-    "서비스업",
-    "전기전자",
-    "전기가스업",
-    "기타금융",
-    "의약품",
-    "건설업",
-    "증권",
-    "비금속광물",
-    "운수장비",
-    "은행",
-    "의료정밀",
-    "보험",
-    "농업, 임업 및 어업",
-    "기타제조업",
-    "통신업",
-  ];
-
-  const indicators = [
-    "Moving Average (MA)",
-    "Relative Strength Index (RSI)",
-    "Bollinger Bands",
-    "MACD",
-    "Stochastic Oscillator",
-    "Average Directional Index (ADX)",
-    "Commodity Channel Index (CCI)",
-    "Momentum",
-    "On-Balance Volume (OBV)",
-    "Ichimoku Cloud",
-    "VWAP",
-    "Price Channel",
-  ];
+  const steps = ["", "", ""]; // Stepper labels
+  const navigate = useNavigate(); // Initialize navigation hook
 
   const [selectedMarkets, setSelectedMarkets] = useState([]);
-  const [selectedSectors, setSelectedSectors] = useState([]);
+  const [selectedKospiSectors, setSelectedKospiSectors] = useState([]);
+  const [selectedKosdaqSectors, setSelectedKosdaqSectors] = useState([]);
+  const combinedSectors = [
+    ...new Set([...selectedKospiSectors, ...selectedKosdaqSectors]),
+  ];
   const [selectedIndicators, setSelectedIndicators] = useState([]);
-  const [recommendations, setRecommendations] = useState({ buy: [], sell: [] });
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [step, setStep] = useState(1); // 시작 화면 제거하고 1단계부터 시작
+  const [stepState, setStepState] = useState(1); // Start at step 1
   const [kospiData, setKospiData] = useState([]);
   const [kosdaqData, setKosdaqData] = useState([]);
-  const [graphsVisible, setGraphsVisible] = useState(false); // 그래프 표시 여부
+  const [graphsVisible, setGraphsVisible] = useState(false); // Graph visibility
+  const [isAIModalOpen, setIsAIModalOpen] = useState(false); // AI Modal state
 
   useEffect(() => {
-    // KOSPI 데이터 불러오기
+    // Fetch KOSPI data
     fetch("http://localhost:5002/api/index_data?market_id=1001")
       .then((response) => response.json())
       .then((data) => setKospiData(data))
-      .catch((error) => console.error("Error fetching KOSPI data:", error));
+      .catch((error) => console.error("KOSPI 데이터 가져오기 오류:", error));
 
-    // KOSDAQ 데이터 불러오기
+    // Fetch KOSDAQ data
     fetch("http://localhost:5002/api/index_data?market_id=2001")
       .then((response) => response.json())
       .then((data) => setKosdaqData(data))
-      .catch((error) => console.error("Error fetching KOSDAQ data:", error));
+      .catch((error) => console.error("KOSDAQ 데이터 가져오기 오류:", error));
 
-    // 초기 로드 후 0.5초 대기
+    // Initial load delay for graph animation
     const timer = setTimeout(() => {
       setGraphsVisible(true);
-    }, 500); // 0.5초 후에 그래프 표시
+    }, 500); // Show graphs after 0.5 seconds
 
     return () => clearTimeout(timer);
   }, []);
@@ -126,56 +243,80 @@ const ResearchBox = () => {
     );
   };
 
-  const handleSectorChange = (sector) => {
-    setSelectedSectors((prevSelected) =>
+  const handleKospiSectorChange = (sector) => {
+    setSelectedKospiSectors((prevSelected) =>
       prevSelected.includes(sector)
         ? prevSelected.filter((item) => item !== sector)
         : [...prevSelected, sector]
     );
   };
 
-  const handleIndicatorChange = (indicator) => {
+  const handleKosdaqSectorChange = (sector) => {
+    setSelectedKosdaqSectors((prevSelected) =>
+      prevSelected.includes(sector)
+        ? prevSelected.filter((item) => item !== sector)
+        : [...prevSelected, sector]
+    );
+  };
+
+  const handleIndicatorChange = (indicatorName) => {
     setSelectedIndicators((prevSelected) =>
-      prevSelected.includes(indicator)
-        ? prevSelected.filter((item) => item !== indicator)
-        : [...prevSelected, indicator]
+      prevSelected.includes(indicatorName)
+        ? prevSelected.filter((item) => item !== indicatorName)
+        : [...prevSelected, indicatorName]
     );
   };
 
   const handleNext = () => {
-    if (step === 1) {
+    if (stepState === 1) {
       if (selectedMarkets.length === 0) {
         setError("시장을 선택해주세요.");
         return;
       }
-      setStep(2);
-    } else if (step === 2) {
-      if (selectedSectors.length === 0) {
+      setStepState(2);
+      setSelectedKospiSectors([]); // Reset sectors when moving to step 2
+      setSelectedKosdaqSectors([]);
+    } else if (stepState === 2) {
+      if (
+        selectedKospiSectors.length === 0 &&
+        selectedKosdaqSectors.length === 0
+      ) {
         setError("업종을 선택해주세요.");
         return;
       }
-      setStep(3);
-    } else if (step === 3) {
+      setStepState(3);
+      setSelectedIndicators([]); // Reset indicators when moving to step 3
+    } else if (stepState === 3) {
       if (selectedIndicators.length === 0) {
         setError("지표를 선택해주세요.");
         return;
       }
-      fetchRecommendations();
+      // Show AI Model confirmation modal
+      setIsAIModalOpen(true);
+    }
+  };
+
+  const handlePrevious = () => {
+    if (stepState === 1) return;
+    setStepState(stepState - 1);
+    if (stepState === 3) {
+      setSelectedIndicators([]); // Reset indicators when moving back to step 2
+    } else if (stepState === 2) {
+      setSelectedKospiSectors([]);
+      setSelectedKosdaqSectors([]); // Reset sectors when moving back to step 1
     }
   };
 
   const fetchRecommendations = () => {
-    setLoading(true);
     fetch("http://localhost:5002/api/get_recommendations", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         indicators: selectedIndicators,
-        selected_sectors: selectedSectors,
+        selected_sectors: combinedSectors,
       }),
     })
       .then((response) => {
-        setLoading(false);
         if (!response.ok) {
           return response.json().then((data) => {
             throw new Error(data.error || "서버 에러가 발생했습니다.");
@@ -184,38 +325,48 @@ const ResearchBox = () => {
         return response.json();
       })
       .then((data) => {
-        setRecommendations(data);
-        setStep(4);
+        // Navigate to /research/result with data
+        navigate("/research/result", { state: data });
       })
       .catch((error) => {
         setError(error.message);
       });
   };
 
-  const handleStartOver = () => {
-    setSelectedMarkets([]);
-    setSelectedSectors([]);
-    setSelectedIndicators([]);
-    setRecommendations({ buy: [], sell: [] });
-    setStep(1);
-  };
-
   const handleCloseError = () => {
     setError(null);
   };
 
-  // 단계에 따른 내용 렌더링
+  const handleAIModalClose = () => {
+    setIsAIModalOpen(false);
+    // Proceed without adding 'AI Model'
+    fetchRecommendations();
+  };
+
+  const handleAIModalConfirm = () => {
+    setIsAIModalOpen(false);
+    // Add 'AI Model' to indicators
+    setSelectedIndicators((prevIndicators) => [...prevIndicators, "AI Model"]);
+    fetchRecommendations();
+  };
+
+  // Handle recommended combination selection
+  const handleRecommendedCombination = (combination) => {
+    setSelectedIndicators(combination.indicators);
+  };
+
+  // Step content rendering with animation classes
   const renderStepContent = () => {
-    switch (step) {
+    switch (stepState) {
       case 1:
-        // Prepare content for KOSPI
+        // KOSPI Content
         let kospiContent;
         if (kospiData.length === 0) {
           kospiContent = (
             <Card className="researchbox-market-card">
               <CardContent>
                 <div className="researchbox-loading-container">
-                  <CircularProgress size={24} />
+                  <CircularProgress /> {/* CircularProgress 추가 */}
                 </div>
               </CardContent>
             </Card>
@@ -234,7 +385,7 @@ const ResearchBox = () => {
               : `${priceChange.toFixed(2)}`;
           const percentChangeFormatted =
             priceChange > 0 ? `+${percentChange}%` : `${percentChange}%`;
-          const changeColor = priceChange > 0 ? "red" : "blue";
+          const changeColor = priceChange > 0 ? "#dc3545" : "#007bff";
 
           kospiContent = (
             <Card
@@ -244,7 +395,12 @@ const ResearchBox = () => {
               }`}
             >
               <CardContent className="researchbox-market-card-content">
-                <div className="researchbox-market-name">KOSPI</div>
+                <div
+                  className="researchbox-market-name"
+                  style={{ color: changeColor }}
+                >
+                  KOSPI
+                </div>
                 <div className="researchbox-market-price">
                   {latestPrice.toLocaleString()}
                 </div>
@@ -255,7 +411,7 @@ const ResearchBox = () => {
                   {priceChangeFormatted} ({percentChangeFormatted})
                 </div>
                 <div className="researchbox-market-card-chart">
-                  <ResponsiveContainer width="100%" height={80}>
+                  <ResponsiveContainer width="100%" height={200}>
                     <AreaChart data={kospiData}>
                       <defs>
                         <linearGradient
@@ -265,18 +421,26 @@ const ResearchBox = () => {
                           x2="0"
                           y2="1"
                         >
-                          <stop offset="0%" stopColor="red" stopOpacity={0} />
+                          <stop
+                            offset="0%"
+                            stopColor={changeColor}
+                            stopOpacity={0}
+                          />
                           <stop
                             offset="100%"
-                            stopColor="red"
-                            stopOpacity={0.8}
+                            stopColor={changeColor}
+                            stopOpacity={0.5}
                           />
                         </linearGradient>
                       </defs>
+                      <YAxis
+                        domain={["dataMin - 100", "dataMax + 100"]}
+                        hide={true}
+                      />
                       <Area
                         type="monotone"
                         dataKey="종가"
-                        stroke="red"
+                        stroke={changeColor}
                         fill={`url(#colorLine-KOSPI)`}
                         dot={false}
                         isAnimationActive={graphsVisible}
@@ -290,14 +454,14 @@ const ResearchBox = () => {
           );
         }
 
-        // Prepare content for KOSDAQ
+        // KOSDAQ Content
         let kosdaqContent;
         if (kosdaqData.length === 0) {
           kosdaqContent = (
             <Card className="researchbox-market-card">
               <CardContent>
                 <div className="researchbox-loading-container">
-                  <CircularProgress size={24} />
+                  <CircularProgress /> {/* CircularProgress 추가 */}
                 </div>
               </CardContent>
             </Card>
@@ -316,7 +480,7 @@ const ResearchBox = () => {
               : `${priceChange.toFixed(2)}`;
           const percentChangeFormatted =
             priceChange > 0 ? `+${percentChange}%` : `${percentChange}%`;
-          const changeColor = priceChange > 0 ? "red" : "blue";
+          const changeColor = priceChange > 0 ? "#dc3545" : "#007bff";
 
           kosdaqContent = (
             <Card
@@ -326,7 +490,12 @@ const ResearchBox = () => {
               }`}
             >
               <CardContent className="researchbox-market-card-content">
-                <div className="researchbox-market-name">KOSDAQ</div>
+                <div
+                  className="researchbox-market-name"
+                  style={{ color: changeColor }}
+                >
+                  KOSDAQ
+                </div>
                 <div className="researchbox-market-price">
                   {latestPrice.toLocaleString()}
                 </div>
@@ -337,7 +506,7 @@ const ResearchBox = () => {
                   {priceChangeFormatted} ({percentChangeFormatted})
                 </div>
                 <div className="researchbox-market-card-chart">
-                  <ResponsiveContainer width="100%" height={80}>
+                  <ResponsiveContainer width="100%" height={200}>
                     <AreaChart data={kosdaqData}>
                       <defs>
                         <linearGradient
@@ -347,18 +516,26 @@ const ResearchBox = () => {
                           x2="0"
                           y2="1"
                         >
-                          <stop offset="0%" stopColor="blue" stopOpacity={0} />
+                          <stop
+                            offset="0%"
+                            stopColor={changeColor}
+                            stopOpacity={0}
+                          />
                           <stop
                             offset="100%"
-                            stopColor="blue"
-                            stopOpacity={0.8}
+                            stopColor={changeColor}
+                            stopOpacity={0.5}
                           />
                         </linearGradient>
                       </defs>
+                      <YAxis
+                        domain={["dataMin - 100", "dataMax + 100"]}
+                        hide={true}
+                      />
                       <Area
                         type="monotone"
                         dataKey="종가"
-                        stroke="blue"
+                        stroke={changeColor}
                         fill={`url(#colorLine-KOSDAQ)`}
                         dot={false}
                         isAnimationActive={graphsVisible}
@@ -382,148 +559,156 @@ const ResearchBox = () => {
               {kosdaqContent}
             </div>
             <div className="researchbox-button-container">
-              <Button variant="contained" color="primary" onClick={handleNext}>
+              <div style={{ width: "120px" }}></div>
+              <button
+                onClick={handleNext}
+                className="researchbox-button"
+                style={{ marginRight: "200px" }}
+              >
                 다음으로
-              </Button>
+              </button>
             </div>
           </>
         );
       case 2:
+        // 업종 선택 단계
         return (
           <>
             <div className="researchbox-header">
               관심 있는 업종은 무엇인가요?
             </div>
-            <div className="researchbox-step-content">
-              {selectedMarkets.map((market) => {
-                const sectorsToDisplay =
-                  market === "KOSPI" ? kospiSectors : kosdaqSectors;
-                return (
-                  <div key={market} className="researchbox-sector-section">
-                    <div className="researchbox-sector-header">
-                      {market} 업종:
-                    </div>
-                    <div className="researchbox-sectors">
-                      {sectorsToDisplay.map((sector, index) => (
-                        <div
-                          className="researchbox-sector-item"
-                          key={`${market}-${index}`}
-                        >
-                          <input
-                            type="checkbox"
-                            checked={selectedSectors.includes(sector)}
-                            onChange={() => handleSectorChange(sector)}
-                            id={`${market}-${sector}`}
-                          />
-                          <label htmlFor={`${market}-${sector}`}>
-                            {sector}
-                          </label>
-                        </div>
-                      ))}
-                    </div>
+
+            <div className="researchbox-sectors-container">
+              {selectedMarkets.includes("KOSPI") && (
+                <div className="researchbox-sector-section">
+                  <div className="researchbox-sector-header">KOSPI</div>
+                  <div className="researchbox-sectors">
+                    {kospiSectors.map((sector, index) => (
+                      <button
+                        key={`kospi-${index}`}
+                        className={`researchbox-sector-button ${
+                          selectedKospiSectors.includes(sector)
+                            ? "selected"
+                            : ""
+                        }`}
+                        onClick={() => handleKospiSectorChange(sector)}
+                      >
+                        {sector}
+                      </button>
+                    ))}
                   </div>
-                );
-              })}
+                </div>
+              )}
+              {selectedMarkets.includes("KOSDAQ") && (
+                <div className="researchbox-sector-section">
+                  <div className="researchbox-sector-header">KOSDAQ</div>
+                  <div className="researchbox-sectors">
+                    {kosdaqSectors.map((sector, index) => (
+                      <button
+                        key={`kosdaq-${index}`}
+                        className={`researchbox-sector-button ${
+                          selectedKosdaqSectors.includes(sector)
+                            ? "selected"
+                            : ""
+                        }`}
+                        onClick={() => handleKosdaqSectorChange(sector)}
+                      >
+                        {sector}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
             <div className="researchbox-button-container">
-              <Button variant="contained" color="primary" onClick={handleNext}>
+              <button
+                onClick={handlePrevious}
+                className="researchbox-button"
+                style={{ marginLeft: "200px" }}
+              >
+                이전으로
+              </button>
+              <button
+                onClick={handleNext}
+                className="researchbox-button"
+                style={{ marginRight: "200px" }}
+              >
                 다음으로
-              </Button>
+              </button>
             </div>
           </>
         );
       case 3:
+        // 지표 선택 단계
         return (
           <>
             <div className="researchbox-header">
               분석에 활용할 지표를 선택해 주세요
             </div>
-            <div className="researchbox-step-content">
-              <div className="researchbox-indicators">
-                {indicators.map((indicator, index) => (
-                  <div className="researchbox-indicator-item" key={index}>
-                    <input
-                      type="checkbox"
-                      checked={selectedIndicators.includes(indicator)}
-                      onChange={() => handleIndicatorChange(indicator)}
-                      id={`indicator-${index}`}
-                    />
-                    <label htmlFor={`indicator-${index}`}>{indicator}</label>
-                  </div>
+            <div className="researchbox-recommendation-container">
+              <div className="researchbox-recommendations">
+                {recommendedCombinations.map((combo) => (
+                  <CustomTooltip
+                    key={combo.id}
+                    title={combo.reason}
+                    arrow
+                    placement="top"
+                  >
+                    <button
+                      className="researchbox-recommendation-button"
+                      onClick={() => handleRecommendedCombination(combo)}
+                    >
+                      {combo.name}
+                    </button>
+                  </CustomTooltip>
                 ))}
               </div>
             </div>
-            <div className="researchbox-button-container">
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={handleNext}
-                disabled={loading}
-              >
-                결과 보기
-              </Button>
+            <div
+              className="researchbox-sectors-container"
+              style={{ height: "400px" }}
+            >
+              <div className="researchbox-sector-section">
+                <div className="researchbox-sector-header">지표 목록</div>
+                <div className="researchbox-sectors">
+                  {sortedIndicators.map((indicator, index) => (
+                    <CustomTooltip
+                      key={index}
+                      title={indicator.description}
+                      arrow
+                      placement="top"
+                    >
+                      <button
+                        className={`researchbox-sector-button ${
+                          selectedIndicators.includes(indicator.name)
+                            ? "selected"
+                            : ""
+                        }`}
+                        onClick={() => handleIndicatorChange(indicator.name)}
+                      >
+                        {indicator.displayName}
+                      </button>
+                    </CustomTooltip>
+                  ))}
+                </div>
+              </div>
             </div>
-            {loading && (
-              <div className="researchbox-loading-container">
-                <CircularProgress />
-              </div>
-            )}
-          </>
-        );
-      case 4:
-        return (
-          <>
-            {loading ? (
-              <div className="researchbox-loading-container">
-                <CircularProgress />
-              </div>
-            ) : (
-              <>
-                <div className="researchbox-header">
-                  매수 추천 종목 상위 5개:
-                </div>
-                <div className="researchbox-recommendations-container">
-                  {recommendations.buy.slice(0, 5).map((item, index) => (
-                    <Card
-                      className="researchbox-recommendation-card"
-                      key={`buy-${index}`}
-                    >
-                      <CardContent>
-                        <div className="researchbox-rank">#{index + 1}</div>
-                        <div className="researchbox-stock-name">{item}</div>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
-
-                <div className="researchbox-header">
-                  매도 추천 종목 상위 5개:
-                </div>
-                <div className="researchbox-recommendations-container">
-                  {recommendations.sell.slice(0, 5).map((item, index) => (
-                    <Card
-                      className="researchbox-recommendation-card"
-                      key={`sell-${index}`}
-                    >
-                      <CardContent>
-                        <div className="researchbox-rank">#{index + 1}</div>
-                        <div className="researchbox-stock-name">{item}</div>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
-
-                <div className="researchbox-button-container">
-                  <Button
-                    variant="contained"
-                    color="secondary"
-                    onClick={handleStartOver}
-                  >
-                    처음으로
-                  </Button>
-                </div>
-              </>
-            )}
+            <div className="researchbox-button-container">
+              <button
+                onClick={handlePrevious}
+                className="researchbox-button"
+                style={{ marginLeft: "200px" }}
+              >
+                이전으로
+              </button>
+              <button
+                onClick={handleNext}
+                className="researchbox-button"
+                style={{ marginRight: "200px" }}
+              >
+                결과보기
+              </button>
+            </div>
           </>
         );
       default:
@@ -533,17 +718,63 @@ const ResearchBox = () => {
 
   return (
     <>
-      {/* Customized Stepper */}
+      {/* Custom Stepper */}
       <Box sx={{ width: "100%", marginTop: "100px", marginBottom: "100px" }}>
-        <Stepper activeStep={step - 1} alternativeLabel>
-          {steps.map((label) => (
-            <Step key={label}>
-              <StepLabel>{label}</StepLabel>
+        <Stepper
+          activeStep={stepState - 1}
+          alternativeLabel
+          connector={<CustomStepConnector />} // Apply the custom connector
+        >
+          {steps.map((label, index) => (
+            <Step key={index}>
+              <StepLabel
+                sx={{
+                  "& .MuiStepIcon-root": {
+                    fontSize: "30px", // 아이콘 크기 설정
+                  },
+                  "& .Mui-active .MuiStepIcon-root": {
+                    color: "#009178", // 활성화된 Step 아이콘의 색상
+                  },
+                  "& .Mui-completed .MuiStepIcon-root": {
+                    color: "#009178", // 완료된 Step 아이콘의 색상
+                  },
+                }}
+              >
+                {label}
+              </StepLabel>
             </Step>
           ))}
         </Stepper>
       </Box>
       <div className="researchbox-content-box">{renderStepContent()}</div>
+
+      {/* AI Model Confirmation Modal */}
+      <Modal
+        open={isAIModalOpen}
+        onClose={handleAIModalClose}
+        aria-labelledby="ai-modal-title"
+        aria-describedby="ai-modal-description"
+      >
+        <div className="researchbox-modal">
+          <h2 id="ai-modal-title">AI 모델을 반영하시겠습니까?</h2>
+          <div className="researchbox-modal-buttons">
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleAIModalConfirm}
+            >
+              O
+            </Button>
+            <Button
+              variant="contained"
+              color="secondary"
+              onClick={handleAIModalClose}
+            >
+              X
+            </Button>
+          </div>
+        </div>
+      </Modal>
 
       <Snackbar
         open={!!error}

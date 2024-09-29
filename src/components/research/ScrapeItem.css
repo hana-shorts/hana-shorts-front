@@ -1,0 +1,42 @@
+/* components/research/ScrapeItem.css */
+
+.scrape-item {
+  display: flex;
+  gap: 20px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.scrape-image img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.scrape-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
+}
+
+.scrape-text p {
+  margin: 5px 0;
+  font-size: 16px;
+  color: #333;
+}
+
+.scrape-file a {
+  text-decoration: none;
+  color: #007bff;
+  font-weight: bold;
+}
+
+.scrape-file a:hover {
+  text-decoration: underline;
+}

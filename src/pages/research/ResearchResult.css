@@ -1,0 +1,176 @@
+/* 페이드 인 애니메이션 */
+@keyframes fadeInMinusY {
+  from {
+    opacity: 0;
+    transform: translateY(-20px); /* 위에서 아래로 내려오는 효과 */
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0); /* 원래 위치로 */
+  }
+}
+
+/* 적용될 애니메이션 클래스 */
+.fade-in-minus-y {
+  animation: fadeInMinusY 0.9s ease-in-out forwards;
+}
+
+.researchresult-container {
+  width: 1700px;
+  height: 900px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.researchresult-wrapper {
+  width: 1700px;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.researchresult-section {
+  display: flex;
+  justify-content: space-around;
+  position: relative;
+}
+
+.researchresult-card {
+  width: 300px;
+  height: 200px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.researchresult-card:hover {
+  transform: scale(1.05);
+}
+
+.researchresult-rank {
+  width: 30px;
+  height: 30px;
+  background-size: cover;
+  position: relative;
+  margin-left: 10px;
+  margin-bottom: 20px;
+}
+
+.rank1 {
+  background-image: url("../../assets/images/rank1.svg");
+}
+
+.rank2 {
+  background-image: url("../../assets/images/rank2.svg");
+}
+
+.rank3 {
+  background-image: url("../../assets/images/rank3.svg");
+}
+
+.rank-dark {
+  background-image: url("../../assets/images/rank-dark.svg");
+}
+
+.researchresult-rank-number {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 12px;
+  font-weight: bold;
+  color: black;
+}
+
+.researchresult-header {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 2;
+  margin-bottom: 20px;
+}
+
+.researchresult-stock-name {
+  font-size: 22px;
+  font-weight: bold;
+  color: black;
+  margin-left: 15px;
+}
+
+.researchresult-trade-button {
+  width: 80px;
+  height: 35px;
+  padding: 5px 5px;
+  background-color: #f9f9f9;
+  color: #5b5b5b;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s;
+  margin-right: 10px;
+}
+
+.researchresult-trade-button:hover {
+  color: white;
+  background-color: #009178;
+}
+
+.researchresult-content {
+  display: flex;
+  justify-content: center;
+  z-index: 2;
+  gap: 100px;
+}
+
+.researchresult-lastprice {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.researchresult-change {
+  font-size: 16px;
+  color: #666;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.researchresult-chart {
+  position: absolute;
+  width: 310px;
+  height: 120px;
+  bottom: -5px;
+  left: -5px; /* Ensure it aligns with the left edge */
+  z-index: 1; /* Send behind text */
+  opacity: 0.5; /* Adjust opacity for visibility */
+}
+
+.researchresult-button {
+  width: 120px;
+  height: 46px;
+  padding: 10px 20px;
+  background-color: #f9f9f9;
+  color: #5b5b5b;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+.researchresult-button:hover {
+  color: white;
+  background-color: #009178;
+}
