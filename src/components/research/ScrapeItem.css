@@ -1,70 +1,73 @@
-/* components/research/ScrapeItem.css */
+/* ScrapeItem 관련 클래스 */
 
-.scrape-item {
+.scrape-item-container {
+  min-height: 140px;
   display: flex;
   gap: 20px;
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 8px;
   background-color: #f9f9f9;
-  align-items: flex-start;
-  box-sizing: border-box;
   transition: box-shadow 0.2s, transform 0.2s;
 }
 
-.scrape-item:hover {
+.scrape-item-container:hover {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   transform: translateY(-2px);
 }
 
-.scrape-image-author {
+.scrape-item-image-author {
+  width: 150px;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
+  justify-content: center;
+  border: 1px solid #ddd;
+  background-color: white;
 }
 
-.scrape-image-author img {
+.scrape-item-image-author img {
   width: 150px;
-  height: 150px;
+  height: 100px;
   object-fit: cover;
   border-radius: 4px;
+  border-bottom: 1px solid #ddd;
 }
 
-.author {
-  margin-top: 10px;
+.scrape-item-author {
+  height: 22px;
+  width: 100%;
   font-size: 14px;
   color: #555;
   font-weight: bold;
+  margin-top: 5px;
 }
 
-/* 스크랩 내용 */
-.scrape-content {
+.scrape-item-content {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  flex: 1;
+  justify-content: space-around;
 }
 
-.title {
+.scrape-item-title {
   font-size: 18px;
-  color: #333;
+  color: black;
   font-weight: bold;
-  margin-bottom: 10px;
 }
 
-.article-date-time {
-  font-size: 14px;
+.scrape-item-article-date-time {
+  font-size: 16px;
   color: #666;
-  margin-bottom: 10px;
 }
 
-.scrape-file a {
+.scrape-item-file a {
   text-decoration: none;
-  color: #007bff;
+  color: #009178;
   font-weight: bold;
+  font-size: 16px;
 }
 
-.scrape-file a:hover {
+.scrape-item-file a:hover {
   text-decoration: underline;
 }

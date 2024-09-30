@@ -1,49 +1,66 @@
-/* components/research/ResearchAnalysis.css */
+/* ResearchAnalysis 관련 클래스 */
 
 /* 전체 컨테이너 */
 .research-analysis-container {
   display: flex;
   flex-direction: column;
   gap: 40px; /* 섹션 간격 */
-  padding: 20px 0px;
+  padding: 40px 0px;
   height: 100%;
   box-sizing: border-box;
 }
 
 /* 각 행 */
-.analysis-row {
+.research-analysis-row {
   display: flex;
-  gap: 20px; /* 좌우 섹션 간격 */
+  justify-content: space-around;
 }
 
 /* 각 섹션 */
-.analysis-section {
-  flex: 1; /* 균등 분할 */
+.research-analysis-section {
+  height: 430px;
+  width: 800px;
   display: flex;
   flex-direction: column;
+  justify-content: space-evenly;
 }
 
 /* 섹션 제목 */
-.section-title {
+.research-analysis-section-title {
+  height: 40px;
   font-size: 24px;
   font-weight: bold;
-  margin-bottom: 20px;
   color: #009178;
   text-align: center;
 }
 
 /* 스크랩 컨테이너 */
-.scrapes-container {
+.research-analysis-scrapes-container {
+  height: 350px;
   display: flex;
   flex-direction: column;
   gap: 15px;
-  height: 600px; /* 스크랩 리스트의 최대 높이 (10개 기준) */
   overflow-y: auto; /* y축 스크롤 활성화 */
-  padding-right: 10px; /* 스크롤바 공간 확보 */
+  padding-right: 3px; /* 스크롤바 공간 확보 */
+}
+
+.research-analysis-scrapes-container::-webkit-scrollbar {
+  width: 5px; /* 스크롤바의 너비 */
+  background-color: #f1f1f1; /* 스크롤바의 배경색 */
+}
+
+.research-analysis-scrapes-container::-webkit-scrollbar-thumb {
+  background-color: #888; /* 스크롤바의 막대 색상 */
+  border-radius: 10px; /* 막대의 둥근 정도 */
+}
+
+.research-analysis-scrapes-container::-webkit-scrollbar-button,
+.research-analysis-scrapes-container::-webkit-scrollbar-track {
+  display: none;
 }
 
 /* 로딩 인디케이터 스타일 */
-.loading-indicator {
+.research-analysis-loading-indicator {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -51,17 +68,8 @@
 }
 
 /* 오류 메시지 스타일 */
-.error-message {
+.research-analysis-error-message {
   font-size: 16px;
   color: #ff0000;
   text-align: center;
-}
-
-/* 로딩 및 오류 메시지 스타일 (기존) */
-.loading,
-.error {
-  font-size: 18px;
-  color: #555;
-  text-align: center;
-  margin-top: 50px;
 }

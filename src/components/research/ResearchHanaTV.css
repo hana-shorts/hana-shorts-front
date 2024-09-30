@@ -1,0 +1,80 @@
+.research-hana-tv {
+  font-family: Arial, sans-serif;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.main-content {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.main-video {
+  flex: 3;
+  margin-right: 20px;
+}
+
+.main-video h2 {
+  margin-top: 10px;
+  color: #2c3e50;
+}
+
+.related-videos {
+  flex: 1;
+  height: 500px;
+  overflow-y: auto;
+}
+
+.related-videos h3 {
+  margin-bottom: 10px;
+  color: #34495e;
+}
+
+.related-video-item {
+  display: flex;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.related-video-item .thumbnail img {
+  width: 120px;
+  height: 90px;
+}
+
+.related-video-item .video-title {
+  margin-left: 10px;
+  font-size: 14px;
+  color: #2c3e50;
+}
+
+.other-topic-section {
+  margin-top: 40px;
+}
+
+.other-topic-section h3 {
+  margin-bottom: 10px;
+  color: #34495e;
+}
+
+.videos-row {
+  display: flex;
+  overflow-x: auto;
+}
+
+.video-item {
+  flex: 0 0 auto;
+  width: 200px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.video-item .thumbnail img {
+  width: 100%;
+  height: auto;
+}
+
+.video-item .video-title {
+  margin-top: 5px;
+  font-size: 14px;
+  color: #2c3e50;
+}

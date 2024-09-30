@@ -14,7 +14,7 @@ import Article from "./pages/article/Article";
 import Market from "./pages/market/Market";
 import Trade from "./pages/trade/Trade";
 import Research from "./pages/research/Research";
-import ResearchIntro from "./pages/research/ResearchIntro"; // 새로운 컴포넌트 임포트
+import ResearchIntro from "./pages/research/ResearchIntro";
 import ResearchResult from "./pages/research/ResearchResult";
 
 function App() {

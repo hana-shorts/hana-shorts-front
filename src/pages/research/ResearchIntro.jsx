@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import webmVideo from "../../assets/images/research-welcome.webm"; // WebM 비디오 파일 경로
 import recommendImage from "../../assets/images/research-recommend.avif";
 import analysisImage from "../../assets/images/research-analysis.avif";
-import extrasImage from "../../assets/images/research-extras.avif";
+import hanatvImage from "../../assets/images/research-hanatv.avif";
 import "./ResearchIntro.css"; // 페이지 전용 CSS
 
 const ResearchIntro = () => {
@@ -88,16 +88,16 @@ const ResearchIntro = () => {
           </div>
           <div
             className="research-intro-button"
-            onClick={() => handleTabClick("extras")}
+            onClick={() => handleTabClick("hanatv")}
             tabIndex="0"
             role="button"
             aria-label="기타 자료"
             onKeyPress={(e) => {
-              if (e.key === "Enter") handleTabClick("extras");
+              if (e.key === "Enter") handleTabClick("hanatv");
             }}
           >
             <img
-              src={extrasImage}
+              src={hanatvImage}
               alt="기타 자료"
               className="research-intro-button-image"
             />

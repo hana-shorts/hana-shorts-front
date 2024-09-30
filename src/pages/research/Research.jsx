@@ -3,7 +3,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import ResearchBox from "../../components/research/ResearchBox";
 import ResearchAnalysis from "../../components/research/ResearchAnalysis";
-import YouTubeShorts from "../../components/research/YouTubeShorts";
+import ResearchHanaTV from "../../components/research/ResearchHanaTV";
 import "./Research.css"; // 페이지 전용 CSS
 
 const Research = () => {
@@ -50,9 +50,9 @@ const Research = () => {
             <div>분석 데스크</div>
           </button>
           <button
-            ref={(el) => (tabsRef.current["extras"] = el)}
-            className={activeTab === "extras" ? "research-active" : ""}
-            onClick={() => handleTabClick("extras")}
+            ref={(el) => (tabsRef.current["hanatv"] = el)}
+            className={activeTab === "hanatv" ? "research-active" : ""}
+            onClick={() => handleTabClick("hanatv")}
           >
             <div>하나 TV</div>
           </button>
@@ -70,7 +70,7 @@ const Research = () => {
       <div className="researchbox-container">
         {activeTab === "recommend" && <ResearchBox />}
         {activeTab === "analysis" && <ResearchAnalysis />}
-        {activeTab === "extras" && <YouTubeShorts />}
+        {activeTab === "hanatv" && <ResearchHanaTV />}
       </div>
     </div>
   );
