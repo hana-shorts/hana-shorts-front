@@ -1,80 +1,115 @@
-.research-hana-tv {
-  font-family: Arial, sans-serif;
-  max-width: 1200px;
+.research-hanatv {
+  width: 1700px;
   margin: 0 auto;
+  margin-top: 30px;
+  margin-bottom: 100px;
 }
 
-.main-content {
+.research-hanatv-main-content {
+  width: 100%;
   display: flex;
-  flex-wrap: wrap;
+  justify-content: space-between;
 }
 
-.main-video {
-  flex: 3;
-  margin-right: 20px;
+.research-hanatv-main-video {
+  width: 1230px;
+  height: 760px;
 }
 
-.main-video h2 {
+.research-hanatv-main-video h2 {
   margin-top: 10px;
-  color: #2c3e50;
+  color: black;
 }
 
-.related-videos {
-  flex: 1;
-  height: 500px;
+.research-hanatv-related-videos {
+  width: 440px;
+  height: 720px;
   overflow-y: auto;
+  padding-right: 5px; /* 스크롤바 공간 확보 */
 }
 
-.related-videos h3 {
-  margin-bottom: 10px;
-  color: #34495e;
+.research-hanatv-related-videos::-webkit-scrollbar {
+  width: 5px; /* 스크롤바의 너비 */
+  background-color: #f1f1f1; /* 스크롤바의 배경색 */
 }
 
-.related-video-item {
+.research-hanatv-related-videos::-webkit-scrollbar-thumb {
+  background-color: #888; /* 스크롤바의 막대 색상 */
+  border-radius: 10px; /* 막대의 둥근 정도 */
+}
+
+.research-hanatv-related-videos::-webkit-scrollbar-button,
+.research-hanatv-related-videos::-webkit-scrollbar-track {
+  display: none;
+}
+
+.research-hanatv-related-video-item {
+  height: 80px;
   display: flex;
-  margin-bottom: 10px;
   cursor: pointer;
+  margin-bottom: 10px;
 }
 
-.related-video-item .thumbnail img {
-  width: 120px;
-  height: 90px;
+.research-hanatv-related-video-thumbnail img {
+  width: 110px;
+  height: 75px;
 }
 
-.related-video-item .video-title {
+.research-hanatv-related-video-title {
   margin-left: 10px;
   font-size: 14px;
-  color: #2c3e50;
+  color: black;
 }
 
-.other-topic-section {
+.research-hanatv-other-topic-section {
   margin-top: 40px;
 }
 
-.other-topic-section h3 {
+.research-hanatv-other-topic-section h3 {
   margin-bottom: 10px;
-  color: #34495e;
+  color: #009178;
 }
 
-.videos-row {
+.research-hanatv-videos-row {
   display: flex;
   overflow-x: auto;
+  padding-bottom: 10px; /* 스크롤바 공간 확보 */
 }
 
-.video-item {
+.research-hanatv-videos-row::-webkit-scrollbar {
+  height: 5px;
+  background-color: #f1f1f1; /* 스크롤바의 배경색 */
+}
+
+.research-hanatv-videos-row::-webkit-scrollbar-thumb {
+  background-color: #888; /* 스크롤바의 막대 색상 */
+  border-radius: 10px; /* 막대의 둥근 정도 */
+}
+
+.research-hanatv-videos-row::-webkit-scrollbar-button,
+.research-hanatv-videos-row::-webkit-scrollbar-track {
+  display: none;
+}
+
+.research-hanatv-video-item {
   flex: 0 0 auto;
   width: 200px;
   margin-right: 10px;
   cursor: pointer;
 }
 
-.video-item .thumbnail img {
+.research-hanatv-thumbnail img {
   width: 100%;
   height: auto;
 }
 
-.video-item .video-title {
+.research-hanatv-video-title {
   margin-top: 5px;
   font-size: 14px;
-  color: #2c3e50;
+  color: black;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* 최대 2줄까지 표시 */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

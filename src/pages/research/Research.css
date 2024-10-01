@@ -82,6 +82,7 @@
 
 .researchbox-container {
   width: 1700px;
-  height: 1000px;
+  min-height: 1000px;
+  max-height: 1800px;
   margin: 0 auto;
 }

@@ -17,7 +17,7 @@
 
 .researchresult-container {
   width: 1700px;
-  height: 900px;
+  height: 1000px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -62,19 +62,19 @@
 }
 
 .rank1 {
-  background-image: url("../../assets/images/rank1.svg");
+  background-image: url('../../assets/images/rank1.svg');
 }
 
 .rank2 {
-  background-image: url("../../assets/images/rank2.svg");
+  background-image: url('../../assets/images/rank2.svg');
 }
 
 .rank3 {
-  background-image: url("../../assets/images/rank3.svg");
+  background-image: url('../../assets/images/rank3.svg');
 }
 
 .rank-dark {
-  background-image: url("../../assets/images/rank-dark.svg");
+  background-image: url('../../assets/images/rank-dark.svg');
 }
 
 .researchresult-rank-number {
@@ -161,6 +161,7 @@
   width: 120px;
   height: 46px;
   padding: 10px 20px;
+  margin-bottom: 100px;
   background-color: #f9f9f9;
   color: #5b5b5b;
   border: 1px solid #ddd;

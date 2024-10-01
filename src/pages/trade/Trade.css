@@ -139,3 +139,23 @@
 .trade-stock-list-wrapper::-webkit-scrollbar-track {
   background-color: #f1f1f1;
 } */
+
+/* 모달 스타일 */
+.modal-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 30px;
+  border: 2px solid #000;
+  box-shadow: 24px;
+  width: 400px;
+  text-align: center;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+}
