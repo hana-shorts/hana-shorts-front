@@ -278,6 +278,14 @@ const HelpSequenceModal = ({ currentStep, onNext, onClose, selectedStockName, se
         return null;
     }
   };
+
+  return (
+    <Modal open={true} disableBackdropClick disableEscapeKeyDown>
+      <div className="help-modal" ref={modalRef}>
+        {stepContent()}
+      </div>
+    </Modal>
+  );
 };
 
 export default HelpSequenceModal;
