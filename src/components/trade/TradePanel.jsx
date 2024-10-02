@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import Modal from "@mui/material/Modal";
 import "./TradePanel.css";
 
 const TradePanel = ({ stockCode, initialPrice, initialHoka, resetTab }) => {
@@ -16,6 +17,44 @@ const TradePanel = ({ stockCode, initialPrice, initialHoka, resetTab }) => {
 
   const [indicatorStyle, setIndicatorStyle] = useState({});
   const tabsRef = useRef({}); // 각 탭에 대한 참조값을 저장할 객체
+
+  const [openModal, setOpenModal] = useState(false);
+  const [orderInfo, setOrderInfo] = useState(null);
+
+  // 추가된 상태 변수
+  const [openOrderConfirmModal, setOpenOrderConfirmModal] = useState(false);
+  const [openUptickRuleModal, setOpenUptickRuleModal] = useState(false);
+  const [orderDetails, setOrderDetails] = useState(null);
+
+  const [filledOrders, setFilledOrders] = useState([]);
+  const [unfilledOrders, setUnfilledOrders] = useState([]);
+
+  useEffect(() => {
+    if (activeTab === "체결/예약") {
+      fetchOrderHistory();
+    }
+  }, [activeTab]);
+
+  const fetchOrderHistory = async () => {
+    try {
+      const response = await fetch("http://localhost:5002/api/order_history");
+      const data = await response.json();
+      if (response.ok) {
+        const filled = data.filter(
+          (order) => parseInt(order.tot_ccld_qty) === parseInt(order.ord_qty)
+        );
+        const unfilled = data.filter(
+          (order) => parseInt(order.tot_ccld_qty) < parseInt(order.ord_qty)
+        );
+        setFilledOrders(filled);
+        setUnfilledOrders(unfilled);
+      } else {
+        console.error("Failed to fetch order history:", data.error);
+      }
+    } catch (error) {
+      console.error("Error fetching order history:", error);
+    }
+  };
 
   useEffect(() => {
     // 컴포넌트가 마운트될 때 잔고 조회 API 호출
@@ -79,6 +118,76 @@ const TradePanel = ({ stockCode, initialPrice, initialHoka, resetTab }) => {
       setLastCreditOption("신용");
     }
   }, [activeTab, initialPrice]);
+
+  const handleBuyOrder = () => {
+    const orderDetails = {
+      order_type: "buy",
+      stock_code: stockCode,
+      quantity: quantity,
+      price: price,
+      trade_type: tradeType,
+    };
+
+    setOrderDetails(orderDetails);
+    setOpenOrderConfirmModal(true);
+  };
+
+  const handleSellOrder = () => {
+    const orderDetails = {
+      order_type: "sell",
+      stock_code: stockCode,
+      quantity: quantity,
+      price: price,
+      trade_type: tradeType,
+    };
+
+    if (tradeType !== "현금" && tradeType === "유통대주신규") {
+      // 업틱룰 모달 표시
+      setOrderDetails(orderDetails);
+      setOpenUptickRuleModal(true);
+    } else {
+      // 주문 확인 모달 바로 표시
+      setOrderDetails(orderDetails);
+      setOpenOrderConfirmModal(true);
+    }
+  };
+
+  const placeOrder = async () => {
+    try {
+      const response = await fetch("http://localhost:5002/api/place_order", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(orderDetails),
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        // 주문이 성공적으로 처리되었을 때 모달 열기
+        setOrderInfo([
+          {
+            odno: data.order_id || "주문번호", // 실제 주문번호가 필요하다면 API 응답에서 가져와야 합니다.
+            prdt_name: stockCode,
+            ord_qty: quantity,
+            ord_unpr: price,
+          },
+        ]);
+        setOpenModal(true);
+
+        // 폼 초기화
+        setPrice(initialPrice);
+        setQuantity(0);
+      } else {
+        // 에러 처리
+        console.error("Order failed:", data.error);
+        alert("주문 실패: " + data.error);
+      }
+    } catch (error) {
+      console.error("Error placing order:", error);
+      alert("주문 중 오류가 발생했습니다.");
+    }
+  };
 
   const handleTradeTypeClick = (type) => {
     if (type === "신용") {
@@ -412,7 +521,9 @@ const TradePanel = ({ stockCode, initialPrice, initialHoka, resetTab }) => {
         </div>
         <div className="trade-panel-buttons-group">
           <button className="trade-panel-button-black">초기화</button>
-          <button className="trade-panel-button-red">매수</button>
+          <button className="trade-panel-button-red" onClick={handleBuyOrder}>
+            매수
+          </button>
         </div>
       </div>
     </div>
@@ -675,7 +786,9 @@ const TradePanel = ({ stockCode, initialPrice, initialHoka, resetTab }) => {
         </div>
         <div className="trade-panel-buttons-group">
           <button className="trade-panel-button-black">초기화</button>
-          <button className="trade-panel-button-red">매도</button>
+          <button className="trade-panel-button-red" onClick={handleSellOrder}>
+            매도
+          </button>
         </div>
       </div>
     </div>
@@ -689,7 +802,75 @@ const TradePanel = ({ stockCode, initialPrice, initialHoka, resetTab }) => {
 
   const renderReservationSection = () => (
     <div className="trade-panel-order-section">
-      <p>체결/예약 화면 내용이 여기에 표시됩니다.</p>
+      <div className="order-history-container">
+        <h2>체결 내역</h2>
+        {filledOrders.length > 0 ? (
+          <table className="order-table">
+            <thead>
+              <tr>
+                <th>주문일자</th>
+                <th>주문번호</th>
+                <th>종목명</th>
+                <th>매매구분</th>
+                <th>주문수량</th>
+                <th>체결수량</th>
+                <th>주문단가</th>
+                <th>체결단가</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filledOrders.map((order, index) => (
+                <tr key={index}>
+                  <td>{order.ord_dt}</td>
+                  <td>{order.odno}</td>
+                  <td>{order.prdt_name}</td>
+                  <td>{order.sll_buy_dvsn_cd_name}</td>
+                  <td>{order.ord_qty}</td>
+                  <td>{order.tot_ccld_qty}</td>
+                  <td>{order.ord_unpr}</td>
+                  <td>{order.avg_prvs}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        ) : (
+          <p>체결 내역이 없습니다.</p>
+        )}
+
+        <h2>미체결 내역</h2>
+        {unfilledOrders.length > 0 ? (
+          <table className="order-table">
+            <thead>
+              <tr>
+                <th>주문일자</th>
+                <th>주문번호</th>
+                <th>종목명</th>
+                <th>매매구분</th>
+                <th>주문수량</th>
+                <th>체결수량</th>
+                <th>주문단가</th>
+                <th>미체결수량</th>
+              </tr>
+            </thead>
+            <tbody>
+              {unfilledOrders.map((order, index) => (
+                <tr key={index}>
+                  <td>{order.ord_dt}</td>
+                  <td>{order.odno}</td>
+                  <td>{order.prdt_name}</td>
+                  <td>{order.sll_buy_dvsn_cd_name}</td>
+                  <td>{order.ord_qty}</td>
+                  <td>{order.tot_ccld_qty}</td>
+                  <td>{order.ord_unpr}</td>
+                  <td>{order.rmn_qty}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        ) : (
+          <p>미체결 내역이 없습니다.</p>
+        )}
+      </div>
     </div>
   );
 
@@ -706,6 +887,36 @@ const TradePanel = ({ stockCode, initialPrice, initialHoka, resetTab }) => {
       default:
         return null;
     }
+  };
+
+  const modalStyle = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: "400px",
+    backgroundColor: "#fff",
+    border: "1px solid #000",
+    boxShadow: 24,
+    padding: "16px",
+  };
+
+  const getOrderConfirmModalTitle = () => {
+    if (!orderDetails) return "주문 확인"; // orderDetails가 null일 때 기본 제목 반환
+
+    let title = "";
+    if (tradeType === "현금" && orderDetails.order_type === "buy") {
+      title = "현금매수 주문 확인";
+    } else if (tradeType === "현금" && orderDetails.order_type === "sell") {
+      title = "현금매도 주문 확인";
+    } else if (tradeType === "유통대주신규") {
+      title = "유통대주신규 주문 확인";
+    } else if (tradeType === "유통대주상환") {
+      title = "유통대주상환 주문 확인";
+    } else {
+      title = "주문 확인";
+    }
+    return title;
   };
 
   return (
@@ -755,6 +966,83 @@ const TradePanel = ({ stockCode, initialPrice, initialHoka, resetTab }) => {
       </div>
 
       {renderOrderSection()}
+
+      {/* 업틱룰 모달 */}
+      <Modal
+        open={openUptickRuleModal}
+        onClose={() => setOpenUptickRuleModal(false)}
+        aria-labelledby="uptick-rule-modal-title"
+        aria-describedby="uptick-rule-modal-description"
+      >
+        <div style={modalStyle}>
+          <h2 id="uptick-rule-modal-title">업틱룰 안내</h2>
+          <div id="uptick-rule-modal-description">
+            <p>
+              업틱룰은 투자자가 공매도를 할 때 가장 최근 체결 가격보다 높은
+              가격으로만 호가를 제출할 수 있도록 하는 규정입니다.
+            </p>
+          </div>
+          <button onClick={() => setOpenUptickRuleModal(false)}>취소</button>
+          <button
+            onClick={() => {
+              setOpenUptickRuleModal(false);
+              setOpenOrderConfirmModal(true);
+            }}
+          >
+            확인
+          </button>
+        </div>
+      </Modal>
+
+      {/* 주문 확인 모달 */}
+      <Modal
+        open={openOrderConfirmModal}
+        onClose={() => setOpenOrderConfirmModal(false)}
+        aria-labelledby="order-confirm-modal-title"
+        aria-describedby="order-confirm-modal-description"
+      >
+        <div style={modalStyle}>
+          <h2 id="order-confirm-modal-title">{getOrderConfirmModalTitle()}</h2>
+          <div id="order-confirm-modal-description">
+            <p>종목코드: {orderDetails?.stock_code}</p>
+            <p>수량: {orderDetails?.quantity}</p>
+            <p>가격: {orderDetails?.price}</p>
+          </div>
+          <button onClick={() => setOpenOrderConfirmModal(false)}>취소</button>
+          <button
+            onClick={() => {
+              setOpenOrderConfirmModal(false);
+              placeOrder();
+            }}
+          >
+            확인
+          </button>
+        </div>
+      </Modal>
+
+      {/* 주문 완료 모달 */}
+      <Modal
+        open={openModal}
+        onClose={() => setOpenModal(false)}
+        aria-labelledby="order-modal-title"
+        aria-describedby="order-modal-description"
+      >
+        <div style={modalStyle}>
+          <h2 id="order-modal-title">주문이 완료되었습니다</h2>
+          <div id="order-modal-description">
+            {orderInfo &&
+              orderInfo.map((info, index) => (
+                <div key={index}>
+                  <p>주문번호: {info.odno}</p>
+                  <p>종목명: {info.prdt_name}</p>
+                  <p>주문수량: {info.ord_qty}</p>
+                  <p>주문단가: {info.ord_unpr}</p>
+                </div>
+              ))}
+          </div>
+          <button onClick={() => setOpenModal(false)}>닫기</button>
+        </div>
+      </Modal>
     </div>
   );
 };

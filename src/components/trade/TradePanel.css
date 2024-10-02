@@ -227,3 +227,36 @@
   width: 48%;
   font-size: 18px;
 }
+
+.order-history-container {
+  padding: 20px;
+}
+
+.order-history-container h2 {
+  margin-top: 20px;
+  font-size: 18px;
+  color: #333;
+}
+
+.order-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+.order-table th,
+.order-table td {
+  border: 1px solid #e1e1e1;
+  padding: 8px;
+  text-align: center;
+}
+
+.order-table th {
+  background-color: #f9f9f9;
+  font-weight: bold;
+}
+
+.order-table tr:nth-child(even) {
+  background-color: #fdfdfd;
+}
