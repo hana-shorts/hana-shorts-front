@@ -1,6 +1,6 @@
 // src/pages/trade/Trade.jsx
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom'; // useParams 추가
+import { useParams, useLocation } from 'react-router-dom'; // useParams 추가
 import Stock from '../../components/trade/Stock';
 import StockInfo from '../../components/trade/StockInfo';
 import TradePanel from '../../components/trade/TradePanel';
@@ -15,8 +15,9 @@ import './Trade.css';
 
 function Trade() {
   const { stockCode } = useParams(); // URL에서 stockCode를 가져옴
-  const [selectedStockCode, setSelectedStockCode] = useState(stockCode || '005930'); // 기본값 설정
-  const [selectedStockName, setSelectedStockName] = useState('삼성전자'); // 추가된 상태
+  const location = useLocation(); // useLocation으로 전달된 state 확인
+  const [selectedStockCode, setSelectedStockCode] = useState(stockCode || '005930');
+  const [selectedStockName, setSelectedStockName] = useState(location.state?.stockName || '삼성전자');
   const [initialPrice, setInitialPrice] = useState(0); // 초기 가격 상태 추가
   const [initialHoka, setInitialHoka] = useState(0);
   const [resetTab, setResetTab] = useState(false); // 추가된 상태: 탭을 리셋하는 트리거
@@ -40,6 +41,13 @@ function Trade() {
     setSelectedStockName(name); // 주식 이름도 상태에 저장
     setResetTab(true); // 주식 선택 시 탭을 "매수"로 리셋
   };
+
+  // 주식 이름을 다시 요청할 필요 없이 location에서 가져온 stockName을 사용
+  useEffect(() => {
+    if (location.state?.stockName) {
+      setSelectedStockName(location.state.stockName);
+    }
+  }, [location.state]);
 
   useEffect(() => {
     if (resetTab) {

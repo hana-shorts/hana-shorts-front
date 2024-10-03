@@ -158,7 +158,7 @@
 .main-breaking-news-container {
   width: 460px;
   max-height: 745.31px;
-  overflow-y: auto;
+  /* overflow-y: auto; */
   border-left: 1px solid #ddd;
   padding-left: 10px;
   animation: fadeInPlusX 1s ease forwards; /* 페이드 인 애니메이션 적용 */
@@ -180,35 +180,38 @@
 }
 
 /* 스크롤바 전체 */
-.main-breaking-news-container::-webkit-scrollbar {
+.main-news-list-container::-webkit-scrollbar {
   width: 5px; /* 스크롤바의 너비 */
   background-color: #f1f1f1; /* 스크롤바의 배경색 */
 }
 
 /* 스크롤바 막대(thumb) */
-.main-breaking-news-container::-webkit-scrollbar-thumb {
+.main-news-list-container::-webkit-scrollbar-thumb {
   background-color: #888; /* 스크롤바의 막대 색상 */
   border-radius: 10px; /* 막대의 둥근 정도 */
 }
 
 /* 스크롤바 막대의 활성화 상태(hover) */
-.main-breaking-news-container::-webkit-scrollbar-thumb:hover {
+.main-news-list-container::-webkit-scrollbar-thumb:hover {
   background-color: #555; /* 활성화 상태에서의 막대 색상 */
 }
 
 /* 스크롤바의 상하 버튼 */
-.main-breaking-news-container::-webkit-scrollbar-button {
+.main-news-list-container::-webkit-scrollbar-button {
   display: none; /* 상하 버튼을 숨김 */
 }
 
 /* 스크롤바 트랙(막대의 경로) */
-.main-breaking-news-container::-webkit-scrollbar-track {
+.main-news-list-container::-webkit-scrollbar-track {
   background-color: #f1f1f1; /* 트랙의 배경색 */
   border-radius: 10px; /* 트랙의 둥근 정도 */
 }
 
 .main-news-list-container {
+  width: 418px;
+  height: 670px;
   padding: 10px 20px 20px;
+  overflow-y: auto;
 }
 
 .main-news-list .news-list-item h2 {

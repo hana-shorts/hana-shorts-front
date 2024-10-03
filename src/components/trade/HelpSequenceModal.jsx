@@ -4,93 +4,105 @@ import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
 import './HelpSequenceModal.css';
 
+// import upArrow from '../../assets/images/up_arrow.png';
+
 const HelpSequenceModal = ({ currentStep, onNext, onClose, selectedStockName, setCurrentStep }) => {
   const modalRef = useRef(null);
+  const highlightClass = 'highlight-component'; // Declare highlightClass outside setPosition
 
   // 각 단계별로 타겟이 되는 요소의 위치를 계산하여 모달 위치 설정
   useEffect(() => {
+    let previousElement = null;
     const setPosition = () => {
       let targetElement = null;
       let modalPosition = {};
-      let highlightClass = '';
 
-      switch (currentStep) {
-        case 1:
-          targetElement = document.querySelector('.trade-stock-list-wrapper');
-          modalPosition = {
-            top: targetElement.offsetTop,
-            left: targetElement.offsetLeft - 320, // 왼쪽에 모달 표시
-          };
-          highlightClass = 'highlight-component';
-          break;
-        case 2:
-          targetElement = document.querySelector('.trade-stock-info-wrapper');
-          modalPosition = {
-            top: targetElement.offsetTop,
-            left: targetElement.offsetLeft + targetElement.offsetWidth + 20, // 오른쪽에 모달 표시
-          };
-          highlightClass = 'highlight-component';
-          break;
-        case 3:
-          targetElement = document.querySelector('.trade-order-book-wrapper');
-          modalPosition = {
-            top: targetElement.offsetTop,
-            left: targetElement.offsetLeft + targetElement.offsetWidth + 20, // 오른쪽에 모달 표시
-          };
-          highlightClass = 'highlight-component';
-          break;
-        case 4:
-          targetElement = document.querySelector('.trade-market-data-wrapper');
-          modalPosition = {
-            top: targetElement.offsetTop - 220, // 위쪽에 모달 표시
-            left: targetElement.offsetLeft,
-          };
-          highlightClass = 'highlight-component';
-          break;
-        case 5:
-          targetElement = document.querySelector('.trade-panel-wrapper');
-          modalPosition = {
-            top: targetElement.offsetTop - 220, // 위쪽에 모달 표시
-            left: targetElement.offsetLeft,
-          };
-          highlightClass = 'highlight-component';
-          break;
-        default:
-          break;
-      }
-
-      if (targetElement && modalRef.current) {
-        const rect = targetElement.getBoundingClientRect();
-        modalRef.current.style.position = 'absolute';
-        modalRef.current.style.top = `${window.scrollY + rect.top + modalPosition.top}px`;
-        modalRef.current.style.left = `${window.scrollX + rect.left + modalPosition.left}px`;
-        modalRef.current.style.maxWidth = `300px`;
-        modalRef.current.style.width = `300px`;
-        modalRef.current.style.height = `auto`;
-        modalRef.current.style.zIndex = 1000;
-
-        // 모달이 화면에 보이도록 스크롤
+      if (currentStep >= 10) {
+        // 공매도 도움말 단계에서 스크롤을 맨 위로 이동
         window.scrollTo({
-          top: rect.top + window.scrollY - 100,
+          top: 0,
           behavior: 'smooth',
         });
-
-        // 강조 효과 추가
-        targetElement.classList.add(highlightClass);
-      }
-
-      // 다음 단계로 넘어갈 때 강조 효과 제거
-      return () => {
-        if (targetElement) {
-          targetElement.classList.remove(highlightClass);
+      } else {
+        switch (currentStep) {
+          case 1:
+            targetElement = document.querySelector('.stock-container');
+            modalPosition = {
+              top: targetElement.offsetTop,
+              left: targetElement.offsetLeft - 320, // 왼쪽에 모달 표시
+            };
+            break;
+          case 2:
+            targetElement = document.querySelector('.stockinfo-container');
+            modalPosition = {
+              top: targetElement.offsetTop,
+              left: targetElement.offsetLeft + targetElement.offsetWidth + 20, // 오른쪽에 모달 표시
+            };
+            break;
+          case 3:
+            targetElement = document.querySelector('.orderbook-container');
+            modalPosition = {
+              top: targetElement.offsetTop - 640, // 위쪽에 모달 표시
+              left: targetElement.offsetLeft + targetElement.offsetWidth, // 오른쪽에 모달 표시
+            };
+            break;
+          case 4:
+            targetElement = document.querySelector('.market-data-wrapper');
+            modalPosition = {
+              top: targetElement.offsetTop - 1200, // 위쪽에 모달 표시
+              left: targetElement.offsetLeft + 1200,
+            };
+            break;
+          case 5:
+            targetElement = document.querySelector('.trade-panel-container');
+            modalPosition = {
+              top: targetElement.offsetTop - 220, // 위쪽에 모달 표시
+              left: targetElement.offsetLeft,
+            };
+            break;
+          default:
+            break;
         }
-      };
+
+        if (targetElement && modalRef.current) {
+          const rect = targetElement.getBoundingClientRect();
+          const scrollY = window.scrollY || document.documentElement.scrollTop;
+          const scrollX = window.scrollX || document.documentElement.scrollLeft;
+
+          modalRef.current.style.position = 'absolute';
+          modalRef.current.style.top = `${rect.top + scrollY + modalPosition.top}px`;
+          modalRef.current.style.left = `${rect.left + scrollX + modalPosition.left}px`;
+          modalRef.current.style.maxWidth = `300px`;
+          modalRef.current.style.width = `300px`;
+          modalRef.current.style.height = `auto`;
+          modalRef.current.style.zIndex = 1000;
+
+          window.scrollTo({
+            top: rect.top + scrollY - 100, // 여유 공간 확보
+            behavior: 'smooth',
+          });
+
+          // 이전 강조 효과 제거
+          if (previousElement) {
+            previousElement.classList.remove(highlightClass);
+          }
+
+          // 새로운 요소에 강조 효과 추가
+          targetElement.classList.add(highlightClass);
+          previousElement = targetElement;
+        }
+      }
     };
 
-    setPosition();
+    const timeoutId = setTimeout(setPosition, 10);
+
     window.addEventListener('resize', setPosition);
     return () => {
+      clearTimeout(timeoutId);
       window.removeEventListener('resize', setPosition);
+      if (previousElement) {
+        previousElement.classList.remove(highlightClass);
+      }
     };
   }, [currentStep]);
 
@@ -280,11 +292,24 @@ const HelpSequenceModal = ({ currentStep, onNext, onClose, selectedStockName, se
   };
 
   return (
-    <Modal open={true} disableBackdropClick disableEscapeKeyDown>
-      <div className="help-modal" ref={modalRef}>
-        {stepContent()}
-      </div>
-    </Modal>
+    <>
+      <Modal open={true} disableBackdropClick disableEscapeKeyDown>
+        <div className="help-modal" ref={modalRef}>
+          {stepContent()}
+        </div>
+      </Modal>
+      {/* <img
+        id="overlay-image"
+        src={upArrow}
+        alt="overlay"
+        style={{
+          position: 'absolute',
+          top: '100px', // 원하는 위치
+          left: '100px',
+          zIndex: 1301, // 모달보다 높게
+        }}
+      /> */}
+    </>
   );
 };
 

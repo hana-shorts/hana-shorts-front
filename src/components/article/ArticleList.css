@@ -1,8 +1,8 @@
 .articlelist-section {
   border-radius: 10px;
-  border: 1px solid #ddd; /* 테두리 추가 */
-  background-color: #fff; /* 배경색 추가 */
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* 약간의 그림자 추가 */
+  border: 1px solid #ddd;
+  background-color: #fff;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .articlelist-link {
@@ -12,40 +12,63 @@
 }
 
 .articlelist-item {
-  padding: 15px 20px; /* 아이템 내부의 패딩을 조정 */
+  padding: 15px 20px;
   transition: background-color 0.3s ease;
-  border-bottom: 1px solid #ddd; /* 각 뉴스 아이템 사이의 경계선 */
+  border-bottom: 1px solid #ddd;
 }
 
 .articlelist-item:last-child {
-  border-bottom: none; /* 마지막 뉴스 아이템에는 경계선 제거 */
+  border-bottom: none;
 }
 
 .articlelist-item:hover {
-  background-color: #f0f0f0; /* Hover 시 배경색 변경 */
+  background-color: #f0f0f0;
 }
 
-.articlelist-item h2 {
-  font-size: 18px;
+.articlelist-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.articlelist-text {
+  flex: 1; /* 텍스트가 가능한 공간을 최대한 차지 */
+  padding-right: 20px; /* 이미지와 텍스트 사이의 간격 조정 */
+}
+
+.articlelist-header {
+  display: flex;
+  align-items: center;
   margin-bottom: 10px;
 }
 
-.articlelist-item p {
+.articlelist-time {
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+  line-height: 1;
+}
+
+.articlelist-press {
+  font-size: 14px;
+  color: #c88282;
+  margin-left: auto; /* 시간과 일자 오른쪽에 배치 */
+}
+
+.articlelist-title {
+  font-size: 18px;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.articlelist-description {
   font-size: 14px;
   color: #666;
-  margin: 0; /* 마진 제거 */
 }
 
-.articlelist-item span {
-  color: #999;
-  font-size: 12px;
-  margin: 0; /* 마진 제거 */
-}
-
-.articlelist-item img {
-  width: 100px;
-  height: 60px;
+.articlelist-img {
+  width: 150px; /* 이미지 크기 조정 */
+  height: 100px;
   object-fit: cover;
   border-radius: 5px;
-  margin-top: 10px;
 }
