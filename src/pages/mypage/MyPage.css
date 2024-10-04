@@ -1,0 +1,268 @@
+/* 페이드 인 애니메이션 */
+@keyframes fadeInMinusY {
+  from {
+    opacity: 0;
+    transform: translateY(-20px); /* 위에서 아래로 내려오는 효과 */
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0); /* 원래 위치로 */
+  }
+}
+
+/* 적용될 애니메이션 클래스 */
+.fade-in-minus-y {
+  animation: fadeInMinusY 0.9s ease-in-out forwards;
+}
+
+.mypage-page {
+  max-width: 1900px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.mypage-header {
+  max-width: 1080px;
+  height: 80px;
+  margin: 0 auto;
+  padding: 10px 350px 0px 350px;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  justify-content: space-between;
+}
+
+.mypage-title {
+  width: 180px;
+  font-size: 32px;
+  font-weight: bold;
+}
+
+/* 회원 정보 섹션 */
+.mypage-info-section {
+  max-width: 1280px;
+  margin: 0 auto;
+  margin-top: 20px;
+}
+
+.mypage-info-container {
+  display: flex;
+  align-items: center;
+}
+
+.mypage-profile-image-wrapper {
+  width: 123px;
+  height: 159px;
+  flex: 0 0 auto;
+  margin-right: 70px;
+}
+
+.mypage-profile-image {
+  width: 123px;
+  height: 159px;
+  border-radius: 50%;
+}
+
+.mypage-profile-details {
+  flex: 1;
+}
+
+.mypage-profile-details table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.mypage-profile-details td {
+  padding: 5px;
+}
+
+/* 정보 등록 섹션 */
+.mypage-info-registration-section {
+  max-width: 1280px;
+  display: flex;
+  justify-content: space-evenly;
+  margin: 0 auto;
+  margin-top: 40px;
+  position: relative; /* For dropdown positioning */
+}
+
+.mypage-registration-item {
+  width: 500px;
+  position: relative; /* To contain the dropdown */
+}
+
+.mypage-registration-button {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: #009178;
+  color: white;
+  border: none;
+  border-radius: 4px;
+}
+
+.mypage-registration-button:hover {
+  background-color: #007a61;
+}
+
+.dropdown-content {
+  position: absolute;
+  top: 50px; /* Adjust based on button height */
+  left: 0;
+  width: 100%;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  z-index: 1000;
+  border-radius: 8px;
+}
+
+.dropdown-content h3 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 20px;
+  color: #333;
+}
+
+.dropdown-content label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 16px;
+  color: #555;
+}
+
+.dropdown-content input,
+.dropdown-content select {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.register-button {
+  width: 100%;
+  padding: 10px;
+  background-color: #2196f3;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.register-button:hover {
+  background-color: #0b7dda;
+}
+
+/* 계좌 잔고 정보 섹션 */
+.mypage-account-balance-section {
+  max-width: 1280px;
+  margin: 0 auto;
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+}
+
+.mypage-balance-summary {
+  display: flex;
+  flex-direction: column;
+}
+
+.mypage-profit-loss {
+  font-size: 22px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.mypage-profit-loss strong {
+  font-weight: bold;
+  color: #333;
+}
+
+.mypage-profit-loss .amount {
+  color: #0066ff;
+  font-size: 28px;
+  font-weight: bold;
+  margin-right: 30px;
+}
+
+.mypage-profit-loss .percentage {
+  color: #0066ff;
+  font-size: 18px;
+}
+
+.mypage-balance-details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.mypage-detail-row {
+  height: 20px;
+  flex: 1 1 45%;
+  display: flex;
+  justify-content: space-between;
+  font-size: 18px;
+  color: #666;
+  align-items: baseline;
+  line-height: 1;
+}
+
+.mypage-detail-row strong {
+  color: #333;
+  font-weight: bold;
+}
+
+/* 주식 잔고 섹션 */
+.mypage-holdings-section {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  max-width: 1900px;
+  margin: 60px auto;
+}
+
+.mypage-holdings-container {
+  width: 900px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.mypage-holdings-container strong {
+  font-size: 22px;
+}
+
+.mypage-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.mypage-table th,
+.mypage-table td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: center;
+  font-size: 14px;
+}
+
+.mypage-table th {
+  background-color: #f0f0f0;
+  font-weight: bold;
+  align-items: baseline;
+  line-height: 1;
+}
+
+.mypage-table td {
+  color: #333;
+}
+
+.chart-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

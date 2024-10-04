@@ -211,7 +211,7 @@
   width: 418px;
   height: 670px;
   padding: 10px 20px 20px;
-  overflow-y: auto;
+  overflow-y: scroll;
 }
 
 .main-news-list .news-list-item h2 {
