@@ -133,14 +133,21 @@
   transform: translate(-50%, -50%);
   background-color: white;
   padding: 30px;
-  border: 2px solid #000;
   box-shadow: 24px;
   width: 400px;
   text-align: center;
+}
+
+.modal-content p {
+  font-size: 20px; /* 본문 폰트 크기 증가 */
+  line-height: 1.8;
+  color: #333; /* 본문 텍스트 색상 변경 */
+  font-weight: bold;
 }
 
 .modal-buttons {
   display: flex;
   justify-content: space-around;
   margin-top: 20px;
+  margin-bottom: 20px;
 }

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import Modal from "@mui/material/Modal";
+import Button from "@mui/material/Button"; // Import Button if not already
 import "./TradePanel.css";
 
 const TradePanel = ({ stockCode, initialPrice, initialHoka, resetTab }) => {
@@ -29,6 +30,11 @@ const TradePanel = ({ stockCode, initialPrice, initialHoka, resetTab }) => {
   const [cashFilledOrders, setCashFilledOrders] = useState([]);
   const [cashUnfilledOrders, setCashUnfilledOrders] = useState([]);
   const [creditFilledOrders, setCreditFilledOrders] = useState([]);
+
+  // Function to handle modal visibility classes
+  const getModalClasses = (isOpen) => {
+    return `help-modal ${isOpen ? "show" : ""}`;
+  };
 
   useEffect(() => {
     if (activeTab === "체결/예약") {
@@ -136,6 +142,25 @@ const TradePanel = ({ stockCode, initialPrice, initialHoka, resetTab }) => {
       setLastCreditOption("신용");
     }
   }, [activeTab, initialPrice]);
+
+  // Helper function to format date into two lines: date and time
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    if (isNaN(date)) return dateString; // Return original string if invalid date
+    const yyyy = date.getFullYear();
+    const mm = String(date.getMonth() + 1).padStart(2, "0");
+    const dd = String(date.getDate()).padStart(2, "0");
+    const HH = String(date.getHours()).padStart(2, "0");
+    const MM = String(date.getMinutes()).padStart(2, "0");
+    const SS = String(date.getSeconds()).padStart(2, "0");
+    return (
+      <>
+        {`${yyyy}-${mm}-${dd}`}
+        <br />
+        {`${HH}:${MM}:${SS}`}
+      </>
+    );
+  };
 
   const handleBuyOrder = () => {
     const orderDetails = {
@@ -829,8 +854,8 @@ const TradePanel = ({ stockCode, initialPrice, initialHoka, resetTab }) => {
   );
 
   const renderReservationSection = () => (
-    <div style={{ overflowY: "auto" }}>
-      <div className="trade-panel-order-section">
+    <div className="trade-panel-order-section-wrapper">
+      <div className="trade-panel-order-section" style={{ padding: "10px" }}>
         <div className="order-history-container">
           {/* 현금 체결 내역 */}
           <h2>현금 체결 내역</h2>
@@ -839,7 +864,6 @@ const TradePanel = ({ stockCode, initialPrice, initialHoka, resetTab }) => {
               <thead>
                 <tr>
                   <th>주문일자</th>
-                  <th>주문번호</th>
                   <th>종목명</th>
                   <th>매매구분</th>
                   <th>주문수량</th>
@@ -851,20 +875,19 @@ const TradePanel = ({ stockCode, initialPrice, initialHoka, resetTab }) => {
               <tbody>
                 {cashFilledOrders.map((order, index) => (
                   <tr key={index}>
-                    <td>{order.ord_dt}</td>
-                    <td>{order.odno}</td>
+                    <td className="order-date">{formatDate(order.ord_dt)}</td>
                     <td>{order.prdt_name}</td>
                     <td>{order.sll_buy_dvsn_cd_name}</td>
                     <td>{order.ord_qty}</td>
                     <td>{order.tot_ccld_qty}</td>
-                    <td>{order.ord_unpr}</td>
-                    <td>{order.avg_prvs}</td>
+                    <td>{formatNumber(order.ord_unpr)}</td>
+                    <td>{formatNumber(order.avg_prvs)}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
           ) : (
-            <p>현금 체결 내역이 없습니다.</p>
+            <p className="no-data">현금 체결 내역이 없습니다.</p>
           )}
 
           {/* 현금 미체결 내역 */}
@@ -874,7 +897,6 @@ const TradePanel = ({ stockCode, initialPrice, initialHoka, resetTab }) => {
               <thead>
                 <tr>
                   <th>주문일자</th>
-                  <th>주문번호</th>
                   <th>종목명</th>
                   <th>매매구분</th>
                   <th>주문수량</th>
@@ -886,20 +908,19 @@ const TradePanel = ({ stockCode, initialPrice, initialHoka, resetTab }) => {
               <tbody>
                 {cashUnfilledOrders.map((order, index) => (
                   <tr key={index}>
-                    <td>{order.ord_dt}</td>
-                    <td>{order.odno}</td>
+                    <td className="order-date">{formatDate(order.ord_dt)}</td>
                     <td>{order.prdt_name}</td>
                     <td>{order.sll_buy_dvsn_cd_name}</td>
                     <td>{order.ord_qty}</td>
                     <td>{order.tot_ccld_qty}</td>
-                    <td>{order.ord_unpr}</td>
+                    <td>{formatNumber(order.ord_unpr)}</td>
                     <td>{order.rmn_qty}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
           ) : (
-            <p>현금 미체결 내역이 없습니다.</p>
+            <p className="no-data">현금 미체결 내역이 없습니다.</p>
           )}
 
           {/* 신용 체결 내역 */}
@@ -909,7 +930,6 @@ const TradePanel = ({ stockCode, initialPrice, initialHoka, resetTab }) => {
               <thead>
                 <tr>
                   <th>주문일자</th>
-                  <th>주문번호</th>
                   <th>종목명</th>
                   <th>매매구분</th>
                   <th>주문수량</th>
@@ -921,25 +941,26 @@ const TradePanel = ({ stockCode, initialPrice, initialHoka, resetTab }) => {
               <tbody>
                 {creditFilledOrders.map((order, index) => (
                   <tr key={index}>
-                    <td>{order.transaction_date}</td>
-                    <td>{order.transaction_id}</td>
+                    <td className="order-date">
+                      {formatDate(order.transaction_date)}
+                    </td>
                     <td>{order.stock_code}</td>
                     <td>{order.trade_type}</td>
                     <td>{order.quantity}</td>
                     <td>{order.quantity}</td>
-                    <td>{order.price}</td>
-                    <td>{order.price}</td>
+                    <td>{formatNumber(order.price)}</td>
+                    <td>{formatNumber(order.price)}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
           ) : (
-            <p>신용 체결 내역이 없습니다.</p>
+            <p className="no-data">신용 체결 내역이 없습니다.</p>
           )}
 
           {/* 신용 미체결 내역 */}
           <h2>신용 미체결 내역</h2>
-          <p>미체결 내역이 없습니다.</p>
+          <p className="no-data">미체결 내역이 없습니다.</p>
         </div>
       </div>
     </div>
@@ -960,17 +981,17 @@ const TradePanel = ({ stockCode, initialPrice, initialHoka, resetTab }) => {
     }
   };
 
-  const modalStyle = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: "400px",
-    backgroundColor: "#fff",
-    border: "1px solid #000",
-    boxShadow: 24,
-    padding: "16px",
-  };
+  // const modalStyle = {
+  //   position: "absolute",
+  //   top: "50%",
+  //   left: "50%",
+  //   transform: "translate(-50%, -50%)",
+  //   width: "400px",
+  //   backgroundColor: "#fff",
+  //   border: "1px solid #000",
+  //   boxShadow: 24,
+  //   padding: "16px",
+  // };
 
   const getOrderConfirmModalTitle = () => {
     if (!orderDetails) return "주문 확인"; // orderDetails가 null일 때 기본 제목 반환
@@ -1044,8 +1065,17 @@ const TradePanel = ({ stockCode, initialPrice, initialHoka, resetTab }) => {
         onClose={() => setOpenUptickRuleModal(false)}
         aria-labelledby="uptick-rule-modal-title"
         aria-describedby="uptick-rule-modal-description"
+        disableEnforceFocus
       >
-        <div style={modalStyle}>
+        <div
+          className={getModalClasses(openUptickRuleModal)}
+          style={{
+            position: "fixed",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+          }}
+        >
           <h2 id="uptick-rule-modal-title">업틱룰 안내</h2>
           <div id="uptick-rule-modal-description">
             <p>
@@ -1053,15 +1083,23 @@ const TradePanel = ({ stockCode, initialPrice, initialHoka, resetTab }) => {
               가격으로만 호가를 제출할 수 있도록 하는 규정입니다.
             </p>
           </div>
-          <button onClick={() => setOpenUptickRuleModal(false)}>취소</button>
-          <button
-            onClick={() => {
-              setOpenUptickRuleModal(false);
-              setOpenOrderConfirmModal(true);
-            }}
-          >
-            확인
-          </button>
+          <div className="button-container">
+            <Button
+              onClick={() => setOpenUptickRuleModal(false)}
+              className="next-button"
+            >
+              취소
+            </Button>
+            <Button
+              onClick={() => {
+                setOpenUptickRuleModal(false);
+                setOpenOrderConfirmModal(true);
+              }}
+              className="next-button"
+            >
+              확인
+            </Button>
+          </div>
         </div>
       </Modal>
 
@@ -1071,23 +1109,40 @@ const TradePanel = ({ stockCode, initialPrice, initialHoka, resetTab }) => {
         onClose={() => setOpenOrderConfirmModal(false)}
         aria-labelledby="order-confirm-modal-title"
         aria-describedby="order-confirm-modal-description"
+        disableEnforceFocus
       >
-        <div style={modalStyle}>
+        <div
+          className={getModalClasses(openOrderConfirmModal)}
+          style={{
+            position: "fixed",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+          }}
+        >
           <h2 id="order-confirm-modal-title">{getOrderConfirmModalTitle()}</h2>
           <div id="order-confirm-modal-description">
             <p>종목코드: {orderDetails?.stock_code}</p>
             <p>수량: {orderDetails?.quantity}</p>
             <p>가격: {orderDetails?.price}</p>
           </div>
-          <button onClick={() => setOpenOrderConfirmModal(false)}>취소</button>
-          <button
-            onClick={() => {
-              setOpenOrderConfirmModal(false);
-              placeOrder();
-            }}
-          >
-            확인
-          </button>
+          <div className="button-container">
+            <Button
+              onClick={() => setOpenOrderConfirmModal(false)}
+              className="next-button"
+            >
+              취소
+            </Button>
+            <Button
+              onClick={() => {
+                setOpenOrderConfirmModal(false);
+                placeOrder();
+              }}
+              className="next-button"
+            >
+              확인
+            </Button>
+          </div>
         </div>
       </Modal>
 
@@ -1097,8 +1152,17 @@ const TradePanel = ({ stockCode, initialPrice, initialHoka, resetTab }) => {
         onClose={() => setOpenModal(false)}
         aria-labelledby="order-modal-title"
         aria-describedby="order-modal-description"
+        disableEnforceFocus
       >
-        <div style={modalStyle}>
+        <div
+          className={getModalClasses(openModal)}
+          style={{
+            position: "fixed",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+          }}
+        >
           <h2 id="order-modal-title">주문이 완료되었습니다</h2>
           <div id="order-modal-description">
             {orderInfo &&
@@ -1111,7 +1175,11 @@ const TradePanel = ({ stockCode, initialPrice, initialHoka, resetTab }) => {
                 </div>
               ))}
           </div>
-          <button onClick={() => setOpenModal(false)}>닫기</button>
+          <div className="button-container">
+            <Button onClick={() => setOpenModal(false)} className="next-button">
+              닫기
+            </Button>
+          </div>
         </div>
       </Modal>
     </div>

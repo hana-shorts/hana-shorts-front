@@ -274,7 +274,7 @@
 
 .mypage-table th,
 .mypage-table td {
-  padding: 11px;
+  padding: 10px 7px;
   border: 1px solid #ddd;
   text-align: center;
   font-size: 15px;
@@ -308,7 +308,7 @@
 }
 
 .no-data-container div {
-  font-size: 36px;
+  font-size: 30px;
   color: #009178;
   font-weight: bold;
 }

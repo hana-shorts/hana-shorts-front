@@ -4,7 +4,7 @@ import Currency from "../../components/market/Currency"; // 작성한 컴포넌�
 import Commodity from "../../components/market/Commodity"; // 새로 만든 컴포넌트 임포트
 import Index from "../../components/market/Index";
 import Stocks from "../../components/market/Stocks";
-import Sector from "../../components/market/Sector";
+// import Sector from "../../components/market/Sector";
 import Schedule from "../../components/market/Schedule"; // 새로 만든 컴포넌트 임포트
 import "./Market.css";
 
@@ -62,13 +62,13 @@ const Market = () => {
           >
             주식
           </button>
-          <button
+          {/* <button
             ref={(el) => (tabsRef.current["섹터"] = el)}
             className={activeTab === "섹터" ? "market-active" : ""}
             onClick={() => handleTabClick("섹터")}
           >
             섹터
-          </button>
+          </button> */}
           <button
             ref={(el) => (tabsRef.current["일정"] = el)}
             className={activeTab === "일정" ? "market-active" : ""}
@@ -92,7 +92,7 @@ const Market = () => {
         {activeTab === "원자재" && <Commodity />}
         {activeTab === "지수" && <Index />}
         {activeTab === "주식" && <Stocks />}
-        {activeTab === "섹터" && <Sector />}
+        {/* {activeTab === "섹터" && <Sector />} */}
         {activeTab === "일정" && <Schedule />}
       </div>
     </div>

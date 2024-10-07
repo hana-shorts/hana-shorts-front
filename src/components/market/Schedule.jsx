@@ -1,239 +1,202 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import Papa from "papaparse";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 import "./Schedule.css";
 
 const Schedule = () => {
-  const scheduleData = [
-    {
-      time: "하루 종일",
-      currency: "룩셈부르크",
-      importance: "",
-      event: "콜롬비아 - 성모 휴스 순례 축일",
-      actual: "",
-      forecast: "",
-      previous: "",
-    },
-    {
-      time: "07:30",
-      currency: "NZD",
-      importance: "★★★",
-      event: "서비스 구매관리자지수",
-      actual: "40.2",
-      forecast: "",
-      previous: "",
-    },
-    {
-      time: "08:01",
-      currency: "GBP",
-      importance: "★★",
-      event: "Rightmove 주택가격지수 (MoM)",
-      actual: "",
-      forecast: "",
-      previous: "-0.4%",
-    },
-    {
-      time: "08:50",
-      currency: "JPY",
-      importance: "★★",
-      event: "근원 기계주문 (MoM) (8월)",
-      actual: "0.6%",
-      forecast: "",
-      previous: "-3.2%",
-    },
-    {
-      time: "08:50",
-      currency: "JPY",
-      importance: "★★★",
-      event: "근원 기계주문 (YoY) (8월)",
-      actual: "1.8%",
-      forecast: "",
-      previous: "10.8%",
-    },
-    {
-      time: "11:30",
-      currency: "THB",
-      importance: "★★",
-      event: "태국 GDP (YoY) (2분기)",
-      actual: "2.1%",
-      forecast: "1.5%",
-      previous: "",
-    },
-    {
-      time: "11:30",
-      currency: "THB",
-      importance: "★★",
-      event: "GDP (QoQ) (2분기)",
-      actual: "0.90%",
-      forecast: "",
-      previous: "1.10%",
-    },
-    {
-      time: "12:00",
-      currency: "NZD",
-      importance: "★★★",
-      event: "뉴질랜드 중앙은행 역외 지주 (7월)",
-      actual: "57.20%",
-      forecast: "",
-      previous: "",
-    },
-    {
-      time: "13:00",
-      currency: "MYR",
-      importance: "★★★",
-      event: "말레이시아 수출 (YoY) (7월)",
-      actual: "7.9%",
-      forecast: "",
-      previous: "1.7%",
-    },
-    {
-      time: "13:00",
-      currency: "MYR",
-      importance: "★★★",
-      event: "말레이시아 수입 (YoY) (7월)",
-      actual: "15.5%",
-      forecast: "",
-      previous: "17.8%",
-    },
-    {
-      time: "13:00",
-      currency: "MYR",
-      importance: "★★",
-      event: "말레이시아 무역수지 (7월)",
-      actual: "12.00B",
-      forecast: "",
-      previous: "14.30B",
-    },
-    {
-      time: "17:00",
-      currency: "EUR",
-      importance: "★★",
-      event: "스페인 무역수지 (6월)",
-      actual: "-2.30B",
-      forecast: "",
-      previous: "",
-    },
-    {
-      time: "18:00",
-      currency: "EUR",
-      importance: "★★★",
-      event: "중국 외국인직접투자 (7월)",
-      actual: "-29.10%",
-      forecast: "",
-      previous: "",
-    },
-    {
-      time: "18:30",
-      currency: "EUR",
-      importance: "★★",
-      event: "독일 12개월 만기 Bubill 국채 입찰",
-      actual: "3.192%",
-      forecast: "",
-      previous: "",
-    },
-    {
-      time: "19:00",
-      currency: "EUR",
-      importance: "★★",
-      event: "독일 Buba 월간 보고서",
-      actual: "",
-      forecast: "",
-      previous: "",
-    },
-    {
-      time: "19:00",
-      currency: "EUR",
-      importance: "★★",
-      event: "스페인 소비자신뢰지수 (7월)",
-      actual: "88.4",
-      forecast: "",
-      previous: "",
-    },
-    {
-      time: "20:25",
-      currency: "BRL",
-      importance: "★★",
-      event: "BCB 포커스 시장 정보",
-      actual: "",
-      forecast: "",
-      previous: "",
-    },
-    {
-      time: "22:00",
-      currency: "EUR",
-      importance: "★★★",
-      event: "프랑스 1년물 BTF 국채 입찰",
-      actual: "3.053%",
-      forecast: "",
-      previous: "",
-    },
-    {
-      time: "22:00",
-      currency: "EUR",
-      importance: "★★★",
-      event: "프랑스 3개월물 BTF 국채 입찰",
-      actual: "3.553%",
-      forecast: "",
-      previous: "",
-    },
-    {
-      time: "22:00",
-      currency: "EUR",
-      importance: "★★★",
-      event: "프랑스 6개월물 BTF 국채 입찰",
-      actual: "3.380%",
-      forecast: "",
-      previous: "",
-    },
-    {
-      time: "22:15",
-      currency: "USD",
-      importance: "★★",
-      event: "연준 월간 이사회 연설",
-      actual: "",
-      forecast: "",
-      previous: "",
-    },
-    {
-      time: "23:00",
-      currency: "USD",
-      importance: "★★",
-      event: "미국 선행지수 (MoM) (7월)",
-      actual: "-0.4%",
-      forecast: "",
-      previous: "-0.2%",
-    },
-    {
-      time: "23:30",
-      currency: "CAD",
-      importance: "★★",
-      event: "캐나다중앙은행(BoC) 수석 대출 관리자 설문 조사 (2분기)",
-      actual: "2.8",
-      forecast: "",
-      previous: "",
-    },
-  ];
+  const [scheduleData, setScheduleData] = useState([]);
+  const [selectedDate, setSelectedDate] = useState(null);
+  const [uniqueDates, setUniqueDates] = useState([]);
+  const [loading, setLoading] = useState(true); // 로딩 상태 관리
+
+  // 날짜 문자열을 Date 객체로 변환하는 함수
+  const parseDateString = (dateStr) => {
+    const regex = /^(\d{2})\.(\d{2})/;
+    const match = dateStr.match(regex);
+    if (match) {
+      const month = parseInt(match[1], 10);
+      const day = parseInt(match[2], 10);
+      const year = new Date().getFullYear(); // 현재 연도 사용
+      return new Date(year, month - 1, day);
+    } else {
+      return null;
+    }
+  };
+
+  useEffect(() => {
+    // 스켈레톤 로딩을 제일 먼저 시작
+    setLoading(true);
+
+    // CSV 파일 경로는 public 폴더를 기준으로 설정
+    const csvFilePath = process.env.PUBLIC_URL + "/schedule.csv";
+
+    Papa.parse(csvFilePath, {
+      download: true,
+      header: true,
+      skipEmptyLines: true,
+      complete: (results) => {
+        const data = results.data.map((item) => {
+          const dateObj = parseDateString(item["날짜"]);
+          return { ...item, dateObj };
+        });
+
+        // 고유한 날짜 추출 및 정렬 (최신 날짜가 먼저 오도록)
+        const dates = data
+          .filter((item) => item.dateObj)
+          .map((item) => item.dateObj.getTime());
+        const uniqueDateTimes = [...new Set(dates)].sort((a, b) => b - a);
+        const uniqueDateObjects = uniqueDateTimes.map((time) => new Date(time));
+
+        setScheduleData(data);
+        setUniqueDates(uniqueDateObjects);
+
+        // 현재 날짜에 해당하는 데이터가 있으면 선택, 없으면 최신 날짜 선택
+        const today = new Date();
+        const formattedToday = new Date(
+          today.getFullYear(),
+          today.getMonth(),
+          today.getDate()
+        ).getTime();
+
+        const todayIndex = uniqueDateTimes.findIndex(
+          (time) => time === formattedToday
+        );
+
+        if (todayIndex !== -1) {
+          setSelectedDate(new Date(uniqueDateTimes[todayIndex]));
+        } else if (uniqueDateObjects.length > 0) {
+          setSelectedDate(uniqueDateObjects[0]); // 가장 최신 날짜로 설정
+        }
+
+        setLoading(false); // 데이터 로딩 완료 후 스켈레톤 로딩 종료
+      },
+      error: (error) => {
+        console.error("CSV 파싱 오류:", error);
+        setLoading(false); // 오류 발생 시에도 로딩 종료
+      },
+    });
+  }, []);
+
+  // 선택된 날짜의 데이터 필터링
+  const getDataByDate = (date) => {
+    return scheduleData.filter(
+      (item) => item.dateObj && item.dateObj.getTime() === date.getTime()
+    );
+  };
+
+  // 이전 날짜로 이동
+  const handlePrevDate = () => {
+    const currentIndex = uniqueDates.findIndex(
+      (date) => date.getTime() === selectedDate.getTime()
+    );
+    if (currentIndex < uniqueDates.length - 1) {
+      setSelectedDate(uniqueDates[currentIndex + 1]);
+    }
+  };
+
+  // 다음 날짜로 이동
+  const handleNextDate = () => {
+    const currentIndex = uniqueDates.findIndex(
+      (date) => date.getTime() === selectedDate.getTime()
+    );
+    if (currentIndex > 0) {
+      setSelectedDate(uniqueDates[currentIndex - 1]);
+    }
+  };
+
+  if (!selectedDate) {
+    return <div>로딩 중...</div>; // 로딩 상태 표시
+  }
+
+  const dataForSelectedDate = getDataByDate(selectedDate);
+
+  // 중요도에 따른 클래스 지정
+  const getImportanceClass = (importance) => {
+    if (importance === "상") return "schedule-importance-high";
+    if (importance === "중") return "schedule-importance-medium";
+    if (importance === "하") return "schedule-importance-low";
+    return "";
+  };
+
+  // 선택된 날짜를 포맷팅하여 표시
+  const formatSelectedDate = (date) => {
+    const options = { month: "2-digit", day: "2-digit" };
+    const dateStr = date.toLocaleDateString("ko-KR", options);
+    const dayNames = ["(일)", "(월)", "(화)", "(수)", "(목)", "(금)", "(토)"];
+    const dayName = dayNames[date.getDay()];
+    return `${dateStr} ${dayName}`;
+  };
 
   return (
-    <div className="schedule-rates">
-      <div className="schedule-header">
-        <div className="schedule-info">시간</div>
-        <div className="schedule-currency">외화</div>
-        <div className="schedule-importance">중요성</div>
-        <div className="schedule-event">이벤트</div>
-        <div className="schedule-result">실제</div>
-        <div className="schedule-forecast">예측</div>
-        <div className="schedule-previous">이전</div>
-      </div>
-      {scheduleData.map((item, i) => (
-        <div className="schedule-item" key={i}>
-          <div className="schedule-info">{item.time}</div>
-          <div className="schedule-currency">{item.currency}</div>
-          <div className="schedule-importance">{item.importance}</div>
-          <div className="schedule-event">{item.event}</div>
-          <div className="schedule-result">{item.actual}</div>
-          <div className="schedule-forecast">{item.forecast}</div>
-          <div className="schedule-previous">{item.previous}</div>
+    <div style={{ minHeight: "1000px" }}>
+      <div className="schedule-container">
+        <div className="schedule-navigation">
+          <button
+            onClick={handlePrevDate}
+            disabled={uniqueDates.length === 0 || uniqueDates.length <= 1}
+            style={{ backgroundColor: "#009178", marginRight: "20px" }}
+          >
+            이전 날짜
+          </button>
+          <span>{formatSelectedDate(selectedDate)}</span>
+          <button
+            onClick={handleNextDate}
+            disabled={uniqueDates.length === 0 || uniqueDates.length <= 1}
+            style={{ backgroundColor: "#009178", marginLeft: "20px" }}
+          >
+            다음 날짜
+          </button>
         </div>
-      ))}
+        <div className="schedule-rates">
+          <div className="schedule-header">
+            <div className="schedule-time">시간</div>
+            <div className="schedule-country">국가</div>
+            <div className="schedule-event">경제지표</div>
+            <div className="schedule-actual">실제</div>
+            <div className="schedule-expected">예상</div>
+            <div className="schedule-previous">이전</div>
+            <div className="schedule-importance">중요도</div>
+          </div>
+          <div className="schedule-item-container">
+            {loading ? (
+              Array.from({ length: 7 }).map((_, index) => (
+                <Skeleton
+                  key={index}
+                  height={106}
+                  className="skeleton-ui"
+                  style={{
+                    borderRadius: "8px",
+                    marginBottom: "5px",
+                    backgroundColor: "#f0f0f0",
+                    animation: "pulse 1.5s ease-in-out infinite",
+                  }}
+                />
+              ))
+            ) : dataForSelectedDate.length > 0 ? (
+              dataForSelectedDate.map((item, i) => (
+                <div className="schedule-item" key={i}>
+                  <div className="schedule-time">{item["시간"]}</div>
+                  <div className="schedule-country">{item["국가"]}</div>
+                  <div className="schedule-event">{item["경제지표"]}</div>
+                  <div className="schedule-actual">{item["실제"]}</div>
+                  <div className="schedule-expected">{item["예상"]}</div>
+                  <div className="schedule-previous">{item["이전"]}</div>
+                  <div
+                    className={`schedule-importance ${getImportanceClass(
+                      item["중요도"]
+                    )}`}
+                  >
+                    {item["중요도"]}
+                  </div>
+                </div>
+              ))
+            ) : (
+              <div className="no-data">데이터가 없습니다.</div>
+            )}
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

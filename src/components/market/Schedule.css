@@ -1,54 +1,132 @@
-.schedule-rates {
+.schedule-container {
   margin-top: 20px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
 }
 
-.schedule-header {
+.schedule-navigation {
   display: flex;
+  justify-content: center;
   align-items: center;
-  padding: 15px 10px;
-  border-bottom: 2px solid #f0f0f0;
-  font-weight: bold;
-  font-size: 14px;
-  color: #666;
+  margin-bottom: 20px;
 }
 
+.schedule-navigation button {
+  padding: 8px 16px;
+  margin: 0 10px;
+  background-color: #007bff;
+  border: none;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.schedule-navigation button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.schedule-navigation span {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.schedule-rates {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.schedule-header,
 .schedule-item {
   display: flex;
   align-items: center;
-  padding: 15px 10px;
-  border-bottom: 1px solid #f0f0f0;
-  font-size: 14px;
+  padding: 10px;
 }
 
-.schedule-info {
-  flex: 1;
+.schedule-header {
+  background-color: #f5f5f5;
+  font-weight: bold;
+  border-bottom: 2px solid #ddd;
 }
 
-.schedule-currency {
-  width: 100px;
-  text-align: center;
+.schedule-item {
+  border-bottom: 1px solid #eee;
 }
 
+.schedule-time,
+.schedule-country,
+.schedule-actual,
+.schedule-expected,
+.schedule-previous,
 .schedule-importance {
-  width: 100px;
+  flex: 1;
   text-align: center;
+  padding: 0 5px;
 }
 
 .schedule-event {
   flex: 3;
+  text-align: left;
+  padding-left: 10px;
 }
 
-.schedule-result,
-.schedule-forecast,
-.schedule-previous {
-  width: 100px;
-  text-align: right;
+.schedule-importance-high {
+  color: #dc3545; /* 중요도 '상'은 빨간색 */
+  font-weight: bold;
 }
 
-.schedule-up {
-  color: #dc3545; /* 상승은 빨간색 */
+.schedule-importance-medium {
+  color: #ffc107; /* 중요도 '중'은 주황색 */
+  font-weight: bold;
 }
 
-.schedule-down {
-  color: #007bff; /* 하락은 파란색 */
+.schedule-importance-low {
+  color: #28a745; /* 중요도 '하'는 녹색 */
+  font-weight: bold;
+}
+
+.no-data {
+  text-align: center;
+  padding: 20px;
+  font-size: 16px;
+  color: #666;
+}
+
+.schedule-item-container {
+  height: 800px; /* 높이는 원하는 값으로 설정 */
+  overflow-y: auto;
+}
+
+.schedule-item-container::-webkit-scrollbar {
+  width: 5px; /* 스크롤바의 너비 */
+  background-color: #f1f1f1; /* 스크롤바의 배경색 */
+}
+
+.schedule-item-container::-webkit-scrollbar-thumb {
+  background-color: #888; /* 스크롤바의 막대 색상 */
+  border-radius: 10px; /* 막대의 둥근 정도 */
+}
+
+.schedule-item-container::-webkit-scrollbar-button,
+.schedule-item-container::-webkit-scrollbar-track {
+  display: none;
+}
+
+.skeleton-ui {
+  background-color: #f0f0f0;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0% {
+    background-color: #f0f0f0;
+  }
+  50% {
+    background-color: #e0e0e0;
+  }
+  100% {
+    background-color: #f0f0f0;
+  }
 }

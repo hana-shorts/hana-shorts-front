@@ -41,10 +41,13 @@
   display: flex;
   justify-content: flex-end;
   margin-top: 30px; /* 버튼과 콘텐츠 간격 조정 */
+  gap: 30px;
 }
 
 .next-button,
 .close-button {
+  width: 80px;
+  height: 35px;
   background-color: #009178 !important; /* 버튼 배경 색상 변경 */
   color: #fff !important; /* 버튼 텍스트 색상 흰색 */
   margin-left: 10px; /* 버튼 간 간격 */
@@ -94,4 +97,18 @@
   height: auto;
   margin: 20px 0; /* 이미지와 텍스트 간격 조정 */
   border-radius: 8px; /* 이미지 모서리 둥글게 */
+}
+
+/* ul 리스트 스타일 */
+.help-modal ul {
+  padding-left: 20px;
+  margin-top: 10px;
+}
+
+.help-modal li {
+  margin-bottom: 10px;
+}
+
+.mypage-red-text {
+  color: #d32f2f; /* 중요 텍스트를 빨간색으로 표시 */
 }

@@ -1,23 +1,27 @@
 // src/pages/trade/Trade.jsx
-import React, { useState, useEffect } from 'react';
-import { useParams, useLocation } from 'react-router-dom'; // useParams 추가
-import Stock from '../../components/trade/Stock';
-import StockInfo from '../../components/trade/StockInfo';
-import TradePanel from '../../components/trade/TradePanel';
-import OrderBook from '../../components/trade/OrderBook';
-import MarketData from '../../components/trade/MarketData';
-import HelpSequenceModal from '../../components/trade/HelpSequenceModal'; // 도움말 시퀀스 모달 추가
-import Modal from '@mui/material/Modal';
-import Checkbox from '@mui/material/Checkbox';
-import Button from '@mui/material/Button';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import './Trade.css';
+import React, { useState, useEffect } from "react";
+import { useParams, useLocation } from "react-router-dom"; // useParams 추가
+import Stock from "../../components/trade/Stock";
+import StockInfo from "../../components/trade/StockInfo";
+import TradePanel from "../../components/trade/TradePanel";
+import OrderBook from "../../components/trade/OrderBook";
+import MarketData from "../../components/trade/MarketData";
+import HelpSequenceModal from "../../components/trade/HelpSequenceModal"; // 도움말 시퀀스 모달 추가
+import Modal from "@mui/material/Modal";
+import Checkbox from "@mui/material/Checkbox";
+import Button from "@mui/material/Button";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import "./Trade.css";
 
 function Trade() {
   const { stockCode } = useParams(); // URL에서 stockCode를 가져옴
   const location = useLocation(); // useLocation으로 전달된 state 확인
-  const [selectedStockCode, setSelectedStockCode] = useState(stockCode || '005930');
-  const [selectedStockName, setSelectedStockName] = useState(location.state?.stockName || '삼성전자');
+  const [selectedStockCode, setSelectedStockCode] = useState(
+    stockCode || "005930"
+  );
+  const [selectedStockName, setSelectedStockName] = useState(
+    location.state?.stockName || "삼성전자"
+  );
   const [initialPrice, setInitialPrice] = useState(0); // 초기 가격 상태 추가
   const [initialHoka, setInitialHoka] = useState(0);
   const [resetTab, setResetTab] = useState(false); // 추가된 상태: 탭을 리셋하는 트리거
@@ -30,7 +34,7 @@ function Trade() {
 
   // 세션 스토리지에서 '다시 보지 않기' 상태 확인
   useEffect(() => {
-    const dontShow = sessionStorage.getItem('dontShowHelp');
+    const dontShow = sessionStorage.getItem("dontShowHelp");
     if (!dontShow) {
       setOpenInitialModal(true);
     }
@@ -79,9 +83,9 @@ function Trade() {
   const handleDontShowAgainChange = (event) => {
     setDontShowAgain(event.target.checked);
     if (event.target.checked) {
-      sessionStorage.setItem('dontShowHelp', 'true');
+      sessionStorage.setItem("dontShowHelp", "true");
     } else {
-      sessionStorage.removeItem('dontShowHelp');
+      sessionStorage.removeItem("dontShowHelp");
     }
   };
 
@@ -101,17 +105,31 @@ function Trade() {
       {/* 초기 모달 */}
       <Modal open={openInitialModal}>
         <div className="modal-content">
-          <h2>본 서비스 이용에 도움을 받으시겠습니까?</h2>
+          <p>본 서비스 이용에 도움을 받으시겠습니까?</p>
           <div className="modal-buttons">
-            <Button variant="contained" color="primary" onClick={handleAgreeHelp}>
-              O
+            <Button
+              variant="contained"
+              className="next-button"
+              onClick={handleAgreeHelp}
+            >
+              예
             </Button>
-            <Button variant="contained" color="secondary" onClick={handleCloseModal}>
-              X
+            <Button
+              variant="contained"
+              className="close-button"
+              onClick={handleCloseModal}
+            >
+              아니오
             </Button>
           </div>
           <FormControlLabel
-            control={<Checkbox checked={dontShowAgain} onChange={handleDontShowAgainChange} color="primary" />}
+            control={
+              <Checkbox
+                checked={dontShowAgain}
+                onChange={handleDontShowAgainChange}
+                color="primary"
+              />
+            }
             label="다시 보지 않기"
           />
         </div>
@@ -138,7 +156,10 @@ function Trade() {
         </div>
         <div className="trade-interface-container fade-in-minus-x">
           <div className="trade-order-book-wrapper">
-            <OrderBook stockCode={selectedStockCode} onPriceUpdate={handlePriceUpdate} />
+            <OrderBook
+              stockCode={selectedStockCode}
+              onPriceUpdate={handlePriceUpdate}
+            />
           </div>
           <div className="trade-panel-wrapper">
             <TradePanel
@@ -154,7 +175,8 @@ function Trade() {
         </div>
       </div>
       <div className="trade-stock-list-wrapper fade-in-plus-x">
-        <Stock onSelectStock={handleStockSelection} /> {/* marketType prop 제거 */}
+        <Stock onSelectStock={handleStockSelection} />{" "}
+        {/* marketType prop 제거 */}
       </div>
     </div>
   );

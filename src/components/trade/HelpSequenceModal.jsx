@@ -167,7 +167,8 @@ const HelpSequenceModal = ({
               <br />
               상단의 검색창을 통해 원하는 종목을 빠르게 찾아볼 수 있으며,
               <br />
-              KOSPI와 KOSDAQ 시장을 선택하여 조회할 수 있습니다.
+              <strong>KOSPI</strong>와 <strong>KOSDAQ</strong> 시장을 선택하여
+              조회할 수 있습니다.
               <br />
               종목을 클릭하면 해당 주식의 상세 정보와 거래를 진행할 수 있습니다.
             </p>
@@ -190,10 +191,11 @@ const HelpSequenceModal = ({
               <strong>선택한 종목의 상세 정보를 확인하는 영역입니다.</strong>
               <br />
               <br />
-              시세 탭에서는 현재 가격, 등락률, 거래량 등의 정보와 차트를,
+              <strong>시세 탭</strong>에서는 현재 가격, 등락률, 거래량 등의
+              정보와 차트를,
               <br />
-              정보 탭에서는 기업의 재무 정보, PER, PBR 등의 지표를 볼 수
-              있습니다.
+              <strong>정보 탭</strong>에서는 기업의 재무 정보, PER, PBR 등의
+              지표를 볼 수 있습니다.
             </p>
             <div className="button-container">
               <Button
@@ -215,8 +217,8 @@ const HelpSequenceModal = ({
                 실시간 매수 및 매도 호가를 확인할 수 있는 영역입니다.
               </strong>
               <br />
-              <br />각 가격대별로 매수와 매도 주문이 얼마나 있는지 파악하여
-              시장의 흐름을 읽을 수 있습니다.
+              <br />각 가격대별로 매수와 매도 주문이 얼마나 있는지 파악하여{" "}
+              <strong>시장</strong>의 흐름을 읽을 수 있습니다.
             </p>
             <div className="button-container">
               <Button
@@ -239,10 +241,12 @@ const HelpSequenceModal = ({
               </strong>
               <br />
               <br />
-              체결 탭에서는 체결가, 체결량 등의 실시간 거래 체결 정보를,
+              <strong>체결 탭</strong>에서는 체결가, 체결량 등의 실시간 거래
+              체결 정보를,
               <br />
-              일별 탭에서는 일자별 종가, 거래량 등의 일별 시세 정보를 확인할 수
-              있습니다. 이를 통해 주식의 단기 및 장기 추세를 분석할 수 있습니다.
+              <strong>일별 탭</strong>에서는 일자별 종가, 거래량 등의 일별 시세
+              정보를 확인할 수 있습니다. 이를 통해 주식의 단기 및 장기 추세를
+              분석할 수 있습니다.
             </p>
             <div className="button-container">
               <Button
@@ -265,22 +269,23 @@ const HelpSequenceModal = ({
               </strong>
               <br />
               <br />
-              매수 - 거래 유형을 선택하고, 지정가 또는 시장가 주문을 선택하여
-              원하는 가격과 수량으로 매수 주문을 제출할 수 있습니다. 주문 총액과
-              최대 매수 가능 수량을 확인하여 거래 계획을 세우세요.
+              <strong>매수</strong> - 거래 유형을 선택하고, 지정가 또는 시장가
+              주문을 선택하여 원하는 가격과 수량으로 매수 주문을 제출할 수
+              있습니다. 주문 총액과 최대 매수 가능 수량을 확인하여 거래 계획을
+              세우세요.
               <br />
               <br />
-              매도 - 매도하고자 하는 수량과 가격을 설정하여 매도 주문을 제출할
-              수 있습니다. 현재 보유 수량과 매도 가능 수량을 확인하여 적절한
-              매도 전략을 수립하세요.
+              <strong>매도</strong> - 매도하고자 하는 수량과 가격을 설정하여
+              매도 주문을 제출할 수 있습니다. 현재 보유 수량과 매도 가능 수량을
+              확인하여 적절한 매도 전략을 수립하세요.
               <br />
               <br />
-              정정/취소 - 주문 내역을 확인하고 필요에 따라 가격이나 수량을
-              변경하거나 주문을 취소할 수 있습니다.
+              <strong>정정/취소</strong> - 주문 내역을 확인하고 필요에 따라
+              가격이나 수량을 변경하거나 주문을 취소할 수 있습니다.
               <br />
               <br />
-              체결내역 - 체결 및 미체결 주문 내역을 확인하여 거래의 진행 상황을
-              모니터링할 수 있습니다.
+              <strong>체결내역</strong> - 체결 및 미체결 주문 내역을 확인하여
+              거래의 진행 상황을 모니터링할 수 있습니다.
             </p>
             <div className="button-container">
               <Button
@@ -298,7 +303,7 @@ const HelpSequenceModal = ({
         return (
           <>
             <h2>공매도 도움말</h2>
-            <p>공매도에 대한 자세한 설명을 보시겠습니까?</p>
+            <p>공매도에 대한 설명을 보시겠습니까?</p>
             <div className="button-container">
               <Button
                 variant="contained"
@@ -336,10 +341,10 @@ const HelpSequenceModal = ({
               className="help-modal-image"
             />
             <p>
-              공매도는 주식을 보유하지 않은 상태에서 주식을 빌려서 매도하는 거래
-              방식입니다. 주가 하락이 예상될 때 수익을 낼 수 있는 방법으로,
-              이후에 주가가 하락하면 낮은 가격에 주식을 구매하여 빌린 주식을
-              반환하고 차익을 실현합니다.
+              <strong>공매도</strong>는 주식을 보유하지 않은 상태에서 주식을
+              빌려서 매도하는 거래 방식입니다. <strong>주가 하락</strong>이
+              예상될 때 수익을 낼 수 있는 방법으로, 이후에 주가가 하락하면 낮은
+              가격에 주식을 구매하여 빌린 주식을 반환하고 차익을 실현합니다.
             </p>
             <div className="button-container">
               <Button
@@ -362,9 +367,9 @@ const HelpSequenceModal = ({
               공매도가 가능합니다.
               <br />
               <strong>대주거래</strong>는 기관 투자자와 달리 증권사와의 계약을
-              통해 주식을 빌려 매도하는 방식으로, 개인 투자자도 이를 활용하여
-              주가 하락에 베팅할 수 있습니다. 이를 통해 다양한 투자 전략을
-              구사할 수 있으며, 시장의 유동성을 높이는 데 기여합니다.
+              통해 주식을 빌려 매도하는 방식으로, 개인 투자자도 이를 활용하여{" "}
+              <strong>주가 하락</strong>에 베팅할 수 있습니다. 이를 통해 보다 더
+              다양한 투자 전략을 구사하여 수익을 창출할 수 있습니다.
             </p>
             <div className="button-container">
               <Button
@@ -384,18 +389,17 @@ const HelpSequenceModal = ({
             <h2>공매도 장점</h2>
             <img
               src={ShortSellingProsImage}
-              alt="공매도의 장점"
+              alt="공매도 장점"
               className="help-modal-image"
             />
             <p>
               <strong>장점:</strong>
-              <br />
-              - 시장의 유동성을 높입니다.
-              <br />
-              - 주가 버블을 방지하여 안정적인 시장 형성에 기여합니다.
-              <br />
-              - 하락장에서도 수익을 창출할 수 있는 기회를 제공합니다.
-              <br />- 다양한 투자 전략을 구사할 수 있습니다.
+              <br />- <strong>시장</strong>의 유동성을 높입니다.
+              <br />- <strong>주가 버블</strong>을 방지하여 안정적인 시장 형성에
+              기여합니다.
+              <br />- <strong>하락장</strong>에서도 수익을 창출할 수 있는 기회를
+              제공합니다.
+              <br />- 다양한 <strong>투자 전략</strong>을 구사할 수 있습니다.
             </p>
             <div className="button-container">
               <Button
@@ -412,20 +416,20 @@ const HelpSequenceModal = ({
         // 공매도 단점 (이미지 포함)
         return (
           <>
-            <h2>공매도의 단점</h2>
+            <h2>공매도 단점</h2>
             <img
               src={ShortSellingConsImage}
-              alt="공매도의 장단점"
+              alt="공매도 단점"
               className="help-modal-image"
             />
             <p>
               <strong>단점:</strong>
-              <br />
-              - 주가 상승 시 손실이 무한대로 커질 수 있습니다.
-              <br />
-              - 시장 변동성을 높여 예측이 어려워질 수 있습니다.
-              <br />- 대규모 공매도로 인해 특정 주식의 가격이 급격히 변동할
-              위험이 있습니다.
+              <br />- <strong>주가 상승</strong> 시 손실이 무한대로 커질 수
+              있습니다.
+              <br />- 개인 투자자의 경우, <strong>리스크 관리</strong>가
+              상대적으로 어려울 수 있습니다.
+              <br />- 증권사와의 <strong>계약 조건</strong>이 복잡하고, 이에
+              따른 제한 사항이 많을 수 있습니다.
             </p>
             <div className="button-container">
               <Button
@@ -439,26 +443,50 @@ const HelpSequenceModal = ({
           </>
         );
       case 11:
-        // 사전 조건 (사전 교육, 모의 거래 이수)
+        // 공매도 사전 조건 (사전 교육, 모의 거래 이수)
         return (
           <>
             <h2>공매도 사전 조건</h2>
             <p>
               공매도를 이용하기 위해서는 다음과 같은 사전 조건을 충족해야
               합니다.
-              <br />
-              <br />
-              <strong>1. 사전 교육:</strong> 공매도의 기본 개념과 리스크 관리에
-              대한 교육을 이수해야 합니다.
-              <br />
-              <br />
-              <strong>2. 모의 거래 이수:</strong> 실제 거래 전에 모의 거래를
-              통해 공매도 전략을 연습하고 경험을 쌓아야 합니다.
-              <br />
-              <br />
-              이러한 조건을 통해 투자자는 공매도의 복잡한 메커니즘을 이해하고,
-              보다 안전하게 거래를 진행할 수 있습니다.
             </p>
+            <ul>
+              <li>
+                금융투자협회 <strong>사전교육</strong> (
+                <a
+                  href="https://www.kifin.or.kr"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  https://www.kifin.or.kr
+                </a>
+                ) 및 한국거래소 (
+                <a
+                  href="http://strn.krx.co.kr"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  http://strn.krx.co.kr
+                </a>
+                ) 또는 각 증권사 <strong>모의거래 시스템</strong>을 이용한
+                모의거래 이수완료 후, 해당 이수정보를 등록하시기 바랍니다.
+              </li>
+              <li>
+                <strong>대주거래</strong>는 <strong>신용약정</strong>{" "}
+                (대주거래위험고지 포함) 및 <strong>사전투자경험</strong>을
+                충족하셔야 대주거래가 가능합니다.
+              </li>
+              <li>
+                온라인을 통해 사전교육/모의거래를 등록한 경우,{" "}
+                <strong>영업점 승인</strong>이 완료되어야 거래 가능합니다.
+              </li>
+              <li className="mypage-red-text">
+                승인절차는 영업점 업무 마감시점에 일괄 처리되오니, 등록 후 바로
+                거래를 원하시는 고객은 <strong>계좌개설영업점</strong> 또는{" "}
+                <strong>고객센터 (1588-3111)</strong>로 연락하시기 바랍니다.
+              </li>
+            </ul>
             <div className="button-container">
               <Button
                 variant="contained"
@@ -471,30 +499,29 @@ const HelpSequenceModal = ({
           </>
         );
       case 12:
-        // 대주 거래 방법
+        // 대주 거래 방법 - 신용 - 대주 신규
         return (
           <>
             <h2>대주 거래 방법</h2>
+            <p>공매도를 실행하기 위한 대주 거래 방법은 다음과 같습니다:</p>
+            <h3>1. 신용 - 대주 신규</h3>
             <p>
-              대주 거래를 통해 공매도를 진행하는 방법은 다음과 같습니다.
-              <br />
-              <br />
-              <strong>1. 대주 계약:</strong> 증권사와 대주 계약을 체결하여
-              주식을 빌립니다.
-              <br />
-              <br />
-              <strong>2. 주식 매도:</strong> 빌린 주식을 시장에 매도합니다.
-              <br />
-              <br />
-              <strong>3. 주식 환매:</strong> 주가 하락 시 낮은 가격에 주식을
-              구매하여 증권사에 반환합니다.
-              <br />
-              <br />
-              <strong>4. 차익 실현:</strong> 매도 가격과 환매 가격의 차액을
-              수익으로 얻습니다.
-              <br />
-              <br />이 과정을 통해 주가 하락에 베팅할 수 있으며, 시장 상황에
-              따라 유연한 전략을 구사할 수 있습니다.
+              <strong>대주 거래</strong>를 시작하기 위한 첫 단계는{" "}
+              <strong>대주 신규</strong>입니다. 증권사와의 계약을 통해 주식을
+              빌려 매도할 수 있습니다.
+            </p>
+            <h3>2. 신용 - 대주 상환</h3>
+            <p>
+              <strong>대주 거래</strong>의 두 번째 단계는{" "}
+              <strong>대주 상환</strong>입니다. 주가 하락 시 낮은 가격에 주식을
+              매수하여 증권사에 빌린 주식을 반환할 수 있습니다.
+            </p>
+            <h3>3. 차익 실현</h3>
+            <p>
+              <strong>대주 거래</strong>의 마지막 단계는{" "}
+              <strong>차익 실현</strong>입니다. 매도 가격과 매수 가격의 차액을
+              수익으로 얻습니다. 이를 통해 공매도를 통한 수익을 확정지을 수
+              있으며, 투자 전략에 따라 추가적인 거래를 진행할 수 있습니다.
             </p>
             <div className="button-container">
               <Button
@@ -508,29 +535,34 @@ const HelpSequenceModal = ({
           </>
         );
       case 13:
-        // 주의사항 (대출일 만기일 및 기타 공매도 관련 주의사항 고지) (이미지 없음)
+        // 공매도 주의사항 (대출일 만기일 및 기타 공매도 관련 주의사항 고지)
         return (
           <>
             <h2>공매도 주의사항</h2>
             <p>
-              공매도는 높은 위험을 수반하므로 다음 사항에 유의해야 합니다.
+              <strong>공매도</strong>는 높은 위험을 수반하므로 다음 사항에
+              유의해야 합니다.
               <br />
               <br />
               <strong>1. 대출일 및 만기일:</strong> 대출한 주식의 반환 기한을
-              반드시 준수해야 합니다. 기한을 넘기면 추가 비용이 발생할 수
-              있습니다.
+              반드시 준수해야 합니다. 기한을 넘기면 증권사로부터{" "}
+              <strong>강제 상환</strong> 조치를 받을 수 있으며, 이는 예상치 못한
+              손실을 초래할 수 있습니다.
               <br />
               <br />
               <strong>2. 시장 변동성:</strong> 주가가 예상과 다르게 상승할 경우
-              손실이 무한대로 커질 수 있습니다. 리스크 관리가 필수적입니다.
+              손실이 무한대로 커질 수 있습니다. 따라서{" "}
+              <strong>리스크 관리</strong>가 필수적입니다.
               <br />
               <br />
               <strong>3. 규제 준수:</strong> 관련 법규와 증권사의 규정을 철저히
-              준수해야 합니다.
+              준수해야 합니다. 규정을 위반할 경우 법적 제재를 받을 수 있습니다.
               <br />
               <br />
               <strong>4. 추가 비용:</strong> 주식을 빌리는 데 따른 이자 비용이
-              발생할 수 있습니다.
+              발생할 수 있습니다. 또한, 주식 반환 시 추가 수수료가 부과될 수
+              있으므로
+              <strong>비용 관리</strong>도 중요합니다.
               <br />
               <br />
               공매도를 시작하기 전에 충분한 사전 교육과 전략 수립이 필요하며,
@@ -541,6 +573,7 @@ const HelpSequenceModal = ({
                 variant="contained"
                 className="close-button"
                 onClick={handleClose}
+                style={{ width: "120px" }}
               >
                 도움말 종료
               </Button>
