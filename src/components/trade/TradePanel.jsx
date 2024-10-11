@@ -537,29 +537,32 @@ const TradePanel = ({ stockCode, initialPrice, initialHoka, resetTab }) => {
           </div>
         </div>
 
-        <div
-          className="trade-panel-input-group"
-          style={{ marginBottom: "30px" }}
-        >
-          <label>최대 매수 가능</label>
-          <input
-            type="text"
-            className="trade-panel-input-field"
-            value={`${availableQuantity}주`} // 주문 가능 수량을 표시
-            readOnly
-            style={{ width: "100px", textAlign: "right" }}
-          />
-          <span
-            className="trade-panel-balance"
-            style={{
-              color: "#888",
-              alignContent: "center",
-              marginLeft: "20px",
-            }}
+        {/* 최대 매수 가능 섹션을 조건부로 렌더링 */}
+        {tradeType !== "유통대주상환" && (
+          <div
+            className="trade-panel-input-group"
+            style={{ marginBottom: "30px" }}
           >
-            ({formatNumber(balance)}원)
-          </span>
-        </div>
+            <label>최대 매수 가능</label>
+            <input
+              type="text"
+              className="trade-panel-input-field"
+              value={`${availableQuantity}주`} // 주문 가능 수량을 표시
+              readOnly
+              style={{ width: "100px", textAlign: "right" }}
+            />
+            <span
+              className="trade-panel-balance"
+              style={{
+                color: "#888",
+                alignContent: "center",
+                marginLeft: "20px",
+              }}
+            >
+              ({formatNumber(balance)}원)
+            </span>
+          </div>
+        )}
       </div>
 
       <div className="trade-panel-footer">

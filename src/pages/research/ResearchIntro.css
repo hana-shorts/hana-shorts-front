@@ -28,7 +28,7 @@
 
 /* 전체 페이지 레이아웃 */
 .research-intro-page {
-  height: 700px;
+  height: 800px;
   margin: 0 auto;
   background-image: linear-gradient(to bottom, #fff, #f6f7fa);
   display: flex;
