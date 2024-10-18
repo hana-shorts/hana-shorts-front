@@ -1,4 +1,3 @@
-// src/components/research/ResearchHanaTV.jsx
 import React, { useState, useEffect } from 'react';
 import YouTube from 'react-youtube';
 import { useNavigate } from 'react-router-dom';
@@ -6,15 +5,20 @@ import videoData from './videoData'; // videoData 파일에서 불러옴
 import './ResearchHanaTV.css';
 
 const ResearchHanaTV = ({ videoId }) => {
-  // videoId prop 받기
   const navigate = useNavigate();
 
   // 초기 주제 설정
   const initialTopic = '리서치 모닝브리프';
 
+  // 가장 최근 비디오를 찾아서 초기 설정
+  const getLatestVideo = (topic) => {
+    const videos = videoData[topic];
+    return videos[videos.length - 1]; // 최신 영상은 역순 배열에서 첫 번째
+  };
+
   const [mainVideo, setMainVideo] = useState({
-    id: videoId || videoData[initialTopic][0].id,
-    title: videoId ? 'Loading...' : videoData[initialTopic][0].title, // 초기 타이틀 설정
+    id: videoId || getLatestVideo(initialTopic).id,
+    title: videoId ? 'Loading...' : getLatestVideo(initialTopic).title,
   });
   const [currentTopic, setCurrentTopic] = useState(initialTopic);
 
@@ -26,21 +30,17 @@ const ResearchHanaTV = ({ videoId }) => {
     },
   };
 
-  // 다른 주제 목록을 역순으로 정렬
   const otherTopics = Object.keys(videoData)
     .filter((topic) => topic !== currentTopic)
     .slice()
     .reverse(); // 역순 추가
 
-  // 메인 영상 변경 함수
   const handleVideoClick = (video, topic) => {
     setMainVideo({ id: video.id, title: video.title });
     setCurrentTopic(topic);
-    // URL 업데이트
     navigate(`/research/hanatv/${video.id}`);
   };
 
-  // videoId prop이 변경될 때 메인 비디오 업데이트
   useEffect(() => {
     let foundVideo;
     let foundTopic = initialTopic;
@@ -58,9 +58,9 @@ const ResearchHanaTV = ({ videoId }) => {
       setMainVideo({ id: foundVideo.id, title: foundVideo.title });
       setCurrentTopic(foundTopic);
     } else {
-      // videoId가 없거나 찾을 수 없을 때 초기 비디오로 설정
-      const defaultVideo = videoData[initialTopic][0];
-      setMainVideo({ id: defaultVideo.id, title: defaultVideo.title });
+      // videoId가 없거나 찾을 수 없을 때 가장 최근 비디오로 설정
+      const latestVideo = getLatestVideo(initialTopic);
+      setMainVideo({ id: latestVideo.id, title: latestVideo.title });
       setCurrentTopic(initialTopic);
     }
   }, [videoId, initialTopic]);

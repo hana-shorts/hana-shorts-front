@@ -31,6 +31,16 @@ const TradePanel = ({ stockCode, initialPrice, initialHoka, resetTab }) => {
   const [cashUnfilledOrders, setCashUnfilledOrders] = useState([]);
   const [creditFilledOrders, setCreditFilledOrders] = useState([]);
 
+  // Inside the renderReservationSection function
+const stockNameMap = {
+  "035420": "NAVER",
+  "015750": "성우하이텍",
+  "035720": "카카오",
+  "030520": "한글과컴퓨터",
+  "185750": "종근당",
+  // Add more mappings as needed
+};
+
   // Function to handle modal visibility classes
   const getModalClasses = (isOpen) => {
     return `help-modal ${isOpen ? "show" : ""}`;
@@ -68,6 +78,7 @@ const TradePanel = ({ stockCode, initialPrice, initialHoka, resetTab }) => {
       );
       const creditData = await creditResponse.json();
       if (creditResponse.ok) {
+        creditData.sort((a, b) => b.transaction_date.localeCompare(a.transaction_date));
         setCreditFilledOrders(creditData);
       } else {
         console.error(
@@ -150,14 +161,9 @@ const TradePanel = ({ stockCode, initialPrice, initialHoka, resetTab }) => {
     const yyyy = date.getFullYear();
     const mm = String(date.getMonth() + 1).padStart(2, "0");
     const dd = String(date.getDate()).padStart(2, "0");
-    const HH = String(date.getHours()).padStart(2, "0");
-    const MM = String(date.getMinutes()).padStart(2, "0");
-    const SS = String(date.getSeconds()).padStart(2, "0");
     return (
       <>
-        {`${yyyy}-${mm}-${dd}`}
-        <br />
-        {`${HH}:${MM}:${SS}`}
+        {`${yyyy}${mm}${dd}`}
       </>
     );
   };
@@ -220,7 +226,6 @@ const TradePanel = ({ stockCode, initialPrice, initialHoka, resetTab }) => {
         // 주문이 성공적으로 처리되었을 때 모달 열기
         setOrderInfo([
           {
-            odno: data.order_id || "주문번호",
             prdt_name: stockCode,
             ord_qty: quantity,
             ord_unpr: price,
@@ -942,24 +947,27 @@ const TradePanel = ({ stockCode, initialPrice, initialHoka, resetTab }) => {
                 </tr>
               </thead>
               <tbody>
-                {creditFilledOrders.map((order, index) => (
-                  <tr key={index}>
-                    <td className="order-date">
-                      {formatDate(order.transaction_date)}
-                    </td>
-                    <td>{order.stock_code}</td>
-                    <td>{order.trade_type}</td>
-                    <td>{order.quantity}</td>
-                    <td>{order.quantity}</td>
-                    <td>{formatNumber(order.price)}</td>
-                    <td>{formatNumber(order.price)}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          ) : (
-            <p className="no-data">신용 체결 내역이 없습니다.</p>
-          )}
+      {creditFilledOrders.map((order, index) => (
+        <tr key={index}>
+          <td className="order-date">
+            {formatDate(order.transaction_date)}
+          </td>
+          {/* Replace stock_code with mapped stock name */}
+          <td>
+            {stockNameMap[order.stock_code] || order.stock_code}
+          </td>
+          <td>{order.trade_type}</td>
+          <td>{order.quantity}</td>
+          <td>{order.quantity}</td>
+          <td>{formatNumber(order.price)}</td>
+          <td>{formatNumber(order.price)}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+) : (
+  <p className="no-data">신용 체결 내역이 없습니다.</p>
+)}
 
           {/* 신용 미체결 내역 */}
           <h2>신용 미체결 내역</h2>
@@ -1171,7 +1179,6 @@ const TradePanel = ({ stockCode, initialPrice, initialHoka, resetTab }) => {
             {orderInfo &&
               orderInfo.map((info, index) => (
                 <div key={index}>
-                  <p>주문번호: {info.odno}</p>
                   <p>종목명: {info.prdt_name}</p>
                   <p>주문수량: {info.ord_qty}</p>
                   <p>주문단가: {info.ord_unpr}</p>

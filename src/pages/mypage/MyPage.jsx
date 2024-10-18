@@ -118,6 +118,7 @@ const MyPage = () => {
                 (cp) => cp.stock_code === order.stock_code
               );
               const currentPrice = priceData ? priceData.current_price : 0;
+              // const currentPrice = 113700;
               const purchaseAmount = order.quantity * order.price;
               const evaluationAmount = order.quantity * currentPrice;
               const profitOrLoss = evaluationAmount - purchaseAmount;
@@ -213,7 +214,7 @@ const MyPage = () => {
       const totalPurchase = totalCashPurchaseAmount + totalCreditPurchaseAmount;
       const totalEvaluation =
         totalCashEvaluationAmount + totalCreditEvaluationAmount;
-      const totalProfitLoss = totalCashProfitOrLoss + totalCreditProfitOrLoss;
+      const totalProfitLoss = totalCashProfitOrLoss - totalCreditProfitOrLoss;
       const totalProfitRateCalc =
         totalPurchase !== 0 ? (totalProfitLoss / totalPurchase) * 100 : 0;
 
@@ -268,7 +269,7 @@ const MyPage = () => {
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, "0"); // 월은 0부터 시작
     const day = String(date.getDate()).padStart(2, "0");
-    return `${year}-${month}-${day}`;
+    return `${year}${month}${day}`;
   };
 
   const handleEducationRegistration = async () => {
@@ -673,12 +674,25 @@ const MyPage = () => {
           <div className="mypage-profit-loss">
             <strong>평가손익</strong>
             <div>
-              <span className="amount">{formatNumber(totalProfitOrLoss)}</span>
-              <span className="percentage">
+              <span
+                className="amount"
+                style={{
+                  color: totalProfitOrLoss > 0 ? "#c84a31" : "#0066ff", // 양수면 파란색, 음수면 빨간색
+                }}
+              >
+                {formatNumber(totalProfitOrLoss)}
+              </span>
+              <span
+                className="percentage"
+                style={{
+                  color: totalProfitRate > 0 ? "#c84a31" : "#0066ff", // 양수면 파란색, 음수면 빨간색
+                }}
+              >
                 ({totalProfitRate.toFixed(2)}%)
               </span>
             </div>
           </div>
+
           <div className="mypage-balance-details">
             <div className="mypage-detail-row">
               <span>평가금액</span>
